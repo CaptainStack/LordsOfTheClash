@@ -12,17 +12,19 @@ public abstract class Character : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     // Player stats
-    public int hp;
-    public float speed;
-    public Faction faction;
+    public int health = 1;
+    public float speed = 1f;
+    public Faction faction = Faction.Neutral;
 
     // Direction character is facing
     protected Vector3 lookDirection;
 
     // Character's aggro area, used to find enemies
+    public GameObject aggroAreaGameObject;
     public TargetArea aggroArea;
 
     // Character's attack area, used to find enemies in attack range
+    public GameObject attackAreaGameObject;
     public TargetArea attackArea;
 
     // The current enemy being attacked
@@ -36,21 +38,44 @@ public abstract class Character : MonoBehaviour
     void Start ()
     {
         // Add RigidBody2D
-        characterRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
-        characterRigidBody.drag = 0.5f;
-        characterRigidBody.gravityScale = 0.0f;
-        characterRigidBody.freezeRotation = true;
+        if (!characterRigidBody)
+        {
+            characterRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
+            characterRigidBody.drag = 0.5f;
+            characterRigidBody.gravityScale = 0.0f;
+            characterRigidBody.freezeRotation = true;
+        }
 
         // Add Collider
-        characterCollider = this.gameObject.AddComponent<CircleCollider2D>();
-        characterCollider.radius = 0.1f;
+        if (!characterCollider)
+        {
+            characterCollider = this.gameObject.AddComponent<CircleCollider2D>();
+            characterCollider.radius = 0.1f;
+        }
 
         // Add Sprite
-        spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+        if (!spriteRenderer)
+            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        // Add Aggro and Attack areas
-        aggroArea = this.gameObject.AddComponent<TargetArea>();
-        attackArea = this.gameObject.AddComponent<TargetArea>();
+        // Add Aggro target area
+        if (!aggroAreaGameObject)
+        {
+            aggroAreaGameObject = new GameObject("AggroArea");
+            aggroArea = aggroAreaGameObject.AddComponent<TargetArea>();
+
+            // Set gameobject parent to this object
+            aggroAreaGameObject.transform.parent = this.gameObject.transform;
+        }
+
+        // Add attack range target area
+        if (!attackAreaGameObject)
+        {
+            attackAreaGameObject = new GameObject("AttackArea");
+            attackArea = attackAreaGameObject.AddComponent<TargetArea>();
+
+            // Set gameobject parent to this object
+            attackAreaGameObject.transform.parent = this.gameObject.transform;
+        }
 
         // Call into derived class start
         StartImpl();
@@ -88,14 +113,20 @@ public abstract class Character : MonoBehaviour
             currentTarget = target;
     }
 
+    void AttackTarget()
+    {
+        // TODO: Attack target
+        Debug.Log("Attacking target " + currentTarget);
+    }
+
     // Run towards nearest hostile target
     void MoveToHostile()
     {
-        targetList = aggroArea.targetList;
-        target = targetList.Find(x => x.faction != this.faction);
+        List<Character> targetList = aggroArea.targetList;
+        Character target = targetList.Find(x => x.faction != this.faction);
         if (target != null)
         {
-            Vector3 movementDir = (enemyTarget.gameObject.transform.position - this.gameObject.transform.position).normalized;
+            Vector3 movementDir = (target.gameObject.transform.position - this.gameObject.transform.position).normalized;
             this.characterRigidBody.velocity = movementDir * speed;
             this.lookDirection = movementDir;
         }

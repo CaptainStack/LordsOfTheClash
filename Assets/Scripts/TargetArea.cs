@@ -21,9 +21,17 @@ public class TargetArea : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Add any target character to targetList
+        // Add characters to targetList
+        Character character = other.gameObject.GetComponent<Character>();
+        if (character != null && !targetList.Contains(character))
+            targetList.Add(character);
+    }
+
+    void OnTriggerExit2D(Collider2D other)
+    {
+        // Remove characters from targetList
         Character character = other.gameObject.GetComponent<Character>();
         if (character != null)
-            targetList.Add(character);
+            targetList.Remove(character);
     }
 }
