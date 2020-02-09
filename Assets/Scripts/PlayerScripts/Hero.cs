@@ -6,13 +6,15 @@ public class Hero
 {
     public int hp;
     public int heroDeckSize;
+    public List<Card> heroCards;
     //public int heroHandSize;
 
-    
+
 
     void Start()
     {
-        Card[] allHeroCards = new Card[heroDeckSize];
+
+       //heroCards = new Card[heroDeckSize];
         //Card[] heroHand = new Card[heroHandSize]; 
     }
 
@@ -20,5 +22,13 @@ public class Hero
     void Update()
     {
        
+    }
+
+    void FillCards()
+    {
+        for (int i = 0; i < heroDeckSize; i++)
+        {
+            return;
+        }
     }
 }
