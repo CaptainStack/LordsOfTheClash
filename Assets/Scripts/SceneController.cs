@@ -16,17 +16,18 @@ public class SceneController : MonoBehaviour
     {
         if (Input.GetButton("Cancel"))
         {
-            QuitGame();
-        }
-        if (Input.GetButton("Submit"))
-        {
-            SceneManager.LoadScene("Game");
-        }
-        if (Input.GetButton("Jump"))
-        {
-            SceneManager.LoadScene("GameOver");
+            SceneManager.LoadScene("MainMenu");
         }
     }
+
+    public void SwitchScene(string newScene)
+    {
+        if (newScene != null)
+        {
+            SceneManager.LoadScene(newScene);
+        }
+    }
+    
     public void QuitGame()
     {
         Application.Quit();
