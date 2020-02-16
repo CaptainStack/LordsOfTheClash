@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3261507387080511984}
-  - component: {fileID: 3261507387080511991}
   - component: {fileID: 8446662530146272294}
+  - component: {fileID: 6268176874684636102}
   m_Layer: 0
   m_Name: Friend
   m_TagString: Untagged
@@ -32,27 +32,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3261507387080511991
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3261507387080511990}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6fa5369335eb2d4d8dedd7cbe6b1ea9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterRigidBody: {fileID: 0}
-  characterCollider: {fileID: 0}
-  spriteRenderer: {fileID: 0}
-  health: 1
-  speed: 1
-  faction: 0
-  range: 1
-  visionArea: {fileID: 0}
-  visionAreaGameObject: {fileID: 0}
 --- !u!212 &8446662530146272294
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -103,3 +82,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &6268176874684636102
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3261507387080511990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b3d655415e8330745b31d4f6ae752e8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  characterRigidBody: {fileID: 0}
+  characterCollider: {fileID: 0}
+  spriteRenderer: {fileID: 0}
+  health: 1
+  speed: 1
+  faction: 1
+  range: 5
+  visionArea: {fileID: 0}
+  visionAreaGameObject: {fileID: 0}

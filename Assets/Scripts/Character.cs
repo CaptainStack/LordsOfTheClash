@@ -6,7 +6,7 @@ using UnityEngine;
 // Faction of the characters
 public enum Faction { Neutral, Friendly, Enemy }
 
-public abstract class Character : MonoBehaviour
+public class Character : MonoBehaviour
 {
     public Rigidbody2D characterRigidBody;
     public CircleCollider2D characterCollider;
@@ -27,10 +27,6 @@ public abstract class Character : MonoBehaviour
 
     // The current enemy being attacked
     protected Character currentTarget;
-
-    // Abstract functions
-    protected abstract void UpdateImpl ();
-    protected abstract void StartImpl();
 
     // Use this for initialization
     void Start ()
@@ -64,9 +60,6 @@ public abstract class Character : MonoBehaviour
             // Set gameobject parent to this object
             visionAreaGameObject.transform.parent = this.gameObject.transform;
         }
-
-        // Call into derived class start
-        StartImpl();
     }
 	
 	// Update is called once per frame
@@ -80,9 +73,6 @@ public abstract class Character : MonoBehaviour
             AcquireTarget();
             MoveToTarget();
         }
-
-        // Call into derived class update
-        UpdateImpl();
     }
 
     // Checks if the current target is alive and in range
