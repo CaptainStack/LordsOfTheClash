@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero
+public class Hero : MonoBehaviour
 {
     public int hp;
-    public int heroDeckSize;
-    public List<Card> heroCards;
+    public List<Card> heroDeck;
     //public int heroHandSize;
 
 
@@ -24,9 +23,9 @@ public class Hero
        
     }
 
-    void FillCards()
+    public void FillCards()
     {
-        for (int i = 0; i < heroDeckSize; i++)
+        for (int i = 0; i < heroDeck.Count; i++)
         {
             return;
         }
