@@ -14,10 +14,7 @@ public class SceneController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButton("Cancel"))
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
+
     }
 
     public void SwitchScene(string newScene)
