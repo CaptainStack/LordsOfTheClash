@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 // Faction of the characters
-public enum Faction { Friendly, Neutral, Enemy }
+public enum Faction { Neutral, Friendly, Enemy }
 
 public abstract class Character : MonoBehaviour
 {
@@ -15,17 +16,14 @@ public abstract class Character : MonoBehaviour
     public int health = 1;
     public float speed = 1f;
     public Faction faction = Faction.Neutral;
+    public float range = 1f;
 
     // Direction character is facing
     protected Vector3 lookDirection;
 
-    // Character's aggro area, used to find enemies
-    public GameObject aggroAreaGameObject;
-    public TargetArea aggroArea;
-
-    // Character's attack area, used to find enemies in attack range
-    public GameObject attackAreaGameObject;
-    public TargetArea attackArea;
+    // Character's vision circle, used to find enemies
+    public TargetArea visionArea;
+    public GameObject visionAreaGameObject;
 
     // The current enemy being attacked
     protected Character currentTarget;
@@ -58,23 +56,13 @@ public abstract class Character : MonoBehaviour
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
         // Add Aggro target area
-        if (!aggroAreaGameObject)
+        if (!visionAreaGameObject)
         {
-            aggroAreaGameObject = new GameObject("AggroArea");
-            aggroArea = aggroAreaGameObject.AddComponent<TargetArea>();
+            visionAreaGameObject = new GameObject("visionArea");
+            visionArea = visionAreaGameObject.AddComponent<TargetArea>();
 
             // Set gameobject parent to this object
-            aggroAreaGameObject.transform.parent = this.gameObject.transform;
-        }
-
-        // Add attack range target area
-        if (!attackAreaGameObject)
-        {
-            attackAreaGameObject = new GameObject("AttackArea");
-            attackArea = attackAreaGameObject.AddComponent<TargetArea>();
-
-            // Set gameobject parent to this object
-            attackAreaGameObject.transform.parent = this.gameObject.transform;
+            visionAreaGameObject.transform.parent = this.gameObject.transform;
         }
 
         // Call into derived class start
@@ -84,49 +72,52 @@ public abstract class Character : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
-        // Find a target to attack
-        FindTarget();
-
-        // If currently targetting hostile, attack them. Otherwise move toward nearest hostile target
-        if (currentTarget)
+        // If hostile target is in range, attack them
+        if (TargetInRange())
             AttackTarget();
-        else
-            MoveToHostile();
+        else // Otherwise move to nearest hostile
+        {
+            AcquireTarget();
+            MoveToTarget();
+        }
 
         // Call into derived class update
         UpdateImpl();
     }
 
-    // Find a target to attack
-    void FindTarget()
+    // Checks if the current target is alive and in range
+    bool TargetInRange()
     {
-        // If current target is still alive, nothing to do
-        if (currentTarget && currentTarget.health >= 0f)
-            return;
+        return currentTarget != null
+            && currentTarget.health >= 0f
+            && range >= (this.transform.position - currentTarget.transform.position).magnitude; // check if in range
+    }
 
-        currentTarget = null;
-
-        // If in range of a hostile target, set them as current target
-        List<Character> targetList = attackArea.targetList;
-        Character target = targetList.Find(x => x.faction != this.faction);
-        if (target != null)
-            currentTarget = target;
+    // Acquires a target
+    void AcquireTarget()
+    {
+        // Get the nearest target that doesn't match this character's faction and set it as current target
+        currentTarget = visionArea.targetList.Find(x => x.faction != this.faction);
     }
 
     void AttackTarget()
     {
+        // Stop moving
+        this.characterRigidBody.velocity = Vector2.zero;
+
+        // Turn toward target
+        this.lookDirection = (this.transform.position - currentTarget.transform.position).normalized;
+
         // TODO: Attack target
         Debug.Log("Attacking target " + currentTarget);
     }
 
-    // Run towards nearest hostile target
-    void MoveToHostile()
+    // Move towards current target
+    void MoveToTarget()
     {
-        List<Character> targetList = aggroArea.targetList;
-        Character target = targetList.Find(x => x.faction != this.faction);
-        if (target != null)
+        if (currentTarget != null)
         {
-            Vector3 movementDir = (target.gameObject.transform.position - this.gameObject.transform.position).normalized;
+            Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
             this.characterRigidBody.velocity = movementDir * speed;
             this.lookDirection = movementDir;
         }
