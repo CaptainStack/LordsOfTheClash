@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class Player : MonoBehaviour
     public int playerHandSize;
     public int heroDeckSize;
 
+    public Text manaText;
+    
     float currentMana;
     float timer;
 
@@ -26,6 +29,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        manaText.text = "Mana: " + currentMana.ToString();
         ManaRegen();
     }
 
