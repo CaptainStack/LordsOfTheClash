@@ -924,6 +924,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15798329}
     m_Modifications:
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 15798328}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: TogglePauseMenu
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 7618971167524002900, guid: c54b1a7e06f35914d8c0b03ceb454b22,
         type: 3}
       propertyPath: m_LocalPosition.x
