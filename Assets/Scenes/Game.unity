@@ -583,7 +583,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   totalMana: 100
-  manaRechargeTime: 0
+  manaRechargeTime: 2
   totalHeroes: 1
   playerDeckSize: 0
   playerHandSize: 0
