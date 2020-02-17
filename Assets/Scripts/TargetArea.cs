@@ -7,7 +7,7 @@ public class TargetArea : MonoBehaviour
 {
     public CircleCollider2D targetCollider2D;
     public List<Unit> targetList;
-    public float range = 10f;
+    public float range = 20f;
 
     void Start()
     {
