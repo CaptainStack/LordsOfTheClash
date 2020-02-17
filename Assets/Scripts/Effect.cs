@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class Effect : MonoBehaviour
 {
-    public Character summon;
+    public Unit summon;
 
     public float spellDamage;
     public float healPower;
