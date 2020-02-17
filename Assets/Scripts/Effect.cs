@@ -6,14 +6,11 @@ using UnityEngine;
 
 public class Effect : MonoBehaviour
 {
-    [Header("Unit Object:")] //only need to fill out these values if it's a Summon card
-    public Unit summon;
+    public Character summon;
 
     public float spellDamage;
     public float healPower;
     public float radius;
-
-    
     
     void Start()
     {
