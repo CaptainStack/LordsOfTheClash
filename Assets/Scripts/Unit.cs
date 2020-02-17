@@ -15,7 +15,7 @@ public class Unit : MonoBehaviour
     // Unit stats
     public float health = 1;
     public float speed = 1f;
-    public float range = 1f;
+    public float attackRange = 1f;
     public float attackCooldown = 1f;
     public Faction faction = Faction.Neutral;
 
@@ -25,9 +25,8 @@ public class Unit : MonoBehaviour
     // Direction unit is facing
     protected Vector3 lookDirection;
 
-    // Unit's vision circle, used to find enemies
-    public TargetArea visionArea;
-    public GameObject visionAreaGameObject;
+    // Range of a unit's vision, used to find enemies
+    public float visionRange = 20f;
 
     // The current enemy being attacked
     protected Unit currentTarget;
@@ -54,17 +53,6 @@ public class Unit : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
-
-        // Add Aggro target area
-        if (!visionAreaGameObject)
-        {
-            visionAreaGameObject = new GameObject("visionArea");
-            visionArea = visionAreaGameObject.AddComponent<TargetArea>();
-
-            // Set gameobject parent to this object
-            visionAreaGameObject.transform.parent = this.transform;
-            visionAreaGameObject.transform.position = this.transform.position;
-        }
     }
 
 	// Update is called once per frame
@@ -92,14 +80,31 @@ public class Unit : MonoBehaviour
     {
         return currentTarget != null
             && currentTarget.health >= 0f
-            && range >= (this.transform.position - currentTarget.transform.position).magnitude; // check if in range
+            && attackRange >= (this.transform.position - currentTarget.transform.position).magnitude; // check if in range
     }
 
     // Acquires a target
     void AcquireTarget()
     {
         // Get the nearest target that doesn't match this unit's faction and set it as current target
-        currentTarget = visionArea.targetList.Find(x => x.faction != this.faction);
+        float closestDistance = currentTarget ? (this.transform.position - currentTarget.transform.position).sqrMagnitude : float.MaxValue;
+
+        // loops through all colliders in this unit's vision circle
+        foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange))
+        {
+            Unit unit = collider.gameObject.GetComponent<Unit>();
+
+            if (unit && unit.faction != this.faction)
+            {
+                float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
+
+                if (distance < closestDistance)
+                {
+                    distance = closestDistance;
+                    currentTarget = unit;
+                }
+            }
+        }
     }
 
     void AttackTarget()
