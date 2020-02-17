@@ -6,15 +6,15 @@ using UnityEngine;
 public class TargetArea : MonoBehaviour
 {
     public CircleCollider2D targetCollider2D;
-    public List<Character> targetList;
-    public float range = 10f;
+    public List<Unit> targetList;
+    public float range = 20f;
 
     void Start()
     {
         targetCollider2D = this.gameObject.AddComponent<CircleCollider2D>();
         targetCollider2D.isTrigger = true;
 
-        targetList = new List<Character>();
+        targetList = new List<Unit>();
         targetCollider2D.radius = range;
     }
 
@@ -26,22 +26,22 @@ public class TargetArea : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        // Add characters to targetList
-        Character character = other.gameObject.GetComponent<Character>();
-        if (character != null && !targetList.Contains(character))
+        // Add units to targetList
+        Unit unit = other.gameObject.GetComponent<Unit>();
+        if (unit != null && !targetList.Contains(unit))
         {
-            targetList.Add(character);
+            targetList.Add(unit);
 
             // Keep target list sorted by range
             var self = this;
-            targetList.OrderBy(n => (self.transform.position - n.transform.position).magnitude);
+            targetList = targetList.OrderBy(n => (self.transform.position - n.transform.position).sqrMagnitude).ToList();
         }
     }
 
     void OnTriggerExit2D(Collider2D other)
     {
-        // Remove characters from targetList
-        Character character = other.gameObject.GetComponent<Character>();
-        targetList.Remove(character);
+        // Remove units from targetList
+        Unit unit = other.gameObject.GetComponent<Unit>();
+        targetList.Remove(unit);
     }
 }

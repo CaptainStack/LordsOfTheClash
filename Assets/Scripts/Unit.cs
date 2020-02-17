@@ -3,48 +3,52 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-// Faction of the characters
+// Faction of the units
 public enum Faction { Neutral, Friendly, Enemy }
 
-public class Character : MonoBehaviour
+public class Unit : MonoBehaviour
 {
-    public Rigidbody2D characterRigidBody;
-    public CircleCollider2D characterCollider;
+    public Rigidbody2D unitRigidBody;
+    public CircleCollider2D unitCollider;
     public SpriteRenderer spriteRenderer;
 
-    // Player stats
-    public int health = 1;
+    // Unit stats
+    public float health = 1;
     public float speed = 1f;
-    public Faction faction = Faction.Neutral;
     public float range = 1f;
+    public float attackCooldown = 1f;
+    public Faction faction = Faction.Neutral;
 
-    // Direction character is facing
+    // Attack cooldown timer
+    private float attackTimer;
+
+    // Direction unit is facing
     protected Vector3 lookDirection;
 
-    // Character's vision circle, used to find enemies
+    // Unit's vision circle, used to find enemies
     public TargetArea visionArea;
     public GameObject visionAreaGameObject;
 
     // The current enemy being attacked
-    protected Character currentTarget;
+    protected Unit currentTarget;
 
     // Use this for initialization
-    void Start ()
+    protected virtual void Start ()
     {
         // Add RigidBody2D
-        if (!characterRigidBody)
+        if (!unitRigidBody)
         {
-            characterRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
-            characterRigidBody.drag = 0.5f;
-            characterRigidBody.gravityScale = 0.0f;
-            characterRigidBody.freezeRotation = true;
+            unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
+            unitRigidBody.drag = 0.5f;
+            unitRigidBody.gravityScale = 0.0f;
+            unitRigidBody.freezeRotation = true;
         }
 
         // Add Collider
-        if (!characterCollider)
+        if (!unitCollider)
         {
-            characterCollider = this.gameObject.AddComponent<CircleCollider2D>();
-            characterCollider.radius = 0.1f;
+            unitCollider = this.gameObject.AddComponent<CircleCollider2D>();
+            unitCollider.radius = 0.1f;
         }
 
         // Add Sprite
@@ -58,18 +62,26 @@ public class Character : MonoBehaviour
             visionArea = visionAreaGameObject.AddComponent<TargetArea>();
 
             // Set gameobject parent to this object
-            visionAreaGameObject.transform.parent = this.gameObject.transform;
+            visionAreaGameObject.transform.parent = this.transform;
+            visionAreaGameObject.transform.position = this.transform.position;
         }
     }
-	
+
 	// Update is called once per frame
-	void Update ()
+	protected virtual void Update ()
     {
-        // If hostile target is in range, attack them
-        if (TargetInRange())
-            AttackTarget();
-        else // Otherwise move to nearest hostile
+        // If dead, destroy self
+        if (health <= 0f)
         {
+            Destroy(this.gameObject);
+        }
+        // Else if hostile target is in range, attack them
+        else if (TargetInRange())
+        {
+            AttackTarget();
+        }
+        // Otherwise move to nearest hostile
+        else         {
             AcquireTarget();
             MoveToTarget();
         }
@@ -86,20 +98,33 @@ public class Character : MonoBehaviour
     // Acquires a target
     void AcquireTarget()
     {
-        // Get the nearest target that doesn't match this character's faction and set it as current target
+        // Get the nearest target that doesn't match this unit's faction and set it as current target
         currentTarget = visionArea.targetList.Find(x => x.faction != this.faction);
     }
 
     void AttackTarget()
     {
         // Stop moving
-        this.characterRigidBody.velocity = Vector2.zero;
+        this.unitRigidBody.velocity = Vector2.zero;
 
         // Turn toward target
         this.lookDirection = (this.transform.position - currentTarget.transform.position).normalized;
 
-        // TODO: Attack target
-        Debug.Log("Attacking target " + currentTarget);
+        // Attack target
+        if (attackCooldown > 0f)
+        {
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0.0f)
+            {
+                attackTimer = attackCooldown;
+                Attack();
+            }
+        }
+    }
+
+    protected virtual void Attack()
+    {
+        Debug.Log("Unit attacking target " + currentTarget);
     }
 
     // Move towards current target
@@ -108,7 +133,7 @@ public class Character : MonoBehaviour
         if (currentTarget != null)
         {
             Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
-            this.characterRigidBody.velocity = movementDir * speed;
+            this.unitRigidBody.velocity = movementDir * speed;
             this.lookDirection = movementDir;
         }
     }
