@@ -62,7 +62,8 @@ public class Unit : MonoBehaviour
             visionArea = visionAreaGameObject.AddComponent<TargetArea>();
 
             // Set gameobject parent to this object
-            visionAreaGameObject.transform.parent = this.gameObject.transform;
+            visionAreaGameObject.transform.parent = this.transform;
+            visionAreaGameObject.transform.position = this.transform.position;
         }
     }
 

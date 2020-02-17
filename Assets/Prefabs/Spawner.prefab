@@ -46,9 +46,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f85b6c93e25ff4fbc5d1ed6dd4fdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnFrequency: 3
+  respawnCooldown: 3
   unitToSpawn: {fileID: 0}
   faction: 0
+  spawnPositionOffset: {x: 0, y: 0.1, z: 0}
 --- !u!212 &6350482638282968217
 SpriteRenderer:
   m_ObjectHideFlags: 0
