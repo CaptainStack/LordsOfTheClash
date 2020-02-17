@@ -13,7 +13,7 @@ public class Character : MonoBehaviour
     public SpriteRenderer spriteRenderer;
 
     // Character stats
-    public int health = 1;
+    public float health = 1;
     public float speed = 1f;
     public float range = 1f;
     public float attackSpeed = 1f;
@@ -33,7 +33,7 @@ public class Character : MonoBehaviour
     protected Character currentTarget;
 
     // Use this for initialization
-    void Start ()
+    protected virtual void Start ()
     {
         // Add RigidBody2D
         if (!characterRigidBody)
@@ -65,9 +65,9 @@ public class Character : MonoBehaviour
             visionAreaGameObject.transform.parent = this.gameObject.transform;
         }
     }
-	
+
 	// Update is called once per frame
-	void Update ()
+	protected virtual void Update ()
     {
         // If hostile target is in range, attack them
         if (TargetInRange())
@@ -109,8 +109,13 @@ public class Character : MonoBehaviour
         if (attackTimer <= 0.0f)
         {
             attackTimer = attackSpeed;
-            Debug.Log("Attacking target " + currentTarget);
+            Attack();
         }
+    }
+
+    protected virtual void Attack()
+    {
+        Debug.Log("Character attacking target " + currentTarget);
     }
 
     // Move towards current target
