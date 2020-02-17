@@ -9,7 +9,6 @@ public class Zombie : Unit
 
     override protected void Attack()
     {
-        Debug.Log("Zombie attacking " + currentTarget);
         currentTarget.health -= attackDamage;
     }
 }
