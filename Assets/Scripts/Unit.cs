@@ -69,13 +69,18 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	protected virtual void Update ()
     {
-        // If hostile target is in range, attack them
-        if (TargetInRange())
+        // If dead, destroy self
+        if (health <= 0f)
+        {
+            Destroy(this);
+        }
+        // Else if hostile target is in range, attack them
+        else if (TargetInRange())
         {
             AttackTarget();
         }
-        else // Otherwise move to nearest hostile
-        {
+        // Otherwise move to nearest hostile
+        else         {
             AcquireTarget();
             MoveToTarget();
         }
