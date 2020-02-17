@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class Zombie : Character
+public class Zombie : Unit
 {
     public float attackDamage = 1f;
 
