@@ -82,6 +82,11 @@ PrefabInstance:
       propertyPath: faction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5883523473273571902, guid: 19ddaf994be0925498e69d73aae93a28,
+        type: 3}
+      propertyPath: health
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5883523473273571903, guid: 19ddaf994be0925498e69d73aae93a28,
         type: 3}
       propertyPath: m_Name
