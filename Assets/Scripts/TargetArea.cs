@@ -34,7 +34,7 @@ public class TargetArea : MonoBehaviour
 
             // Keep target list sorted by range
             var self = this;
-            targetList.OrderBy(n => (self.transform.position - n.transform.position).magnitude);
+            targetList = targetList.OrderBy(n => (self.transform.position - n.transform.position).sqrMagnitude).ToList();
         }
     }
 

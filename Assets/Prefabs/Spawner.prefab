@@ -46,9 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68f85b6c93e25ff4fbc5d1ed6dd4fdfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  respawnCooldown: 3
+  respawnCooldown: 1
   unitToSpawn: {fileID: 0}
-  faction: 0
   spawnPositionOffset: {x: 0, y: 0.1, z: 0}
 --- !u!212 &6350482638282968217
 SpriteRenderer:
@@ -114,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitRigidBody: {fileID: 7007956205973345828}
   unitCollider: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 6350482638282968217}
   health: 50
   speed: 0
   range: 0

@@ -73,7 +73,7 @@ public class Unit : MonoBehaviour
         // If dead, destroy self
         if (health <= 0f)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
         // Else if hostile target is in range, attack them
         else if (TargetInRange())

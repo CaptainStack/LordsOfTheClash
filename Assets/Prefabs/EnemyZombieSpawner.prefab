@@ -10,12 +10,12 @@ PrefabInstance:
     - target: {fileID: 6350482638282968214, guid: dea63cad88941a64db2cee5b850632c8,
         type: 3}
       propertyPath: faction
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 6350482638282968215, guid: dea63cad88941a64db2cee5b850632c8,
         type: 3}
       propertyPath: m_Name
-      value: EnemyZombieSpawner Variant
+      value: EnemyZombieSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 6350482638282968216, guid: dea63cad88941a64db2cee5b850632c8,
         type: 3}
@@ -23,6 +23,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 5883523473273571902, guid: 19ddaf994be0925498e69d73aae93a28,
         type: 3}
+    - target: {fileID: 6350482638282968216, guid: dea63cad88941a64db2cee5b850632c8,
+        type: 3}
+      propertyPath: faction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6350482638282968217, guid: dea63cad88941a64db2cee5b850632c8,
         type: 3}
       propertyPath: m_Color.r

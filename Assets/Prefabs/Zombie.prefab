@@ -46,10 +46,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitRigidBody: {fileID: 0}
   unitCollider: {fileID: 0}
-  spriteRenderer: {fileID: 0}
+  spriteRenderer: {fileID: 5792965055255907238}
   health: 10
   speed: 1
-  range: 1
+  range: 0.2
   attackCooldown: 1
   faction: 0
   visionArea: {fileID: 0}
