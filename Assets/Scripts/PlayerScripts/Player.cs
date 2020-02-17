@@ -21,7 +21,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         FillDeck();
-        DrawCard();
+        DrawCardFromDeck();
     }
 
 
@@ -29,7 +29,6 @@ public class Player : MonoBehaviour
     {
         manaText.text = "Mana: " + currentMana.ToString();
         ManaRegen();
-        UseCard();
     }
 
     void ManaRegen()
@@ -45,52 +44,49 @@ public class Player : MonoBehaviour
         }
     }
 
-    void UseCard() //press button on keyboard to use card
-        //Make public to call from UI?
+    //press button on keyboard to use card 
+    //Make public to call from UI?
+    public void UseCard() 
     {
-        if (Input.GetKeyDown("space"))
+        if (currentMana >= playerHand[0].manaCost)
         {
-            if (currentMana >= playerHand[0].manaCost)
-            {
-                currentMana -= playerHand[0].manaCost; //spend mana to use the card
-                playerHand[0].CardAction(); //execute the card you are using
-                playerDeck.Add(playerHand[0]); //add card back into deck
-                playerHand.RemoveAt(0); //remove card from hand
-                DrawCard();
-            }
-        }
-
-    }
-
-    void DrawCard() //remove card from position 0 of the deck and add it to player's hand
-    {
-        if (playerHand.Count < playerHandSize)
-        {
-            playerHand.Add(playerDeck[0]);
-            playerDeck.RemoveAt(0);
+            currentMana -= playerHand[0].manaCost;
+            playerHand[0].DoCardAction();
+            RemoveCardFromHand();
+            DrawCardFromDeck();
         }
     }
 
-      void FillDeck() //fill deck with cards from heroes' lists.
+    void RemoveCardFromHand()
     {
-        foreach(Hero hero in heroes)
+        playerDeck.Add(playerHand[0]);
+        playerHand.RemoveAt(0);
+    }
+    void DrawCardFromDeck()
+    {
+        playerHand.Add(playerDeck[0]);
+        playerDeck.RemoveAt(0);
+    }
+
+    void FillDeck()
+    {
+        foreach (Hero hero in heroes)
         {
             foreach (Card card in hero.heroDeck)
             {
                 playerDeck.Add(card);
             }
         }
-
     }
 
-    void ShuffleDeck() //shuffle cards in deck (needs to be less shitty)
+    void ShuffleDeck()
     {
         for (int i = 0; i < playerDeck.Count; i++)
         {
             Card temp = playerDeck[i];
-            int index = Random.Range(0, playerDeck.Count - 1);
-            playerDeck[i] = playerDeck[index];
-            playerDeck[index] = temp;
+            int placementIndex = Random.Range(0, playerDeck.Count - 1);
+            playerDeck[i] = playerDeck[placementIndex];
+            playerDeck[placementIndex] = temp;
         }
     }
 }

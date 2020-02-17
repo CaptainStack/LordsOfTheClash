@@ -24,17 +24,21 @@ public class ApplicationStateManager : MonoBehaviour
         {
             TogglePauseMenu();
         }
+        if (Input.GetButtonDown("Submit"))
+        {
+            player.GetComponent<Player>().UseCard();
+        }
     }
 
     void TogglePauseMenu()
     {
         if (pauseMenuOn) {
-            pauseMenu.active = false;
-            player.active = true;
+            pauseMenu.SetActive(false);
+            player.SetActive(true);
             pauseMenuOn = false;
         } else {
-            pauseMenu.active = true;
-            player.active = false;
+            pauseMenu.SetActive(true);
+            player.SetActive(false);
             pauseMenuOn = true;
         }
     }
