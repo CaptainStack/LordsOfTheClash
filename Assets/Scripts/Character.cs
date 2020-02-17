@@ -12,11 +12,15 @@ public class Character : MonoBehaviour
     public CircleCollider2D characterCollider;
     public SpriteRenderer spriteRenderer;
 
-    // Player stats
+    // Character stats
     public int health = 1;
     public float speed = 1f;
-    public Faction faction = Faction.Neutral;
     public float range = 1f;
+    public float attackSpeed = 1f;
+    public Faction faction = Faction.Neutral;
+
+    // Attack cooldown timer
+    public float attackTimer = 1f;
 
     // Direction character is facing
     protected Vector3 lookDirection;
@@ -67,7 +71,9 @@ public class Character : MonoBehaviour
     {
         // If hostile target is in range, attack them
         if (TargetInRange())
+        {
             AttackTarget();
+        }
         else // Otherwise move to nearest hostile
         {
             AcquireTarget();
@@ -98,8 +104,13 @@ public class Character : MonoBehaviour
         // Turn toward target
         this.lookDirection = (this.transform.position - currentTarget.transform.position).normalized;
 
-        // TODO: Attack target
-        Debug.Log("Attacking target " + currentTarget);
+        // Attack target
+        attackTimer -= Time.deltaTime;
+        if (attackTimer <= 0.0f)
+        {
+            attackTimer = attackSpeed;
+            Debug.Log("Attacking target " + currentTarget);
+        }
     }
 
     // Move towards current target
