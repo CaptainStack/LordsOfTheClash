@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public int playerHandSize;
 
     public Text manaText;
+    public Text handText;
+    public Text deckText;
     
     public float currentMana;
     float timer;
@@ -21,7 +23,7 @@ public class Player : MonoBehaviour
     void Start()
     {
         FillDeck();
-        DrawCardFromDeck();
+        FillHand();
     }
 
 
@@ -29,6 +31,20 @@ public class Player : MonoBehaviour
     {
         manaText.text = "Mana: " + currentMana.ToString();
         ManaRegen();
+
+        handText.text = $"Hand: [";
+        foreach(Card card in playerHand)
+        {
+            handText.text += $"{card.cardName} ({card.manaCost}), ";
+        }
+        handText.text += "]";
+
+        deckText.text = $"Deck: [";
+        foreach(Card card in playerDeck)
+        {
+            deckText.text += $"{card.cardName} ({card.manaCost}), ";
+        }
+        deckText.text += "]";
     }
 
     void ManaRegen()
@@ -76,6 +92,14 @@ public class Player : MonoBehaviour
             {
                 playerDeck.Add(card);
             }
+        }
+    }
+
+    void FillHand()
+    {
+        while (playerHand.Count < playerHandSize)
+        {
+            DrawCardFromDeck();
         }
     }
 

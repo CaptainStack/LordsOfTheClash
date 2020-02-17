@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-
+    public string cardName;
     public int manaCost; //how much it costs to summon
     public Effect effect;
 
