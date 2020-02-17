@@ -221,6 +221,9 @@ MonoBehaviour:
   heroDeck:
   - {fileID: 1261435488}
   - {fileID: 1698827802}
+  - {fileID: 1261435488}
+  - {fileID: 1261435488}
+  - {fileID: 1698827802}
 --- !u!1 &242677687
 GameObject:
   m_ObjectHideFlags: 0
@@ -599,7 +602,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35f40fee41208b49b12702de6507765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Fire Attack
+  cardName: Fireball
   manaCost: 10
   effect: {fileID: 2097158014}
 --- !u!4 &1261435489
@@ -979,7 +982,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35f40fee41208b49b12702de6507765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Frost Attack
+  cardName: Freeze
   manaCost: 20
   effect: {fileID: 1064744221}
 --- !u!1001 &1707885436
