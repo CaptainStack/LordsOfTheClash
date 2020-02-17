@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Hero : MonoBehaviour
 {
-    public int Heath;
+    public int health;
     public List<Card> heroDeck;
 
     void Start()
