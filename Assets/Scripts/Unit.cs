@@ -16,11 +16,11 @@ public class Unit : MonoBehaviour
     public float health = 1;
     public float speed = 1f;
     public float range = 1f;
-    public float attackSpeed = 1f;
+    public float attackCooldown = 1f;
     public Faction faction = Faction.Neutral;
 
     // Attack cooldown timer
-    public float attackTimer = 1f;
+    private float attackTimer;
 
     // Direction unit is facing
     protected Vector3 lookDirection;
@@ -110,11 +110,14 @@ public class Unit : MonoBehaviour
         this.lookDirection = (this.transform.position - currentTarget.transform.position).normalized;
 
         // Attack target
-        attackTimer -= Time.deltaTime;
-        if (attackTimer <= 0.0f)
+        if (attackCooldown > 0f)
         {
-            attackTimer = attackSpeed;
-            Attack();
+            attackTimer -= Time.deltaTime;
+            if (attackTimer <= 0.0f)
+            {
+                attackTimer = attackCooldown;
+                Attack();
+            }
         }
     }
 

@@ -6,6 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public float respawnFrequency;
     public Unit unitToSpawn;
+    public Faction faction;
 
     private float timeUntilNextSpawn;
 
@@ -20,9 +21,11 @@ public class Spawner : MonoBehaviour
     {
         timeUntilNextSpawn -= Time.deltaTime;
 
-        if (timeUntilNextSpawn <= 0f) {
+        if (timeUntilNextSpawn <= 0f)
+        {
             Vector3 spawnPosition = this.transform.position;
-            Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+            Unit newUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+            newUnit.faction = faction;
         }
     }
 }
