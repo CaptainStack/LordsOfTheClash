@@ -14,6 +14,7 @@ public class Projectile : MonoBehaviour
     public Vector3 target;
 
     public Rigidbody2D rigidbody;
+    public CircleCollider2D collider;
     public SpriteRenderer spriteRenderer;
     
     void Start()
@@ -27,6 +28,14 @@ public class Projectile : MonoBehaviour
             rigidbody.freezeRotation = true;
         }
 
+        // Add Collider
+        if (!collider)
+        {
+            collider = this.gameObject.AddComponent<CircleCollider2D>();
+            collider.radius = 0.25f;
+            collider.isTrigger = true;
+        }
+
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
@@ -38,6 +47,11 @@ public class Projectile : MonoBehaviour
         if (rigidbody.OverlapPoint(target))
         {
             Explode();
+        }
+        // Otherwise, move towards target
+        else
+        {
+            MoveToTarget();
         }
     }
 
