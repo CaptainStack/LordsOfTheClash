@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Zombie : Unit
+public class MeleeUnit : Unit
 {
     public float attackDamage = 1f;
 

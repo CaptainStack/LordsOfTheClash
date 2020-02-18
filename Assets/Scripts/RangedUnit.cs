@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Archer : Unit
+public class RangedUnit : Unit
 {
     public Projectile projectile;
 
