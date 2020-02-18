@@ -11,6 +11,7 @@ public class Archer : Unit
         {
             Projectile newProjectile = Instantiate(projectile, this.transform.position, Quaternion.identity);
             newProjectile.target = currentTarget.transform.position;
+            newProjectile.faction = this.faction;
         }
     }
 }

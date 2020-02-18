@@ -9,6 +9,8 @@ public class Projectile : MonoBehaviour
 
     // Projectile AOE radius
     public float radius = .1f;
+    // Faction of the projectile to prevent friendly-fire
+    public Faction faction;
 
     // Position projectile is targetting
     public Vector3 target;
@@ -32,7 +34,7 @@ public class Projectile : MonoBehaviour
         if (!collider)
         {
             collider = this.gameObject.AddComponent<CircleCollider2D>();
-            collider.radius = 0.25f;
+            collider.radius = 0.3f;
             collider.isTrigger = true;
         }
 
@@ -64,7 +66,7 @@ public class Projectile : MonoBehaviour
         {
             // Apply damage to units
             Unit unit = collider.gameObject.GetComponent<Unit>();
-            if (unit)
+            if (unit && unit.faction != this.faction)
             {
                 unit.health -= damage;
             }

@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f856e3fa93ecb44b3374a9d9cc994d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 1
-  speed: 6
+  damage: 2
+  speed: 10
   radius: 0.1
   target: {x: 0, y: 0, z: 0}
   rigidbody: {fileID: 824665569300923111}

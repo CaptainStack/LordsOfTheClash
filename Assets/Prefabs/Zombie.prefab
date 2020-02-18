@@ -47,7 +47,7 @@ MonoBehaviour:
   unitRigidBody: {fileID: 0}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 5792965055255907238}
-  health: 5
+  health: 10
   speed: 1
   attackRange: 0.2
   attackCooldown: 1
