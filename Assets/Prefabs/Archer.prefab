@@ -103,5 +103,5 @@ MonoBehaviour:
   attackCooldown: 2
   faction: 0
   visionRange: 20
-  projectile: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
+  projectilePrefab: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
     type: 3}

@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage = 1f;
     public float speed = 1f;
 
-    // Projectile AOE radius
-    public float radius = .1f;
+    // Explosion triggered when target is reached
+    public Explosion explosionPrefab;
+
     // Faction of the projectile to prevent friendly-fire
     public Faction faction;
 
@@ -46,7 +46,7 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         // Explode if projectile has reached target
-        if (rigidbody.OverlapPoint(target))
+        if (collider.OverlapPoint(target))
         {
             Explode();
         }
@@ -59,18 +59,8 @@ public class Projectile : MonoBehaviour
 
     void Explode()
     {
-        // Find targets in AOE
-        Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius);
-
-        foreach (Collider2D collider in collidersHit)
-        {
-            // Apply damage to units
-            Unit unit = collider.gameObject.GetComponent<Unit>();
-            if (unit && unit.faction != this.faction)
-            {
-                unit.health -= damage;
-            }
-        }
+        Explosion newExplosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+        newExplosion.faction = this.faction;
 
         // Destroy projectile
         Destroy(this.gameObject);
