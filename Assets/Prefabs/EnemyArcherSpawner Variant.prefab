@@ -7,10 +7,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
-      value: EnemyArcherSpawner
+      value: EnemyArcherSpawner Variant
       objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724104, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}

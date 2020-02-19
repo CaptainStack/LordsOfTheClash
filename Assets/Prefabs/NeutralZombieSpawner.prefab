@@ -88,6 +88,11 @@ PrefabInstance:
       propertyPath: faction
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6883984466743485548, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6883984466743485549, guid: c9869944799fdd94097a8090795e0481,
         type: 3}
       propertyPath: m_Name

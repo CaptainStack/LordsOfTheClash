@@ -183,6 +183,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6883984466743485548, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6883984466743485549, guid: c9869944799fdd94097a8090795e0481,
         type: 3}
       propertyPath: m_Name
@@ -208,6 +213,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 885716757}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -294,6 +304,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 818893075}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -368,6 +383,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 533607532}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -442,6 +462,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 1549843619}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -577,6 +602,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeutralZombieSpawner (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 4321736491551307611, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1207bb741e440439d4e940ea4626be, type: 3}
 --- !u!1001 &681711866
@@ -646,6 +676,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeutralZombieSpawner (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 4321736491551307611, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1207bb741e440439d4e940ea4626be, type: 3}
 --- !u!1001 &704792158
@@ -708,6 +743,11 @@ PrefabInstance:
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8880511026988891386, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: attackRange
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891387, guid: 1816c4dfca45c5343929b1c682637171,
@@ -777,6 +817,11 @@ PrefabInstance:
     - target: {fileID: 6883984466743485537, guid: c9869944799fdd94097a8090795e0481,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984466743485548, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: attackRange
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6883984466743485549, guid: c9869944799fdd94097a8090795e0481,
@@ -859,6 +904,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeutralZombieSpawner (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 4321736491551307611, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1207bb741e440439d4e940ea4626be, type: 3}
 --- !u!1001 &846754641
@@ -873,6 +923,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 47191113}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1002,6 +1057,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeutralZombieSpawner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4321736491551307611, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1207bb741e440439d4e940ea4626be, type: 3}
 --- !u!212 &885716757 stripped
@@ -1072,6 +1132,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8880511026988891386, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891387, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_Name
@@ -1091,6 +1156,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 1698888774}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1165,6 +1235,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 341150525}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1239,6 +1314,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 1119383783}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1369,6 +1449,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6883984466743485548, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6883984466743485549, guid: c9869944799fdd94097a8090795e0481,
         type: 3}
       propertyPath: m_Name
@@ -1436,6 +1521,11 @@ PrefabInstance:
     - target: {fileID: 6883984466743485537, guid: c9869944799fdd94097a8090795e0481,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6883984466743485548, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: attackRange
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6883984466743485549, guid: c9869944799fdd94097a8090795e0481,
@@ -1507,6 +1597,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8880511026988891386, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891387, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_Name
@@ -1526,6 +1621,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 1951865532}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1655,6 +1755,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeutralZombieSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 4321736491551307611, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1207bb741e440439d4e940ea4626be, type: 3}
 --- !u!1001 &1433763996
@@ -1723,6 +1828,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: NeutralZombieSpawner (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4321736491551307611, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba1207bb741e440439d4e940ea4626be, type: 3}
@@ -1833,6 +1943,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 1843945765}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1963,6 +2078,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8880511026988891386, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891387, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_Name
@@ -1994,6 +2114,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 318093816}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -2068,6 +2193,11 @@ PrefabInstance:
       propertyPath: spriteRenderer
       value: 
       objectReference: {fileID: 1981425219}
+    - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name

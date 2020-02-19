@@ -12,10 +12,15 @@ PrefabInstance:
       propertyPath: faction
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1891474013956607266, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
+        type: 3}
+      propertyPath: attackRange
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1891474013956607267, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
         type: 3}
       propertyPath: m_Name
-      value: FriendlyArcherSpawner
+      value: FriendlyArcherSpawner Variant
       objectReference: {fileID: 0}
     - target: {fileID: 1891474013956607276, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
         type: 3}
