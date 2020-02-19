@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
     public Vector3 target;
 
     public Rigidbody2D rigidbody;
-    public CircleCollider2D collider;
     public SpriteRenderer spriteRenderer;
     
     void Start()
@@ -28,14 +27,7 @@ public class Projectile : MonoBehaviour
             rigidbody.drag = 0.0f;
             rigidbody.gravityScale = 0.0f;
             rigidbody.freezeRotation = true;
-        }
-
-        // Add Collider
-        if (!collider)
-        {
-            collider = this.gameObject.AddComponent<CircleCollider2D>();
-            collider.radius = 0.3f;
-            collider.isTrigger = true;
+            rigidbody.isKinematic = true;
         }
 
         // Add Sprite
@@ -46,15 +38,17 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         // Explode if projectile has reached target
-        if (collider.OverlapPoint(target))
+        // (squared distance is way faster to calculate than regular magnitude)
+        if ((target - this.transform.position).sqrMagnitude < .1f)
         {
             Explode();
         }
-        // Otherwise, move towards target
-        else
-        {
-            MoveToTarget();
-        }
+    }
+
+    // FixedUpdate runs synchronized with Unity physics cycle
+    void FixedUpdate()
+    {
+        MoveToTarget();
     }
 
     void Explode()

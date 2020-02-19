@@ -36,7 +36,7 @@ public class Explosion : MonoBehaviour
                 if (impactForce > 0f)
                 {
                     Vector3 impactForceDirection = (unit.transform.position - this.transform.position).normalized;
-                    unit.unitRigidBody.AddForce(impactForce * impactForceDirection);
+                    unit.unitRigidBody.AddForce(impactForce * impactForceDirection, ForceMode2D.Impulse);
                 }
             }
         }
