@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .1f;
+    private float acquireTargetCooldown = .5f;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -113,7 +113,8 @@ public class Unit : MonoBehaviour
             acquireTargetTimer = acquireTargetCooldown;
 
             // Get the nearest target that doesn't match this unit's faction and set it as current target
-            float closestDistance = currentTarget ? (this.transform.position - currentTarget.transform.position).sqrMagnitude : float.MaxValue;
+            float closestDistance = float.MaxValue;
+            currentTarget = null;
 
             // loops through all colliders in this unit's vision circle
             foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange))
@@ -126,7 +127,7 @@ public class Unit : MonoBehaviour
 
                     if (distance < closestDistance)
                     {
-                        distance = closestDistance;
+                        closestDistance = distance;
                         currentTarget = unit;
                     }
                 }
