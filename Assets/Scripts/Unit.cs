@@ -30,7 +30,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .5f;
+    private float acquireTargetCooldown = .1f;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -64,8 +64,13 @@ public class Unit : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-        // Else if hostile target is in range, attack them
-        else if (TargetInRange())
+    }
+
+    // FixedUpdate runs synchronized with Unity physics cycle
+    void FixedUpdate()
+    {
+        // If hostile target is in range, attack them
+        if (TargetInRange())
         {
             FightTarget();
         }
@@ -73,15 +78,8 @@ public class Unit : MonoBehaviour
         else         
         {
             AcquireTarget();
-        }
-    }
-
-    // FixedUpdate runs synchronized with Unity physics cycle
-    void FixedUpdate()
-    {
-        // If we have a target, but they are out of range, move towards them
-        if (currentTarget && !TargetInRange())
             MoveToTarget();
+        }
     }
 
     // Move towards current target
