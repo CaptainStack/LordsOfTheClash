@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    public float damage = 1f;
     public float speed = 1f;
 
-    // Projectile AOE radius
-    public float radius = .1f;
+    // Explosion triggered when target is reached
+    public Explosion explosionPrefab;
+
     // Faction of the projectile to prevent friendly-fire
     public Faction faction;
 
@@ -16,7 +16,6 @@ public class Projectile : MonoBehaviour
     public Vector3 target;
 
     public Rigidbody2D rigidbody;
-    public CircleCollider2D collider;
     public SpriteRenderer spriteRenderer;
     
     void Start()
@@ -28,14 +27,7 @@ public class Projectile : MonoBehaviour
             rigidbody.drag = 0.0f;
             rigidbody.gravityScale = 0.0f;
             rigidbody.freezeRotation = true;
-        }
-
-        // Add Collider
-        if (!collider)
-        {
-            collider = this.gameObject.AddComponent<CircleCollider2D>();
-            collider.radius = 0.3f;
-            collider.isTrigger = true;
+            rigidbody.isKinematic = true;
         }
 
         // Add Sprite
@@ -46,31 +38,23 @@ public class Projectile : MonoBehaviour
     void Update()
     {
         // Explode if projectile has reached target
-        if (rigidbody.OverlapPoint(target))
+        // (squared distance is way faster to calculate than regular magnitude)
+        if ((target - this.transform.position).sqrMagnitude < .1f)
         {
             Explode();
         }
-        // Otherwise, move towards target
-        else
-        {
-            MoveToTarget();
-        }
+    }
+
+    // FixedUpdate runs synchronized with Unity physics cycle
+    void FixedUpdate()
+    {
+        MoveToTarget();
     }
 
     void Explode()
     {
-        // Find targets in AOE
-        Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius);
-
-        foreach (Collider2D collider in collidersHit)
-        {
-            // Apply damage to units
-            Unit unit = collider.gameObject.GetComponent<Unit>();
-            if (unit && unit.faction != this.faction)
-            {
-                unit.health -= damage;
-            }
-        }
+        Explosion newExplosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+        newExplosion.faction = this.faction;
 
         // Destroy projectile
         Destroy(this.gameObject);

@@ -22,14 +22,15 @@ public class Unit : MonoBehaviour
     // Attack cooldown timer
     private float attackTimer;
 
-    // Direction unit is facing
-    protected Vector3 lookDirection;
-
     // Range of a unit's vision, used to find enemies
     public float visionRange = 20f;
 
     // The current enemy being attacked
     protected Unit currentTarget;
+
+    // Timer objects for acquiring a target, so we don't spam it (expensive computation)
+    private float acquireTargetTimer = 0f;
+    private float acquireTargetCooldown = .5f;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -38,7 +39,7 @@ public class Unit : MonoBehaviour
         if (!unitRigidBody)
         {
             unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
-            unitRigidBody.drag = 0.5f;
+            unitRigidBody.drag = 3f;
             unitRigidBody.gravityScale = 0.0f;
             unitRigidBody.freezeRotation = true;
         }
@@ -56,22 +57,41 @@ public class Unit : MonoBehaviour
     }
 
 	// Update is called once per frame
-	protected virtual void Update ()
+	void Update ()
     {
         // If dead, destroy self
         if (health <= 0f)
         {
             Destroy(this.gameObject);
         }
-        // Else if hostile target is in range, attack them
-        else if (TargetInRange())
+    }
+
+    // FixedUpdate runs synchronized with Unity physics cycle
+    void FixedUpdate()
+    {
+        // If hostile target is in range, attack them
+        if (TargetInRange())
         {
-            AttackTarget();
+            FightTarget();
         }
-        // Otherwise move to nearest hostile
-        else         {
+        // Otherwise find a hostile target
+        else         
+        {
             AcquireTarget();
             MoveToTarget();
+        }
+    }
+
+    // Move towards current target
+    void MoveToTarget()
+    {
+        if (currentTarget != null)
+        {
+            Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
+
+            // Accelerate in direction, up to max speed
+            if (this.unitRigidBody.velocity.magnitude < speed)
+                this.unitRigidBody.velocity += (Vector2)movementDir * .1f;
         }
     }
 
@@ -86,36 +106,39 @@ public class Unit : MonoBehaviour
     // Acquires a target
     void AcquireTarget()
     {
-        // Get the nearest target that doesn't match this unit's faction and set it as current target
-        float closestDistance = currentTarget ? (this.transform.position - currentTarget.transform.position).sqrMagnitude : float.MaxValue;
+        acquireTargetTimer -= Time.deltaTime;
 
-        // loops through all colliders in this unit's vision circle
-        foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange))
+        if (acquireTargetTimer <= 0f)
         {
-            Unit unit = collider.gameObject.GetComponent<Unit>();
+            acquireTargetTimer = acquireTargetCooldown;
 
-            if (unit && unit.faction != this.faction)
+            // Get the nearest target that doesn't match this unit's faction and set it as current target
+            float closestDistance = float.MaxValue;
+            currentTarget = null;
+
+            // loops through all colliders in this unit's vision circle
+            foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange))
             {
-                float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
+                Unit unit = collider.gameObject.GetComponent<Unit>();
 
-                if (distance < closestDistance)
+                if (unit && unit.faction != this.faction)
                 {
-                    distance = closestDistance;
-                    currentTarget = unit;
+                    float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
+
+                    if (distance < closestDistance)
+                    {
+                        closestDistance = distance;
+                        currentTarget = unit;
+                    }
                 }
             }
         }
     }
 
-    void AttackTarget()
+    // Fight the current target
+    void FightTarget()
     {
-        // Stop moving
-        this.unitRigidBody.velocity = Vector2.zero;
-
-        // Turn toward target
-        this.lookDirection = (this.transform.position - currentTarget.transform.position).normalized;
-
-        // Attack target
+        // Attack with a cooldown timer
         if (attackCooldown > 0f)
         {
             attackTimer -= Time.deltaTime;
@@ -127,19 +150,9 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // Attack current target
     protected virtual void Attack()
     {
         Debug.Log("Unit attacking target " + currentTarget);
-    }
-
-    // Move towards current target
-    void MoveToTarget()
-    {
-        if (currentTarget != null)
-        {
-            Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
-            this.unitRigidBody.velocity = movementDir * speed;
-            this.lookDirection = movementDir;
-        }
     }
 }

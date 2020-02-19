@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 824665569300923111}
   - component: {fileID: 1476881121787068464}
   m_Layer: 0
-  m_Name: Projectile
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,9 +45,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4f856e3fa93ecb44b3374a9d9cc994d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
   speed: 10
-  radius: 0.1
+  explosionPrefab: {fileID: 4838131356619756789, guid: c572969fa6fd6ad4eb3ed75ff00ab3f5,
+    type: 3}
+  faction: 0
   target: {x: 0, y: 0, z: 0}
   rigidbody: {fileID: 824665569300923111}
   collider: {fileID: 0}
