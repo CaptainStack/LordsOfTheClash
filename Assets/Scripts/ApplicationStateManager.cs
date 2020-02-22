@@ -5,11 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class ApplicationStateManager : MonoBehaviour
 {
-    bool pauseMenuOn;
-    GameObject pauseMenu;
-    GameObject player;
-    SceneController sceneController;
-    Unit[] units;
+    private bool pauseMenuOn;
+    private GameObject pauseMenu;
+    private GameObject player;
+    private SceneController sceneController;
+    private Unit[] units;
+    private float winLossTimer;
+    public float eliminationTime;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +25,14 @@ public class ApplicationStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        var winner = WinningFaction();
+        winLossTimer -= Time.deltaTime;
+        var winner = Faction.Neutral;
+
+        if (winLossTimer <= 0f)
+        {
+            winLossTimer = eliminationTime;
+            winner = WinningFaction();
+        }
 
         if (winner == Faction.Friendly)
         {
