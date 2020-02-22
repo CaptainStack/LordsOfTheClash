@@ -37,7 +37,9 @@ public class ApplicationStateManager : MonoBehaviour
         if (winner == Faction.Friendly)
         {
             sceneController.SwitchScene("MainMenu");
-        } else if (winner == Faction.Enemy) {
+        } 
+        else if (winner == Faction.Enemy) 
+        {
             sceneController.SwitchScene("GameOver");
         }
 
@@ -53,11 +55,14 @@ public class ApplicationStateManager : MonoBehaviour
 
     void TogglePauseMenu()
     {
-        if (pauseMenuOn) {
+        if (pauseMenuOn)
+        {
             pauseMenu.SetActive(false);
             player.SetActive(true);
             pauseMenuOn = false;
-        } else {
+        } 
+        else
+        {
             pauseMenu.SetActive(true);
             player.SetActive(false);
             pauseMenuOn = true;
@@ -75,7 +80,9 @@ public class ApplicationStateManager : MonoBehaviour
             if (unit.faction == Faction.Enemy)
             {
                 enemies++;
-            } else if (unit.faction == Faction.Friendly) {
+            }
+            else if (unit.faction == Faction.Friendly)
+            {
                 friends++;
             }
         }
@@ -83,9 +90,13 @@ public class ApplicationStateManager : MonoBehaviour
         if (enemies == 0)
         {
             return Faction.Friendly;
-        } else if (friends == 0) {
+        } 
+        else if (friends == 0)
+        {
             return Faction.Enemy;
-        } else {
+        } 
+        else
+        {
             return Faction.Neutral;
         }
     }
