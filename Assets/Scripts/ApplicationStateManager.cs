@@ -8,18 +8,30 @@ public class ApplicationStateManager : MonoBehaviour
     bool pauseMenuOn;
     GameObject pauseMenu;
     GameObject player;
+    SceneController sceneController;
+    Unit[] units;
+
     // Start is called before the first frame update
     void Start()
     {
+        sceneController = GetComponent<SceneController>();
         pauseMenu = this.transform.Find("PauseMenu").gameObject;
         pauseMenuOn = false;
-
         player = this.transform.Find("Player").gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        var winner = WinningFaction();
+
+        if (winner == Faction.Friendly)
+        {
+            sceneController.SwitchScene("MainMenu");
+        } else if (winner == Faction.Enemy) {
+            sceneController.SwitchScene("GameOver");
+        }
+
         if (Input.GetButtonDown("Cancel"))
         {
             TogglePauseMenu();
@@ -40,6 +52,32 @@ public class ApplicationStateManager : MonoBehaviour
             pauseMenu.SetActive(true);
             player.SetActive(false);
             pauseMenuOn = true;
+        }
+    }
+
+    Faction WinningFaction()
+    {
+        units = FindObjectsOfType<Unit>();
+        int enemies = 0;
+        int friends = 0;
+
+        foreach (Unit unit in units)
+        {
+            if (unit.faction == Faction.Enemy)
+            {
+                enemies++;
+            } else if (unit.faction == Faction.Friendly) {
+                friends++;
+            }
+        }
+
+        if (enemies == 0)
+        {
+            return Faction.Friendly;
+        } else if (friends == 0) {
+            return Faction.Enemy;
+        } else {
+            return Faction.Neutral;
         }
     }
 }
