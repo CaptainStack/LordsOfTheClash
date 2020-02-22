@@ -2,20 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Hero : MonoBehaviour
+public class HeroTest : MonoBehaviour
 {
     public int health;
+    public Transform cardParent;
     public List<Card> heroDeck;
-    public int heroValue; //used so card can tell which hero it came from
 
     void Start()
     {
-
+        foreach (Transform child in cardParent)
+        {
+            heroDeck.Add(child.GetComponent<Card>());
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+
     }
 }

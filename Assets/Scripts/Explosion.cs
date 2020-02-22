@@ -22,6 +22,7 @@ public class Explosion : MonoBehaviour
 
     void Explode()
     {
+        Debug.Log("Explode");
         // Find targets in AOE
         Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius);
 
