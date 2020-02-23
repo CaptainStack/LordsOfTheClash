@@ -92,7 +92,6 @@ public class Player : MonoBehaviour
         {
             foreach (Card card in hero.heroDeck)
             {
-                card.heroValue = hero.heroValue; //tells you which hero card came from
                 playerDeck.Add(card);
             }
         }
