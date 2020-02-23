@@ -54,6 +54,25 @@ public class Unit : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+
+        InitializeUnitFaction();
+    }
+
+    void InitializeUnitFaction()
+    {
+        switch (faction)
+        {
+            case Faction.Friendly:
+                spriteRenderer.color = Color.green;
+            break;
+            case Faction.Neutral:
+                spriteRenderer.color = Color.yellow;
+            break;
+            case Faction.Enemy:
+                spriteRenderer.color = Color.red;
+            break;
+        }
+        this.gameObject.layer = LayerMask.NameToLayer(faction.ToString());
     }
 
 	// Update is called once per frame
@@ -116,12 +135,15 @@ public class Unit : MonoBehaviour
             float closestDistance = float.MaxValue;
             currentTarget = null;
 
+            // bit mask that specifies all layers other than this faction's layer
+            int targetLayer = ~(1 << this.gameObject.layer);
+
             // loops through all colliders in this unit's vision circle
-            foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange))
+            foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange, targetLayer))
             {
                 Unit unit = collider.gameObject.GetComponent<Unit>();
 
-                if (unit && unit.faction != this.faction)
+                if (unit)
                 {
                     float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
 
