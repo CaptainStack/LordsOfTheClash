@@ -23,13 +23,17 @@ public class Explosion : MonoBehaviour
     void Explode()
     {
         // Find targets in AOE
-        Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius);
+
+        // bit mask that specifies all layers other than this faction's layer
+        int targetLayer = ~(1 << LayerMask.NameToLayer(faction.ToString()));
+
+        Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer);
 
         foreach (Collider2D collider in collidersHit)
         {
             // Apply damage and impact force to units
             Unit unit = collider.gameObject.GetComponent<Unit>();
-            if (unit && unit.faction != this.faction)
+            if (unit)
             {
                 unit.health -= damage;
 
