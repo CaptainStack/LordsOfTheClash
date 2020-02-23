@@ -14,11 +14,13 @@ public class Player : MonoBehaviour
     public Text deckText;
     
     public float currentMana;
+    public int cardSelected; //player input on button click determines which card is selected
     float timer;
+    
 
-    public List<Hero> heroes = new List<Hero>(); //need to find a way to fill this with heroes.
-    List<Card> playerDeck = new List<Card>();
-    List<Card> playerHand = new List<Card>(); //Cards in player's hand
+    public List<Hero> heroes = new List<Hero>();
+    public List<Card> playerDeck = new List<Card>();
+    public List<Card> playerHand = new List<Card>(); //Cards in player's hand
 
     void Start()
     {
@@ -64,10 +66,10 @@ public class Player : MonoBehaviour
     //Make public to call from UI?
     public void UseCard() 
     {
-        if (currentMana >= playerHand[0].manaCost)
+        if (currentMana >= playerHand[cardSelected].manaCost)
         {
-            currentMana -= playerHand[0].manaCost;
-            playerHand[0].DoCardAction();
+            currentMana -= playerHand[cardSelected].manaCost;
+            playerHand[cardSelected].DoCardAction();
             RemoveCardFromHand();
             DrawCardFromDeck();
         }
@@ -75,13 +77,13 @@ public class Player : MonoBehaviour
 
     void RemoveCardFromHand()
     {
-        playerDeck.Add(playerHand[0]);
-        playerHand.RemoveAt(0);
+        playerDeck.Add(playerHand[cardSelected]);
+        playerHand.RemoveAt(cardSelected);
     }
     void DrawCardFromDeck()
     {
-        playerHand.Add(playerDeck[0]);
-        playerDeck.RemoveAt(0);
+        playerHand.Add(playerDeck[cardSelected]);
+        playerDeck.RemoveAt(cardSelected);
     }
 
     void FillDeck()
@@ -113,4 +115,17 @@ public class Player : MonoBehaviour
             playerDeck[placementIndex] = temp;
         }
     }
+
+    public void SelectCard0() //on button click select card 0
+    {
+        cardSelected = 0;
+        Debug.Log(playerHand[cardSelected].name);
+    }
+
+    public void SelectCard1() //on button click select card 1
+    {
+        cardSelected = 1;
+        Debug.Log(playerHand[cardSelected].name);
+    }
+
 }
