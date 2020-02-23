@@ -247,7 +247,6 @@ MonoBehaviour:
   cardName: SummonCard
   manaCost: 1
   effect: {fileID: 1275192642}
-  heroValue: 0
 --- !u!1 &216778426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1160,6 +1159,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c770739e3059b49a2655aec1cc1c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  eliminationTime: 0
 --- !u!4 &561456956
 Transform:
   m_ObjectHideFlags: 0
@@ -2299,7 +2299,6 @@ MonoBehaviour:
   cardName: Fireball
   manaCost: 1
   effect: {fileID: 1551445606}
-  heroValue: 0
 --- !u!1001 &1119383782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2761,7 +2760,7 @@ MonoBehaviour:
   spellDamage: 0
   healPower: 0
   radius: 1
-  impactForce: 100
+  impactForce: 0
   explosionPrefab: {fileID: 4838131356619756789, guid: ab172e4b12d0922428aca31993e15c64,
     type: 3}
 --- !u!4 &1275192643
@@ -3683,7 +3682,6 @@ MonoBehaviour:
   - {fileID: 1115034695}
   - {fileID: 1115034695}
   - {fileID: 214661328}
-  heroValue: 0
 --- !u!1001 &1843945764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3801,7 +3799,6 @@ MonoBehaviour:
   cardName: Freeze
   manaCost: 1
   effect: {fileID: 1573706532}
-  heroValue: 0
 --- !u!4 &1871059491
 Transform:
   m_ObjectHideFlags: 0

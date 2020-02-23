@@ -38,7 +38,7 @@ public class Effect : MonoBehaviour
         {
             explosionPrefab.damage = spellDamage;
             explosionPrefab.radius = radius;
-            explosionPrefab.faction = Faction.Neutral;
+            explosionPrefab.faction = Faction.Friendly;
             explosionPrefab.impactForce = impactForce;
             Explosion newExplosion = Instantiate(explosionPrefab, point, Quaternion.identity);
         }
