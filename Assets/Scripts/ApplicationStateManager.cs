@@ -60,12 +60,14 @@ public class ApplicationStateManager : MonoBehaviour
             pauseMenu.SetActive(false);
             player.SetActive(true);
             pauseMenuOn = false;
+            Time.timeScale = 1.0f;
         } 
         else
         {
             pauseMenu.SetActive(true);
             player.SetActive(false);
             pauseMenuOn = true;
+            Time.timeScale = 0.0f;
         }
     }
 
