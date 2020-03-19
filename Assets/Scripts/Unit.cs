@@ -19,6 +19,10 @@ public class Unit : MonoBehaviour
     public float attackCooldown = 1f;
     public Faction faction = Faction.Neutral;
 
+    // Is this unit a building, and should it only target units that are buildings
+    public bool isBuilding = false;
+    public bool onlyTargetBuildings = false;
+
     // Attack cooldown timer
     private float attackTimer;
 
@@ -30,7 +34,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .5f;
+    private float acquireTargetCooldown = .33f;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -39,7 +43,7 @@ public class Unit : MonoBehaviour
         if (!unitRigidBody)
         {
             unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
-            unitRigidBody.drag = 3f;
+            unitRigidBody.drag = 5f;
             unitRigidBody.gravityScale = 0.0f;
             unitRigidBody.freezeRotation = true;
         }
@@ -48,7 +52,7 @@ public class Unit : MonoBehaviour
         if (!unitCollider)
         {
             unitCollider = this.gameObject.AddComponent<CircleCollider2D>();
-            unitCollider.radius = 0.1f;
+            unitCollider.radius = 0.09f;
         }
 
         // Add Sprite
@@ -117,9 +121,15 @@ public class Unit : MonoBehaviour
     // Checks if the current target is alive and in range
     bool TargetInRange()
     {
-        return currentTarget != null
-            && currentTarget.health >= 0f
-            && attackRange >= (this.transform.position - currentTarget.transform.position).magnitude; // check if in range
+        if (currentTarget == null)
+            return false;
+
+        // Compute distance to target, adjusting for unit radius and scale factor
+        float distanceToTarget = (this.transform.position - currentTarget.transform.position).magnitude;
+        distanceToTarget -= this.unitCollider.radius * this.transform.localScale.x;
+        distanceToTarget -= currentTarget.unitCollider.radius * currentTarget.transform.localScale.x;
+
+        return attackRange >= distanceToTarget; // check if in range
     }
 
     // Acquires a target
@@ -143,7 +153,7 @@ public class Unit : MonoBehaviour
             {
                 Unit unit = collider.gameObject.GetComponent<Unit>();
 
-                if (unit)
+                if (IsValidTarget(unit))
                 {
                     float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
 
@@ -157,16 +167,27 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // Check if the given unit is a valid target for this unit
+    protected virtual bool IsValidTarget(Unit target)
+    {
+        if (!target)
+            return false;
+        
+        if (onlyTargetBuildings && !target.isBuilding)
+            return false;
+
+        return true;
+    }
+
     // Fight the current target
     void FightTarget()
     {
         // Attack with a cooldown timer
         if (attackCooldown > 0f)
         {
-            attackTimer -= Time.deltaTime;
-            if (attackTimer <= 0.0f)
+            if (Time.time > attackTimer)
             {
-                attackTimer = attackCooldown;
+                attackTimer = Time.time + attackCooldown;
                 Attack();
             }
         }
@@ -175,6 +196,8 @@ public class Unit : MonoBehaviour
     // Attack current target
     protected virtual void Attack()
     {
-        Debug.Log("Unit attacking target " + currentTarget);
+        // No-op, implement attack behavior in derived class
+
+        //Debug.Log("Unit attacking target " + currentTarget);
     }
 }

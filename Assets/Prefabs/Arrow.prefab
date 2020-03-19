@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2218057220283464128}
   - component: {fileID: 2218057220283464135}
-  - component: {fileID: 824665569300923111}
   - component: {fileID: 1476881121787068464}
   m_Layer: 0
   m_Name: Arrow
@@ -50,30 +49,8 @@ MonoBehaviour:
     type: 3}
   faction: 0
   target: {x: 0, y: 0, z: 0}
-  rigidbody: {fileID: 824665569300923111}
-  collider: {fileID: 0}
+  rigidbody2d: {fileID: 0}
   spriteRenderer: {fileID: 1476881121787068464}
---- !u!50 &824665569300923111
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2218057220283464129}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!212 &1476881121787068464
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -15,19 +15,19 @@ public class Projectile : MonoBehaviour
     // Position projectile is targetting
     public Vector3 target;
 
-    public Rigidbody2D rigidbody;
+    public Rigidbody2D rigidbody2d;
     public SpriteRenderer spriteRenderer;
     
     void Start()
     {
         // Add RigidBody2D
-        if (!rigidbody)
+        if (!rigidbody2d)
         {
-            rigidbody = this.gameObject.AddComponent<Rigidbody2D>();
-            rigidbody.drag = 0.0f;
-            rigidbody.gravityScale = 0.0f;
-            rigidbody.freezeRotation = true;
-            rigidbody.isKinematic = true;
+            rigidbody2d = this.gameObject.AddComponent<Rigidbody2D>();
+            rigidbody2d.drag = 0.0f;
+            rigidbody2d.gravityScale = 0.0f;
+            rigidbody2d.freezeRotation = true;
+            rigidbody2d.isKinematic = true;
         }
 
         // Add Sprite
@@ -64,6 +64,6 @@ public class Projectile : MonoBehaviour
     void MoveToTarget()
     {
         Vector3 movementDir = (target - this.transform.position).normalized;
-        rigidbody.velocity = movementDir * speed;
+        rigidbody2d.velocity = movementDir * speed;
     }
 }
