@@ -15,7 +15,8 @@ The following outline is a work in progress and subject to change.
 ## Supported Input devices
 * Touch
 * Controller
-* Mouse/keyboard
+* Mouse
+* Keyboard
 
 ## Gameplay modes
 ### Single player
