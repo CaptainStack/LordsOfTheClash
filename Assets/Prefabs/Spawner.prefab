@@ -114,11 +114,13 @@ MonoBehaviour:
   unitRigidBody: {fileID: 7007956205973345828}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 6350482638282968217}
-  health: 10
+  health: 50
   speed: 0
   attackRange: 1
   attackCooldown: 1
   faction: 0
+  isBuilding: 1
+  onlyTargetBuildings: 0
   visionRange: 20
 --- !u!50 &7007956205973345828
 Rigidbody2D:
