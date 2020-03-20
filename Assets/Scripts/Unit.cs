@@ -36,8 +36,11 @@ public class Unit : MonoBehaviour
     private float acquireTargetTimer = 0f;
     private float acquireTargetCooldown = .33f;
 
-    // UnitEffects active on this unit (DoT, Freeze, Stun, etc)
-    private List<UnitEffect> activeEffects;
+    // UnitEffects active on this unit (DoT, HoT, Freeze, Stun, etc)
+    public List<UnitEffect> activeEffects;
+
+    // The number of requests to disable this unit's AI (for stun, freeze)
+    private float disableAICount = 0f;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -96,6 +99,10 @@ public class Unit : MonoBehaviour
     // FixedUpdate runs synchronized with Unity physics cycle
     void FixedUpdate()
     {
+        // Check if Unit AI has been disabled
+        if (disableAICount > 0)
+            return;
+
         // If hostile target is in range, attack them
         if (TargetInRange())
         {
@@ -207,5 +214,31 @@ public class Unit : MonoBehaviour
     protected virtual void Attack()
     {
         // No-op, implement attack behavior in derived class
+    }
+
+    // Applies an active effect (buff or debuff) to this unit
+    public void ApplyEffect(UnitEffect effect)
+    {
+        effect.target = this;
+        effect.transform.parent = this.transform;
+        activeEffects.Append(effect);
+    }
+
+    // Disables unit AI until ResumeAI has been called the same number of times
+    public void DisableAI()
+    {
+        disableAICount++;
+    }
+
+    // Resumes the unit AI, but must be called the same number of times as DisableAI
+    public void ResumeAI()
+    {
+        if (disableAICount == 0)
+        {
+            Debug.Log("Error: ResumeAI called before DisableAI");
+            return;
+        }
+
+        disableAICount--;
     }
 }

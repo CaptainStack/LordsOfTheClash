@@ -56,7 +56,7 @@ MonoBehaviour:
   isBuilding: 0
   onlyTargetBuildings: 0
   visionRange: 20
-  attackDamage: 3
+  attackDamage: 5
 --- !u!212 &5792965055255907238
 SpriteRenderer:
   m_ObjectHideFlags: 0

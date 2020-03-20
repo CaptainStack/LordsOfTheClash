@@ -8,8 +8,11 @@ public class UnitEffect : MonoBehaviour
     // Target Unit the effect acts upon
     public Unit target;
 
-    // Duration of the effect
+    // Duration of the effect. 0 for instant
     public float duration = 0;
+
+    // If true, the effect does not expire (this overrides duration)
+    public bool permanent = false;
 
     // Frequency of the effect. 0 or less disables periodic updates
     public float frequency = 0;
@@ -33,20 +36,22 @@ public class UnitEffect : MonoBehaviour
         }
 
         expirationTime = Time.time + duration;
-        StartEffect();
+        OnEffectStart();
     }
 
     void Update()
     {
-        if (Time.time > expirationTime)
+        // End expiring effects
+        if (!permanent && Time.time > expirationTime)
         {
             EndEffect();
         }
 
+        // Periodic effects
         if (frequency > 0 && Time.time >= nextPeriodicUpdate)
         {
             nextPeriodicUpdate = Time.time + frequency;
-            UpdateEffect();
+            OnEffectUpdate();
         }
     }
 
