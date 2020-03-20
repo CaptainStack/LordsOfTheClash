@@ -23,18 +23,21 @@ public class Unit : MonoBehaviour
     public bool isBuilding = false;
     public bool onlyTargetBuildings = false;
 
-    // Attack cooldown timer
-    private float attackTimer;
-
     // Range of a unit's vision, used to find enemies
     public float visionRange = 20f;
 
     // The current enemy being attacked
     protected Unit currentTarget;
 
+    // Attack cooldown timer
+    private float attackTimer;
+
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
     private float acquireTargetCooldown = .33f;
+
+    // UnitEffects active on this unit (DoT, Freeze, Stun, etc)
+    private List<UnitEffect> activeEffects;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -62,6 +65,7 @@ public class Unit : MonoBehaviour
         InitializeUnitFaction();
     }
 
+    // Sets the sprite color and layer mask for this unit's faction
     void InitializeUnitFaction()
     {
         switch (faction)
@@ -203,7 +207,5 @@ public class Unit : MonoBehaviour
     protected virtual void Attack()
     {
         // No-op, implement attack behavior in derived class
-
-        //Debug.Log("Unit attacking target " + currentTarget);
     }
 }
