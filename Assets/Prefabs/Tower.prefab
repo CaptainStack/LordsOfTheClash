@@ -108,6 +108,7 @@ MonoBehaviour:
   visionRange: 20
   projectilePrefab: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
     type: 3}
+  accuracy: 95
 --- !u!50 &7447516554118617201
 Rigidbody2D:
   serializedVersion: 4

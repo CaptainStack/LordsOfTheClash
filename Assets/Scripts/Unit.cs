@@ -112,6 +112,12 @@ public class Unit : MonoBehaviour
         {
             Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
 
+            // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
+            // (this also makes unit movement feel more organic)
+            Vector3 normal = Vector3.Cross(movementDir, Vector3.forward);
+            movementDir += normal * Random.Range(-1f, 1f);
+            movementDir = movementDir.normalized;
+
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.magnitude < speed)
                 this.unitRigidBody.velocity += (Vector2)movementDir * .1f;
