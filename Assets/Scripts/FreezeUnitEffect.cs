@@ -10,13 +10,13 @@ public class FreezeUnitEffect : UnitEffect
     protected override void OnEffectStart()
     {
         // Apply freeze to target by disabling its AI
-        target.DisableAI();
+        unit.DisableAI();
     }
 
     // What to do at the end of the effect
     protected override void OnEffectEnd()
     {
         // Remove freeze from target by resuming its AI
-        target.ResumeAI();
+        unit.ResumeAI();
     }
 }

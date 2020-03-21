@@ -39,7 +39,7 @@ public class Projectile : MonoBehaviour
     {
         // Explode if projectile has reached target
         // (squared distance is way faster to calculate than regular magnitude)
-        if ((target - this.transform.position).sqrMagnitude < .1f)
+        if ((target - this.transform.position).sqrMagnitude < .01f)
         {
             Explode();
         }

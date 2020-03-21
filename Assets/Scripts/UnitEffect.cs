@@ -6,7 +6,7 @@ using UnityEngine;
 public class UnitEffect : MonoBehaviour
 {
     // Target Unit the effect acts upon
-    public Unit target;
+    public Unit unit;
 
     // Duration of the effect. 0 for instant
     public float duration = 0;
@@ -23,9 +23,9 @@ public class UnitEffect : MonoBehaviour
 
     void Start()
     {
-        if (!target)
+        if (!unit)
         {
-            Debug.Log("Error: UnitEffect has no target");
+            Debug.Log("Error: UnitEffect has no target unit");
             Destroy(this.gameObject);
         }
 

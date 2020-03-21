@@ -101,7 +101,10 @@ public class Unit : MonoBehaviour
     {
         // Check if Unit AI has been disabled
         if (disableAICount > 0)
+        {
+            currentTarget = null;
             return;
+        }
 
         // If hostile target is in range, attack them
         if (TargetInRange())
@@ -219,7 +222,7 @@ public class Unit : MonoBehaviour
     // Applies an active effect (buff or debuff) to this unit
     public void ApplyEffect(UnitEffect effect)
     {
-        effect.target = this;
+        effect.unit = this;
         effect.transform.parent = this.transform;
         activeEffects.Append(effect);
     }

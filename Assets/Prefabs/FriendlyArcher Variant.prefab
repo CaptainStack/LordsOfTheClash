@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4050315290549432321, guid: eeaafd06c4944d24cabd9a4fd22b9373,
         type: 3}
       propertyPath: m_Name
-      value: FriendlyArcher
+      value: FriendlyArcher Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4050315290549432323, guid: eeaafd06c4944d24cabd9a4fd22b9373,
         type: 3}
@@ -25,7 +25,7 @@ PrefabInstance:
     - target: {fileID: 4050315290549432323, guid: eeaafd06c4944d24cabd9a4fd22b9373,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.6685133
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4050315290549432323, guid: eeaafd06c4944d24cabd9a4fd22b9373,
         type: 3}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6177818219099412929}
   - component: {fileID: 4838131356619756789}
   m_Layer: 0
-  m_Name: ArrowImpact
+  m_Name: ArrowImpact 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e34aa0fe1d4b4644ca57597a0aeb3c85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0.1
-  faction: 0
-  damage: 5
-  impactForce: 0
+  radius: 2
+  faction: 1
+  damage: 1
+  impactForce: 25
