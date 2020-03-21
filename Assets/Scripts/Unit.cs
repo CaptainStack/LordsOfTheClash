@@ -34,7 +34,10 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .25f;
+    private float acquireTargetCooldown = .1f;
+
+    // The current search size factor being applied to the unit's vision range.
+    private float visionSizeFactor = .1f;  
 
     // The number of requests to disable this unit's AI (for stun, freeze)
     private float disableAICount = 0f;
@@ -177,7 +180,7 @@ public class Unit : MonoBehaviour
             int targetLayer = ~(1 << this.gameObject.layer);
 
             // loops through all colliders in this unit's vision circle
-            foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange, targetLayer))
+            foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange * visionSizeFactor, targetLayer))
             {
                 Unit unit = collider.gameObject.GetComponent<Unit>();
 
@@ -192,6 +195,16 @@ public class Unit : MonoBehaviour
                     }
                 }
             }
+
+
+            // Target acquisition works via pings that incrementally expand out until a target is found.
+            // This makes it faster because it ignores far away targets.
+
+            // Depending on whether or not we found a target, adjust the vision search area
+            if (currentTarget && visionSizeFactor > .1f)
+                visionSizeFactor -= .1f;
+            else if (!currentTarget && visionSizeFactor < 1f)
+                visionSizeFactor += .1f;
         }
     }
 
