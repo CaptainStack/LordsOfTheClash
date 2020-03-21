@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3069252791627576519}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.159625, y: -0.51902807, z: -2.6685133}
+  m_LocalPosition: {x: 9.159625, y: -0.51902807, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -48,7 +48,7 @@ MonoBehaviour:
   unitRigidBody: {fileID: 7367976320967762439}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 5792965055255907238}
-  health: 25
+  health: 30
   speed: 0.5
   attackRange: 0.1
   attackCooldown: 1
@@ -56,7 +56,8 @@ MonoBehaviour:
   isBuilding: 0
   onlyTargetBuildings: 0
   visionRange: 20
-  attackDamage: 3
+  activeEffects: []
+  attackDamage: 5
 --- !u!212 &5792965055255907238
 SpriteRenderer:
   m_ObjectHideFlags: 0

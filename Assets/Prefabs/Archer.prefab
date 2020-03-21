@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4050315290549432321}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9.159625, y: -0.51902807, z: -2.6685133}
+  m_LocalPosition: {x: 9.159625, y: -0.51902807, z: 0}
   m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -100,12 +100,13 @@ MonoBehaviour:
   spriteRenderer: {fileID: 4812393539773779808}
   health: 5
   speed: 1
-  attackRange: 3
-  attackCooldown: 2
+  attackRange: 2.5
+  attackCooldown: 3
   faction: 0
   isBuilding: 0
   onlyTargetBuildings: 0
   visionRange: 20
+  activeEffects: []
   projectilePrefab: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
     type: 3}
   accuracy: 90

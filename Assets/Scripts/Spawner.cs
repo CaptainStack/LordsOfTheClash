@@ -15,6 +15,7 @@ public class Spawner : MonoBehaviour
 
     // Time remaining until next spawn
     private float timeUntilNextSpawn;
+    private bool isEnabled = true;
 
     // Start is called before the first frame update
     void Start()
@@ -25,14 +26,27 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timeUntilNextSpawn -= Time.deltaTime;
-
-        if (timeUntilNextSpawn <= 0f)
+        if (isEnabled)
         {
-            timeUntilNextSpawn = respawnCooldown;
+            timeUntilNextSpawn -= Time.deltaTime;
 
-            Vector3 spawnPosition = this.transform.position + spawnPositionOffset;
-            Unit newUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+            if (timeUntilNextSpawn <= 0f)
+            {
+                timeUntilNextSpawn = respawnCooldown;
+
+                Vector3 spawnPosition = this.transform.position + spawnPositionOffset;
+                Unit newUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+            }
         }
+    }
+
+    public void Enable()
+    {
+        isEnabled = true;
+    }
+
+    public void Disable()
+    {
+        isEnabled = false;
     }
 }

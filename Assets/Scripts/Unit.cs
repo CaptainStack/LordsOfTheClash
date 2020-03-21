@@ -23,18 +23,21 @@ public class Unit : MonoBehaviour
     public bool isBuilding = false;
     public bool onlyTargetBuildings = false;
 
-    // Attack cooldown timer
-    private float attackTimer;
-
     // Range of a unit's vision, used to find enemies
     public float visionRange = 20f;
 
     // The current enemy being attacked
     protected Unit currentTarget;
 
+    // Attack cooldown timer
+    private float attackTimer;
+
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .33f;
+    private float acquireTargetCooldown = .25f;
+
+    // The number of requests to disable this unit's AI (for stun, freeze)
+    private float disableAICount = 0f;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -62,6 +65,7 @@ public class Unit : MonoBehaviour
         InitializeUnitFaction();
     }
 
+    // Sets the sprite color and layer mask for this unit's faction
     void InitializeUnitFaction()
     {
         switch (faction)
@@ -92,6 +96,15 @@ public class Unit : MonoBehaviour
     // FixedUpdate runs synchronized with Unity physics cycle
     void FixedUpdate()
     {
+        // Check if Unit AI has been disabled
+        if (disableAICount > 0)
+        {
+            currentTarget = null;
+            DisableSpawners();
+            return;
+        }
+        EnableSpawners(); // Enable spawners, in case they were disabled above
+
         // If hostile target is in range, attack them
         if (TargetInRange())
         {
@@ -203,7 +216,45 @@ public class Unit : MonoBehaviour
     protected virtual void Attack()
     {
         // No-op, implement attack behavior in derived class
+    }
 
-        //Debug.Log("Unit attacking target " + currentTarget);
+    // Disables unit AI until ResumeAI has been called the same number of times
+    public void DisableAI()
+    {
+        disableAICount++;
+    }
+
+    // Resumes the unit AI, but must be called the same number of times as DisableAI
+    public void ResumeAI()
+    {
+        if (disableAICount == 0)
+        {
+            Debug.Log("Error: ResumeAI called before DisableAI");
+            return;
+        }
+
+        disableAICount--;
+    }
+
+    // Disables all spawner components attached to this unit
+    private void DisableSpawners()
+    {
+        Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
+
+        foreach (Spawner spawner in spawners)
+        {
+            spawner.Disable();
+        }
+    }
+
+    // Enables all spawner components attached to this unit
+    private void EnableSpawners()
+    {
+        Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
+
+        foreach (Spawner spawner in spawners)
+        {
+            spawner.Enable();
+        }
     }
 }
