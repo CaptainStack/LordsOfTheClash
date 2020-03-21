@@ -91,11 +91,7 @@ public class Unit : MonoBehaviour
         {
             Destroy(this.gameObject);
         }
-    }
 
-    // FixedUpdate runs synchronized with Unity physics cycle
-    void FixedUpdate()
-    {
         // Check if Unit AI has been disabled
         if (disableAICount > 0)
         {
@@ -114,6 +110,19 @@ public class Unit : MonoBehaviour
         else         
         {
             AcquireTarget();
+        }
+    }
+
+    // FixedUpdate runs synchronized with Unity physics cycle
+    void FixedUpdate()
+    {
+        // Check if Unit AI has been disabled
+        if (disableAICount > 0)
+            return;
+
+        // If hostile target is out of range, move toward them
+        if (!TargetInRange())
+        {
             MoveToTarget();
         }
     }
