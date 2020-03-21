@@ -17,6 +17,8 @@ public class Projectile : MonoBehaviour
 
     public Rigidbody2D rigidbody2d;
     public SpriteRenderer spriteRenderer;
+
+    private float detonationTimer = 0f;
     
     void Start()
     {
@@ -33,13 +35,14 @@ public class Projectile : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+
+        MoveToTarget();
     }
 
     void Update()
     {
         // Explode if projectile has reached target
-        // (squared distance is way faster to calculate than regular magnitude)
-        if ((target - this.transform.position).sqrMagnitude < .01f)
+        if (Time.time > detonationTimer)
         {
             Explode();
         }
@@ -48,7 +51,6 @@ public class Projectile : MonoBehaviour
     // FixedUpdate runs synchronized with Unity physics cycle
     void FixedUpdate()
     {
-        MoveToTarget();
     }
 
     void Explode()
@@ -63,7 +65,10 @@ public class Projectile : MonoBehaviour
     // Move towards target
     void MoveToTarget()
     {
-        Vector3 movementDir = (target - this.transform.position).normalized;
-        rigidbody2d.velocity = movementDir * speed;
+        Vector3 movementVector = target - this.transform.position; 
+        Vector3 direction = (movementVector).normalized;
+        rigidbody2d.velocity = direction * speed;
+
+        detonationTimer = Time.time + movementVector.magnitude / speed;
     }
 }
