@@ -101,7 +101,7 @@ MonoBehaviour:
   health: 500
   speed: 0
   attackRange: 5
-  attackCooldown: 0.5
+  attackCooldown: 0.33
   faction: 0
   isBuilding: 1
   onlyTargetBuildings: 0

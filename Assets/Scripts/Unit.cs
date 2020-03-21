@@ -103,8 +103,10 @@ public class Unit : MonoBehaviour
         if (disableAICount > 0)
         {
             currentTarget = null;
+            DisableSpawners();
             return;
         }
+        EnableSpawners(); // Enable spawners, in case they were disabled above
 
         // If hostile target is in range, attack them
         if (TargetInRange())
@@ -243,5 +245,27 @@ public class Unit : MonoBehaviour
         }
 
         disableAICount--;
+    }
+
+    // Disables all spawner components attached to this unit
+    private void DisableSpawners()
+    {
+        Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
+
+        foreach (Spawner spawner in spawners)
+        {
+            spawner.Disable();
+        }
+    }
+
+    // Enables all spawner components attached to this unit
+    private void EnableSpawners()
+    {
+        Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
+
+        foreach (Spawner spawner in spawners)
+        {
+            spawner.Enable();
+        }
     }
 }
