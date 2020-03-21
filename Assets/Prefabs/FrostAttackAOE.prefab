@@ -45,5 +45,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 2
   faction: 1
-  freezeUnitEffect: {fileID: 4095678542826476781, guid: 889b829c9dd1343478cad12953e104ec,
-    type: 3}
+  duration: 4

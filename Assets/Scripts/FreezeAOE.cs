@@ -4,20 +4,18 @@ using UnityEngine;
 
 public class FreezeAOE : AreaOfEffect
 {
-    public FreezeUnitEffect freezeUnitEffect;
+    // Duration of the freeze
+    public float duration = 1f;
 
     // Action for this area of effect
     protected override void AreaOfEffectAction()
     {
-        if (freezeUnitEffect)
-        {
-            List<Unit> enemiesHit = ComputeEnemyTargets();
+        List<Unit> enemiesHit = ComputeEnemyTargets();
 
-            foreach(Unit unit in enemiesHit)
-            {
-                FreezeUnitEffect freezeEffect = Instantiate(freezeUnitEffect, unit.transform.position, Quaternion.identity);
-                unit.ApplyEffect(freezeEffect);
-            }
+        foreach(Unit unit in enemiesHit)
+        {
+            FreezeUnitEffect freezeUnitEffect = unit.gameObject.AddComponent<FreezeUnitEffect>();
+            freezeUnitEffect.duration = duration;
         }
     }
 }

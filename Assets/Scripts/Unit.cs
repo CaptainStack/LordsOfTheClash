@@ -34,10 +34,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .33f;
-
-    // UnitEffects active on this unit (DoT, HoT, Freeze, Stun, etc)
-    public List<UnitEffect> activeEffects;
+    private float acquireTargetCooldown = .25f;
 
     // The number of requests to disable this unit's AI (for stun, freeze)
     private float disableAICount = 0f;
@@ -219,14 +216,6 @@ public class Unit : MonoBehaviour
     protected virtual void Attack()
     {
         // No-op, implement attack behavior in derived class
-    }
-
-    // Applies an active effect (buff or debuff) to this unit
-    public void ApplyEffect(UnitEffect effect)
-    {
-        effect.unit = this;
-        effect.transform.parent = this.transform;
-        activeEffects.Append(effect);
     }
 
     // Disables unit AI until ResumeAI has been called the same number of times

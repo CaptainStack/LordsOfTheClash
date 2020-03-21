@@ -5,8 +5,6 @@ using UnityEngine;
 // An active effect on a unit (buff or debuff)
 public class UnitEffect : MonoBehaviour
 {
-    // Target Unit the effect acts upon
-    public Unit unit;
 
     // Duration of the effect. 0 for instant
     public float duration = 0;
@@ -16,6 +14,9 @@ public class UnitEffect : MonoBehaviour
 
     // Frequency of the effect. 0 or less disables periodic updates
     public float frequency = 0;
+    
+    // Target Unit the effect acts upon
+    protected Unit unit;
 
     // Timers for effect expiration, and periodic updates
     private float expirationTime = 0;
@@ -23,9 +24,10 @@ public class UnitEffect : MonoBehaviour
 
     void Start()
     {
+        unit = gameObject.GetComponent<Unit>();
         if (!unit)
         {
-            Debug.Log("Error: UnitEffect has no target unit");
+            Debug.Log("Error: UnitEffect component not attached to a unit");
             Destroy(this.gameObject);
         }
 
@@ -59,7 +61,7 @@ public class UnitEffect : MonoBehaviour
     public void EndEffect()
     {
         OnEffectEnd();
-        Destroy(this.gameObject);
+        Destroy(this);
     }
 
     // What to do at the start of the effect
