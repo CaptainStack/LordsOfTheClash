@@ -15,7 +15,7 @@ public class FreezeAOE : AreaOfEffect
 
             foreach(Unit unit in enemiesHit)
             {
-                FreezeUnitEffect freezeEffect = Instantiate(freezeUnitEffect, this.transform.position, Quaternion.identity);
+                FreezeUnitEffect freezeEffect = Instantiate(freezeUnitEffect, unit.transform.position, Quaternion.identity);
                 unit.ApplyEffect(freezeEffect);
             }
         }
