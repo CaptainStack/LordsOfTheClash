@@ -228,7 +228,7 @@ public class Unit : MonoBehaviour
                 currentTarget = closestTarget;
                 currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
             }
-            else if (!closestTarget) // If no target found in the search, search a little farther
+            else // If no target found in the search, search a little farther
             {
                 currentSearchRange *= 2f;
             }
