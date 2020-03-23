@@ -69,6 +69,7 @@ public class Projectile : MonoBehaviour
         Vector3 direction = (movementVector).normalized;
         rigidbody2d.velocity = direction * speed;
 
+        // Set detonation timer for when the projectile will arrive
         detonationTimer = Time.time + movementVector.magnitude / speed;
     }
 }

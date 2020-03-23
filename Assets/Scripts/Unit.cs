@@ -34,13 +34,20 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .1f;
+    private float acquireTargetCooldown = .25f;
 
-    // The current search size factor being applied to the unit's vision range.
-    private float visionSizeFactor = .1f;  
+    // The current range at which the unit is searching for units
+    private float currentSearchRange;
+
 
     // The number of requests to disable this unit's AI (for stun, freeze)
     private float disableAICount = 0f;
+
+    // Keep track of squared measurements for faster vector sqrMagnitude comparisons (faster than regular magnitude)
+    private float prevSpeed;
+    private float sqrSpeed;
+    private float prevRange;
+    private float sqrRange;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -64,6 +71,8 @@ public class Unit : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+
+        currentSearchRange = visionRange * .125f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
     }
@@ -109,8 +118,7 @@ public class Unit : MonoBehaviour
         {
             FightTarget();
         }
-        // Otherwise find a hostile target
-        else         
+        else
         {
             AcquireTarget();
         }
@@ -135,6 +143,13 @@ public class Unit : MonoBehaviour
     {
         if (currentTarget != null)
         {
+            // Recompute sqrSpeed if unit speed changed
+            if (speed != prevSpeed)
+            {
+                prevSpeed = speed;
+                sqrSpeed = speed * speed;
+            }
+
             Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
 
             // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
@@ -144,7 +159,7 @@ public class Unit : MonoBehaviour
             movementDir = movementDir.normalized;
 
             // Accelerate in direction, up to max speed
-            if (this.unitRigidBody.velocity.magnitude < speed)
+            if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
                 this.unitRigidBody.velocity += (Vector2)movementDir * .1f;
         }
     }
@@ -155,13 +170,23 @@ public class Unit : MonoBehaviour
         if (currentTarget == null)
             return false;
 
-        // Compute distance to target, adjusting for unit radius and scale factor
-        float distanceToTarget = (this.transform.position - currentTarget.transform.position).magnitude;
-        distanceToTarget -= this.unitCollider.radius * this.transform.localScale.x;
-        distanceToTarget -= currentTarget.unitCollider.radius * currentTarget.transform.localScale.x;
+        // Recompute sqrRange if attack range changed
+        if (attackRange != prevRange)
+        {
+            prevRange = attackRange;
+            sqrRange = attackRange * attackRange;
+        }
 
-        return attackRange >= distanceToTarget; // check if in range
+        // Compute distance to target (squared), adjusting for unit radius and scale factor
+        float sqrDistanceToTarget = (this.transform.position - currentTarget.transform.position).sqrMagnitude;
+        float colliderRadiusAdjust = this.unitCollider.radius * this.transform.localScale.x;
+        colliderRadiusAdjust += currentTarget.unitCollider.radius * currentTarget.transform.localScale.x;
+        sqrDistanceToTarget -= colliderRadiusAdjust * colliderRadiusAdjust;
+
+        return sqrRange >= sqrDistanceToTarget; // check if in range
     }
+
+    Collider2D[] visibleColliders = new Collider2D[1000]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
 
     // Acquires a target
     void AcquireTarget()
@@ -173,16 +198,17 @@ public class Unit : MonoBehaviour
             acquireTargetTimer = acquireTargetCooldown;
 
             // Get the nearest target that doesn't match this unit's faction and set it as current target
+            Unit closestTarget = null;
             float closestDistance = float.MaxValue;
-            currentTarget = null;
 
             // bit mask that specifies all layers other than this faction's layer
             int targetLayer = ~(1 << this.gameObject.layer);
 
             // loops through all colliders in this unit's vision circle
-            foreach (Collider2D collider in Physics2D.OverlapCircleAll(this.transform.position, visionRange * visionSizeFactor, targetLayer))
+            int numColliders = Physics2D.OverlapCircleNonAlloc(this.transform.position, Mathf.Min(currentSearchRange, visionRange), visibleColliders, targetLayer);
+            for (int i = 0; i < numColliders; i++)
             {
-                Unit unit = collider.gameObject.GetComponent<Unit>();
+                Unit unit = visibleColliders[i].gameObject.GetComponent<Unit>();
 
                 if (IsValidTarget(unit))
                 {
@@ -191,20 +217,21 @@ public class Unit : MonoBehaviour
                     if (distance < closestDistance)
                     {
                         closestDistance = distance;
-                        currentTarget = unit;
+                        closestTarget = unit;
                     }
                 }
             }
 
-
-            // Target acquisition works via pings that incrementally expand out until a target is found.
-            // This makes it faster because it ignores far away targets.
-
-            // Depending on whether or not we found a target, adjust the vision search area
-            if (currentTarget && visionSizeFactor > .1f)
-                visionSizeFactor -= .1f;
-            else if (!currentTarget && visionSizeFactor < 1f)
-                visionSizeFactor += .1f;
+            // Set currentTarget to closest target (if found), and adjust the vision search range
+            if (closestTarget)
+            {
+                currentTarget = closestTarget;
+                currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
+            }
+            else if (!closestTarget) // If no target found in the search, search a little farther
+            {
+                currentSearchRange *= 2f;
+            }
         }
     }
 
