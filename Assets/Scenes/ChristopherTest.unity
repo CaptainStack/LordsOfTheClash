@@ -3249,6 +3249,8 @@ MonoBehaviour:
   - {fileID: 407159844}
   playerDeck: []
   playerHand: []
+  card1Audio: {fileID: 0}
+  card2Audio: {fileID: 0}
 --- !u!1001 &916118157
 PrefabInstance:
   m_ObjectHideFlags: 0

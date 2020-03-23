@@ -669,6 +669,8 @@ MonoBehaviour:
   - {fileID: 1810008610}
   playerDeck: []
   playerHand: []
+  card1Audio: {fileID: 0}
+  card2Audio: {fileID: 0}
 --- !u!212 &290773201
 SpriteRenderer:
   m_ObjectHideFlags: 0

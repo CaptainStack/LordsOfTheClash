@@ -22,6 +22,9 @@ public class Player : MonoBehaviour
     public List<Card> playerDeck = new List<Card>();
     public List<Card> playerHand = new List<Card>(); //Cards in player's hand
 
+    public AudioSource card1Audio; //played when Card 1 is selected
+    public AudioSource card2Audio;
+
     void Start()
     {
         FillDeck();
@@ -119,13 +122,19 @@ public class Player : MonoBehaviour
     public void SelectCard0() //on button click select card 0
     {
         cardSelected = 0;
-        Debug.Log(playerHand[cardSelected].name);
+        if (card1Audio != null)
+        {
+            card1Audio.Play(); 
+        }
     }
 
     public void SelectCard1() //on button click select card 1
     {
         cardSelected = 1;
-        Debug.Log(playerHand[cardSelected].name);
+        if(card2Audio != null)
+        {
+            card2Audio.Play(); 
+        }
     }
 
 }
