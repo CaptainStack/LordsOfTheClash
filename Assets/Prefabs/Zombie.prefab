@@ -56,7 +56,6 @@ MonoBehaviour:
   isBuilding: 0
   onlyTargetBuildings: 0
   visionRange: 20
-  activeEffects: []
   attackDamage: 5
 --- !u!212 &5792965055255907238
 SpriteRenderer:
