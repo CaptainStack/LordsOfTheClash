@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .125f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .1f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
     }
@@ -186,7 +186,7 @@ public class Unit : MonoBehaviour
         return sqrRange >= sqrDistanceToTarget; // check if in range
     }
 
-    Collider2D[] visibleColliders = new Collider2D[1000]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
+    Collider2D[] visibleColliders = new Collider2D[250]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
 
     // Acquires a target
     void AcquireTarget()
@@ -230,7 +230,7 @@ public class Unit : MonoBehaviour
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange *= 2f;
+                currentSearchRange += visionRange * .1f;
             }
         }
     }
