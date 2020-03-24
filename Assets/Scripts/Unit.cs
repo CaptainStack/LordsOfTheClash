@@ -229,7 +229,6 @@ public class Unit : MonoBehaviour
             {
                 Unit unit = visibleColliders[i].gameObject.GetComponent<Unit>();
 
-                //if (IsValidTarget(unit))
                 if (unit)
                 {
                     float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
