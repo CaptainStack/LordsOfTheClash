@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .25f;
+    private float acquireTargetCooldown = .5f;
 
     // The current range at which the unit is searching for units
     private float currentSearchRange;
@@ -72,9 +72,10 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .1f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .125f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
+        InitializeUnitDepth();
     }
 
     // Sets the sprite color and layer mask for this unit's faction
@@ -93,6 +94,14 @@ public class Unit : MonoBehaviour
             break;
         }
         this.gameObject.layer = LayerMask.NameToLayer(faction.ToString());
+    }
+
+    void InitializeUnitDepth()
+    {
+        if (isBuilding) // Buildings have foundations "below ground"
+            transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+        else // Regular units walk on the ground, so 0f
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
 	// Update is called once per frame
@@ -138,10 +147,14 @@ public class Unit : MonoBehaviour
         }
     }
 
+    Vector2 movementTarget = Vector2.zero;
     // Move towards current target
     void MoveToTarget()
     {
         if (currentTarget != null)
+            movementTarget = (Vector2)currentTarget.transform.position;
+        
+        if (!movementTarget.Equals(Vector2.zero))
         {
             // Recompute sqrSpeed if unit speed changed
             if (speed != prevSpeed)
@@ -150,7 +163,7 @@ public class Unit : MonoBehaviour
                 sqrSpeed = speed * speed;
             }
 
-            Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
+            Vector3 movementDir = (movementTarget - (Vector2)this.transform.position).normalized;
 
             // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
             // (this also makes unit movement feel more organic)
@@ -178,7 +191,7 @@ public class Unit : MonoBehaviour
         }
 
         // Compute distance to target (squared), adjusting for unit radius and scale factor
-        float sqrDistanceToTarget = (this.transform.position - currentTarget.transform.position).sqrMagnitude;
+        float sqrDistanceToTarget = ((Vector2)this.transform.position - (Vector2)currentTarget.transform.position).sqrMagnitude;
         float colliderRadiusAdjust = this.unitCollider.radius * this.transform.localScale.x;
         colliderRadiusAdjust += currentTarget.unitCollider.radius * currentTarget.transform.localScale.x;
         sqrDistanceToTarget -= colliderRadiusAdjust * colliderRadiusAdjust;
@@ -204,13 +217,17 @@ public class Unit : MonoBehaviour
             // bit mask that specifies all layers other than this faction's layer
             int targetLayer = ~(1 << this.gameObject.layer);
 
+            float minDepth = float.MinValue;
+            float maxDepth = onlyTargetBuildings ? -1f : float.MaxValue;
+
             // loops through all colliders in this unit's vision circle
-            int numColliders = Physics2D.OverlapCircleNonAlloc(this.transform.position, Mathf.Min(currentSearchRange, visionRange), visibleColliders, targetLayer);
+            int numColliders = Physics2D.OverlapCircleNonAlloc(this.transform.position, Mathf.Min(currentSearchRange, visionRange), visibleColliders, targetLayer, minDepth, maxDepth);
             for (int i = 0; i < numColliders; i++)
             {
                 Unit unit = visibleColliders[i].gameObject.GetComponent<Unit>();
 
-                if (IsValidTarget(unit))
+                //if (IsValidTarget(unit))
+                if (unit)
                 {
                     float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
 
@@ -230,7 +247,7 @@ public class Unit : MonoBehaviour
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange += visionRange * .1f;
+                currentSearchRange *= 2;
             }
         }
     }
