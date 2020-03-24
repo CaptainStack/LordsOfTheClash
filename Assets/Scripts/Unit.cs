@@ -96,6 +96,7 @@ public class Unit : MonoBehaviour
         this.gameObject.layer = LayerMask.NameToLayer(faction.ToString());
     }
 
+    // Sets the z depth for this unit
     void InitializeUnitDepth()
     {
         if (isBuilding) // Buildings have foundations "below ground"
