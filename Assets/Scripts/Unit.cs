@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .5f;
+    private float acquireTargetCooldown = .25f;
 
     // The current range at which the unit is searching for units
     private float currentSearchRange;
@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .125f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .25f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
         InitializeUnitDepth();
@@ -126,6 +126,7 @@ public class Unit : MonoBehaviour
         // If hostile target is in range, attack them
         if (TargetInRange())
         {
+            movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
         }
         else
@@ -200,7 +201,7 @@ public class Unit : MonoBehaviour
         return sqrRange >= sqrDistanceToTarget; // check if in range
     }
 
-    Collider2D[] visibleColliders = new Collider2D[250]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
+    Collider2D[] visibleColliders = new Collider2D[100]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
 
     // Acquires a target
     void AcquireTarget()
@@ -210,7 +211,7 @@ public class Unit : MonoBehaviour
         if (acquireTargetTimer <= 0f)
         {
             // Next AcquireTarget time, plus a tiny amount of variance (distributes engine processing load)
-            acquireTargetTimer = acquireTargetCooldown + Random.Range(0f, .25f);
+            acquireTargetTimer = acquireTargetCooldown + Random.Range(0f, .05f);
 
             // Get the nearest target that doesn't match this unit's faction and set it as current target
             Unit closestTarget = null;
@@ -246,10 +247,11 @@ public class Unit : MonoBehaviour
             {
                 currentTarget = closestTarget;
                 currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
+                acquireTargetTimer *= 2; // Delay next target acquisition if this one was successful
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange *= 2;
+                currentSearchRange *= 1.25f;
             }
         }
     }
