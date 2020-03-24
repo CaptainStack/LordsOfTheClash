@@ -257,18 +257,6 @@ public class Unit : MonoBehaviour
         }
     }
 
-    // Check if the given unit is a valid target for this unit
-    protected virtual bool IsValidTarget(Unit target)
-    {
-        if (!target)
-            return false;
-        
-        if (onlyTargetBuildings && !target.isBuilding)
-            return false;
-
-        return true;
-    }
-
     // Fight the current target
     void FightTarget()
     {
