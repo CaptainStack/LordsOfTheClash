@@ -149,8 +149,8 @@ public class Unit : MonoBehaviour
         }
     }
 
-    Vector2 movementTarget = Vector2.zero;
     // Move towards current target
+    Vector2 movementTarget = Vector2.zero;
     void MoveToTarget()
     {
         if (currentTarget != null)
@@ -201,9 +201,8 @@ public class Unit : MonoBehaviour
         return sqrRange >= sqrDistanceToTarget; // check if in range
     }
 
-    Collider2D[] visibleColliders = new Collider2D[100]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
-
     // Acquires a target
+    Collider2D[] visibleColliders = new Collider2D[1000]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
     void AcquireTarget()
     {
         acquireTargetTimer -= Time.deltaTime;
@@ -252,7 +251,7 @@ public class Unit : MonoBehaviour
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange *= 1.25f;
+                currentSearchRange += visionRange * .1f;
             }
         }
     }
