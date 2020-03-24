@@ -72,9 +72,10 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .1f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .25f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
+        InitializeUnitDepth();
     }
 
     // Sets the sprite color and layer mask for this unit's faction
@@ -93,6 +94,15 @@ public class Unit : MonoBehaviour
             break;
         }
         this.gameObject.layer = LayerMask.NameToLayer(faction.ToString());
+    }
+
+    // Sets the z depth for this unit
+    void InitializeUnitDepth()
+    {
+        if (isBuilding) // Buildings have foundations "below ground"
+            transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+        else // Regular units walk on the ground, so 0f
+            transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
     }
 
 	// Update is called once per frame
@@ -116,6 +126,7 @@ public class Unit : MonoBehaviour
         // If hostile target is in range, attack them
         if (TargetInRange())
         {
+            movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
         }
         else
@@ -138,10 +149,14 @@ public class Unit : MonoBehaviour
         }
     }
 
+    Vector2 movementTarget = Vector2.zero;
     // Move towards current target
     void MoveToTarget()
     {
         if (currentTarget != null)
+            movementTarget = (Vector2)currentTarget.transform.position;
+        
+        if (!movementTarget.Equals(Vector2.zero))
         {
             // Recompute sqrSpeed if unit speed changed
             if (speed != prevSpeed)
@@ -150,7 +165,7 @@ public class Unit : MonoBehaviour
                 sqrSpeed = speed * speed;
             }
 
-            Vector3 movementDir = (currentTarget.transform.position - this.transform.position).normalized;
+            Vector3 movementDir = (movementTarget - (Vector2)this.transform.position).normalized;
 
             // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
             // (this also makes unit movement feel more organic)
@@ -178,7 +193,7 @@ public class Unit : MonoBehaviour
         }
 
         // Compute distance to target (squared), adjusting for unit radius and scale factor
-        float sqrDistanceToTarget = (this.transform.position - currentTarget.transform.position).sqrMagnitude;
+        float sqrDistanceToTarget = ((Vector2)this.transform.position - (Vector2)currentTarget.transform.position).sqrMagnitude;
         float colliderRadiusAdjust = this.unitCollider.radius * this.transform.localScale.x;
         colliderRadiusAdjust += currentTarget.unitCollider.radius * currentTarget.transform.localScale.x;
         sqrDistanceToTarget -= colliderRadiusAdjust * colliderRadiusAdjust;
@@ -186,7 +201,7 @@ public class Unit : MonoBehaviour
         return sqrRange >= sqrDistanceToTarget; // check if in range
     }
 
-    Collider2D[] visibleColliders = new Collider2D[250]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
+    Collider2D[] visibleColliders = new Collider2D[100]; // Used to store visible units' colliders when acquiring a target (avoid frequent alloc)
 
     // Acquires a target
     void AcquireTarget()
@@ -195,7 +210,8 @@ public class Unit : MonoBehaviour
 
         if (acquireTargetTimer <= 0f)
         {
-            acquireTargetTimer = acquireTargetCooldown;
+            // Next AcquireTarget time, plus a tiny amount of variance (distributes engine processing load)
+            acquireTargetTimer = acquireTargetCooldown + Random.Range(0f, .05f);
 
             // Get the nearest target that doesn't match this unit's faction and set it as current target
             Unit closestTarget = null;
@@ -204,13 +220,17 @@ public class Unit : MonoBehaviour
             // bit mask that specifies all layers other than this faction's layer
             int targetLayer = ~(1 << this.gameObject.layer);
 
+            // z depth of units to target (to exclude buildings or ground/flying units)
+            float minDepth = float.MinValue;
+            float maxDepth = onlyTargetBuildings ? -1f : float.MaxValue;
+
             // loops through all colliders in this unit's vision circle
-            int numColliders = Physics2D.OverlapCircleNonAlloc(this.transform.position, Mathf.Min(currentSearchRange, visionRange), visibleColliders, targetLayer);
+            int numColliders = Physics2D.OverlapCircleNonAlloc(this.transform.position, Mathf.Min(currentSearchRange, visionRange), visibleColliders, targetLayer, minDepth, maxDepth);
             for (int i = 0; i < numColliders; i++)
             {
                 Unit unit = visibleColliders[i].gameObject.GetComponent<Unit>();
 
-                if (IsValidTarget(unit))
+                if (unit)
                 {
                     float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
 
@@ -227,24 +247,14 @@ public class Unit : MonoBehaviour
             {
                 currentTarget = closestTarget;
                 currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
+
+                acquireTargetTimer *= 2; // Delay next target acquisition if this one was successful
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange += visionRange * .1f;
+                currentSearchRange *= 1.25f;
             }
         }
-    }
-
-    // Check if the given unit is a valid target for this unit
-    protected virtual bool IsValidTarget(Unit target)
-    {
-        if (!target)
-            return false;
-        
-        if (onlyTargetBuildings && !target.isBuilding)
-            return false;
-
-        return true;
     }
 
     // Fight the current target

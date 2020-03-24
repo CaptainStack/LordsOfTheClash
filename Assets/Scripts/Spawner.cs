@@ -11,7 +11,7 @@ public class Spawner : MonoBehaviour
     public Unit unitToSpawn;
 
     // Offset from spawner's position to place spawned unit
-    public Vector3 spawnPositionOffset = new Vector3(0f, 0.1f);
+    private  Vector3 spawnPositionOffset = new Vector3(0f, 0.2f);
 
     // Time remaining until next spawn
     private float timeUntilNextSpawn;
@@ -32,7 +32,11 @@ public class Spawner : MonoBehaviour
 
             if (timeUntilNextSpawn <= 0f)
             {
-                timeUntilNextSpawn = respawnCooldown;
+                // Next spawn time, plus a tiny amount of variance (distributes engine processing load from pre-placed spawners)
+                timeUntilNextSpawn = respawnCooldown + Random.Range(0, .05f);
+
+                // Slightly offset spawn position to prevent units from "stacking"
+                Vector3 randomOffset = new Vector3(Random.Range(-.1f, .1f), Random.Range(-.1f, .1f), 0f);
 
                 Vector3 spawnPosition = this.transform.position + spawnPositionOffset;
                 Unit newUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
