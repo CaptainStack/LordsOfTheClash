@@ -220,6 +220,7 @@ public class Unit : MonoBehaviour
             // bit mask that specifies all layers other than this faction's layer
             int targetLayer = ~(1 << this.gameObject.layer);
 
+            // z depth of units to target (to exclude buildings or ground/flying units)
             float minDepth = float.MinValue;
             float maxDepth = onlyTargetBuildings ? -1f : float.MaxValue;
 
@@ -246,6 +247,7 @@ public class Unit : MonoBehaviour
             {
                 currentTarget = closestTarget;
                 currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
+
                 acquireTargetTimer *= 2; // Delay next target acquisition if this one was successful
             }
             else // If no target found in the search, search a little farther
