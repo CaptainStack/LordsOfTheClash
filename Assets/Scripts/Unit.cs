@@ -209,7 +209,8 @@ public class Unit : MonoBehaviour
 
         if (acquireTargetTimer <= 0f)
         {
-            acquireTargetTimer = acquireTargetCooldown;
+            // Next AcquireTarget time, plus a tiny amount of variance (distributes engine processing load)
+            acquireTargetTimer = acquireTargetCooldown + Random.Range(0f, .25f);
 
             // Get the nearest target that doesn't match this unit's faction and set it as current target
             Unit closestTarget = null;
