@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .1f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .25f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
         InitializeUnitDepth();
@@ -177,7 +177,7 @@ public class Unit : MonoBehaviour
                 movementDir += normal * Random.Range(-.33f, .33f);
                 movementDir = movementDir.normalized;
 
-                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
+                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .33f, ForceMode2D.Impulse);
             }
         }
     }
@@ -213,7 +213,7 @@ public class Unit : MonoBehaviour
         if (acquireTargetTimer <= 0f)
         {
             // Next AcquireTarget time, plus a tiny amount of variance (distributes engine processing load)
-            acquireTargetTimer = acquireTargetCooldown + Random.Range(0f, .05f);
+            acquireTargetTimer = acquireTargetCooldown + Random.Range(-.25f, .25f);
 
             // Get the nearest target that doesn't match this unit's faction and set it as current target
             Unit closestTarget = null;
@@ -258,8 +258,6 @@ public class Unit : MonoBehaviour
                 if (currentSearchRange < visionRange * .125f)
                     currentSearchRange += visionRange * .1f;
                 if (currentSearchRange < visionRange * .25f)
-                    currentSearchRange += visionRange * .05f;
-                else if (currentSearchRange < visionRange * .5f)
                     currentSearchRange += visionRange * .05f;
                 else if (currentSearchRange < visionRange * .75f)
                     currentSearchRange += visionRange * .025f;
