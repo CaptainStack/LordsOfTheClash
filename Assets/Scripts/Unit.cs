@@ -251,7 +251,17 @@ public class Unit : MonoBehaviour
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange += visionRange * .1f;
+                // Increase search range faster at short range, slower at long (to keep search area deltas about the same)
+                if (currentSearchRange < visionRange * .125f)
+                    currentSearchRange += visionRange * .1f;
+                if (currentSearchRange < visionRange * .25f)
+                    currentSearchRange += visionRange * .05f;
+                else if (currentSearchRange < visionRange * .5f)
+                    currentSearchRange += visionRange * .05f;
+                else if (currentSearchRange < visionRange * .75f)
+                    currentSearchRange += visionRange * .025f;
+                else
+                    currentSearchRange += visionRange * .01f;
             }
         }
     }
