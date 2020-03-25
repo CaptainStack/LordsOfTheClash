@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .25f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .1f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
         InitializeUnitDepth();
@@ -142,8 +142,15 @@ public class Unit : MonoBehaviour
         if (disableAICount > 0)
             return;
 
+        // Recompute sqrSpeed if unit speed changed
+        if (speed != prevSpeed)
+        {
+            prevSpeed = speed;
+            sqrSpeed = speed * speed;
+        }
+
         // If hostile target is out of range, move toward them
-        if (!TargetInRange())
+        if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed && !TargetInRange())
         {
             MoveToTarget();
         }
@@ -158,24 +165,20 @@ public class Unit : MonoBehaviour
         
         if (!movementTarget.Equals(Vector2.zero))
         {
-            // Recompute sqrSpeed if unit speed changed
-            if (speed != prevSpeed)
-            {
-                prevSpeed = speed;
-                sqrSpeed = speed * speed;
-            }
-
-            Vector3 movementDir = (movementTarget - (Vector2)this.transform.position).normalized;
-
-            // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
-            // (this also makes unit movement feel more organic)
-            Vector3 normal = Vector3.Cross(movementDir, Vector3.forward);
-            movementDir += normal * Random.Range(-1f, 1f);
-            movementDir = movementDir.normalized;
 
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
-                this.unitRigidBody.velocity += (Vector2)movementDir * .1f;
+            {
+                Vector3 movementDir = (movementTarget - (Vector2)this.transform.position).normalized;
+
+                // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
+                // (this also makes unit movement feel more organic)
+                Vector3 normal = Vector3.Cross(movementDir, Vector3.forward);
+                movementDir += normal * Random.Range(-.33f, .33f);
+                movementDir = movementDir.normalized;
+
+                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
+            }
         }
     }
 
@@ -305,24 +308,33 @@ public class Unit : MonoBehaviour
     }
 
     // Disables all spawner components attached to this unit
+    bool spawnersEnabled = true;
     private void DisableSpawners()
     {
-        Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
-
-        foreach (Spawner spawner in spawners)
+        if (spawnersEnabled)
         {
-            spawner.Disable();
+            Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
+
+            foreach (Spawner spawner in spawners)
+            {
+                spawner.Disable();
+            }
+
+            spawnersEnabled = false;
         }
     }
 
     // Enables all spawner components attached to this unit
     private void EnableSpawners()
     {
-        Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
-
-        foreach (Spawner spawner in spawners)
+        if (!spawnersEnabled)
         {
-            spawner.Enable();
+            Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
+
+            foreach (Spawner spawner in spawners)
+            {
+                spawner.Enable();
+            }
         }
     }
 }

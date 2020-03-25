@@ -4,7 +4,7 @@ using UnityEngine;
 
 public abstract class AreaOfEffect : MonoBehaviour
 {
-    public float radius = .1f;
+    public float radius = 1f;
     public Faction faction = Faction.Neutral;
 
 
@@ -30,7 +30,9 @@ public abstract class AreaOfEffect : MonoBehaviour
         // bit mask that specifies this faction's layer
         int targetLayer = 1 << LayerMask.NameToLayer(faction.ToString());
 
-        Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer);
+        Collider2D[] collidersHit = radius > 0 ?
+            Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer) :
+            Physics2D.OverlapPointAll(this.transform.position, targetLayer);
 
         return CollidersToUnits(collidersHit);
     }
@@ -41,7 +43,9 @@ public abstract class AreaOfEffect : MonoBehaviour
         // bit mask that specifies all layers other than this faction's layer
         int targetLayer = ~(1 << LayerMask.NameToLayer(faction.ToString()));
 
-        Collider2D[] collidersHit = Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer);
+        Collider2D[] collidersHit = radius > 0 ?
+            Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer) :
+            Physics2D.OverlapPointAll(this.transform.position, targetLayer);
 
         return CollidersToUnits(collidersHit);
     }
