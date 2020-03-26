@@ -236,7 +236,7 @@ public class Unit : MonoBehaviour
 
                 if (unit)
                 {
-                    float distance = (this.transform.position - unit.transform.position).sqrMagnitude;
+                    float distance = ((Vector2)this.transform.position - (Vector2)unit.transform.position).sqrMagnitude;
 
                     if (distance < closestDistance)
                     {
