@@ -10,6 +10,9 @@ public class Spawner : MonoBehaviour
     // Type of unit to spawn
     public Unit unitToSpawn;
 
+    // Faction fo units to spawn
+    public Faction faction;
+
     // Offset from spawner's position to place spawned unit
     private  Vector3 spawnPositionOffset = new Vector3(0f, 0.3f);
 
@@ -40,6 +43,7 @@ public class Spawner : MonoBehaviour
 
                 Vector3 spawnPosition = this.transform.position + spawnPositionOffset;
                 Unit newUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
+                newUnit.faction = faction;
             }
         }
     }

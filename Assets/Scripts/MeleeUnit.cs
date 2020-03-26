@@ -6,7 +6,7 @@ public class MeleeUnit : Unit
 
     override protected bool CanTargetFlying()
     {
-        return false;
+        return this.transform.position.z == -1 ? true : false;
     }
 
     override protected void Attack()

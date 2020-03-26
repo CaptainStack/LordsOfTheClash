@@ -28,6 +28,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 561224213952772499, guid: 228a69535b2618b4793d88bdd9172def,
         type: 3}
+    - target: {fileID: 1891474013956607276, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
+        type: 3}
+      propertyPath: faction
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1891474013956607277, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
         type: 3}
       propertyPath: m_Color.r
