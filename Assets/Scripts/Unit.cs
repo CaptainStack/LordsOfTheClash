@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .1f;
+    private float acquireTargetCooldown = .25f;
 
     // The current range at which the unit is searching for units
     private float currentSearchRange;
@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .05f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
         InitializeUnitDepth();
@@ -129,10 +129,6 @@ public class Unit : MonoBehaviour
             movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
         }
-        else
-        {
-            AcquireTarget();
-        }
     }
 
     // FixedUpdate runs synchronized with Unity physics cycle
@@ -152,6 +148,7 @@ public class Unit : MonoBehaviour
         // If hostile target is out of range, move toward them
         if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed && !TargetInRange())
         {
+            AcquireTarget();
             MoveToTarget();
         }
     }
@@ -177,7 +174,7 @@ public class Unit : MonoBehaviour
                 movementDir += normal * Random.Range(-.33f, .33f);
                 movementDir = movementDir.normalized;
 
-                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .33f, ForceMode2D.Impulse);
+                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
             }
         }
     }
@@ -250,11 +247,16 @@ public class Unit : MonoBehaviour
                 currentTarget = closestTarget;
                 currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
 
-                acquireTargetTimer *= 5; // Delay next target acquisition if this one was successful
+                acquireTargetTimer *= 2; // Delay next target acquisition if this one was successful
+            }
+            else if (currentSearchRange >= visionRange)
+            {
+                // If no target found in max vision range, delay the next search
+                acquireTargetTimer *= 4;
             }
             else // If no target found in the search, search a little farther
             {
-                currentSearchRange += visionRange * .05f;
+                currentSearchRange += visionRange * .1f;
             }
         }
     }
@@ -303,9 +305,7 @@ public class Unit : MonoBehaviour
     {
         if (spawnersEnabled)
         {
-            Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
-
-            foreach (Spawner spawner in spawners)
+            foreach (Spawner spawner in this.gameObject.GetComponents<Spawner>())
             {
                 spawner.Disable();
             }
@@ -319,12 +319,12 @@ public class Unit : MonoBehaviour
     {
         if (!spawnersEnabled)
         {
-            Spawner[] spawners = this.gameObject.GetComponents<Spawner>();
-
-            foreach (Spawner spawner in spawners)
+            foreach (Spawner spawner in this.gameObject.GetComponents<Spawner>())
             {
                 spawner.Enable();
             }
+
+            spawnersEnabled = true;
         }
     }
 }
