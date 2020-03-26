@@ -20,6 +20,9 @@ public class ApplicationStateManager : MonoBehaviour
         pauseMenu = this.transform.Find("PauseMenu").gameObject;
         pauseMenuOn = false;
         player = this.transform.Find("Player").gameObject;
+
+        // Target 60 fps
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
