@@ -18,7 +18,7 @@ public class Explosion : AreaOfEffect
 
             if (impactForce > 0f)
             {
-                Vector3 impactForceDirection = (unit.transform.position - this.transform.position).normalized;
+                Vector2 impactForceDirection = (Vector2)(unit.transform.position - this.transform.position).normalized;
                 unit.unitRigidBody.AddForce(impactForce * impactForceDirection, ForceMode2D.Impulse);
             }
         }
