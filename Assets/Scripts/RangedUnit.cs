@@ -8,6 +8,11 @@ public class RangedUnit : Unit
     // Accuracy of unit's projectiles (0 - 100 percent)
     public float accuracy = 100f;
 
+    override protected bool CanTargetFlying()
+    {
+        return true;
+    }
+
     override protected void Attack()
     {
         // Create a projectile and shoot it at the target
