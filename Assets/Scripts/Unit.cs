@@ -100,6 +100,8 @@ public class Unit : MonoBehaviour
     void InitializeUnitDepth()
     {
         if (isBuilding) // Buildings have foundations "below ground"
+            transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
+        else if (this.GetComponent<FlyingUnitEffect>())
             transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
         else // Regular units walk on the ground, so 0f
             transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
@@ -223,8 +225,8 @@ public class Unit : MonoBehaviour
             int targetLayer = ~(1 << this.gameObject.layer);
 
             // z depth of units to target (to exclude buildings or ground/flying units)
-            float minDepth = float.MinValue;
-            float maxDepth = onlyTargetBuildings ? -1f : float.MaxValue;
+            float minDepth = onlyTargetBuildings ? 1f : (CanTargetFlying() ? -1f : 0f);
+            float maxDepth = float.MaxValue;
 
             // loops through all colliders in this unit's vision circle
             int numColliders = Physics2D.OverlapCircleNonAlloc(this.transform.position, Mathf.Min(currentSearchRange, visionRange), visibleColliders, targetLayer, minDepth, maxDepth);
@@ -264,6 +266,12 @@ public class Unit : MonoBehaviour
         }
     }
 
+    // Whether this unit can target flying units or not
+    protected virtual bool CanTargetFlying()
+    {
+        return false;
+    }
+
     // Fight the current target
     void FightTarget()
     {
@@ -282,6 +290,13 @@ public class Unit : MonoBehaviour
     protected virtual void Attack()
     {
         // No-op, implement attack behavior in derived class
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        // Flying units should ignore collision, unless the collision is also at flying depth
+        if (collision.gameObject.transform.position.z == -1f && this.gameObject.transform.position.z != -1f)
+            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
     }
 
     // Disables unit AI until ResumeAI has been called the same number of times
