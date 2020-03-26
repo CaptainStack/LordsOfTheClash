@@ -9,8 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7008468588413812322}
+  - component: {fileID: -2539355857561956201}
   - component: {fileID: 1999465387186618625}
-  - component: {fileID: 1867141305330702806}
   - component: {fileID: 7447516554118617201}
   m_Layer: 0
   m_Name: Tower
@@ -33,6 +33,30 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &-2539355857561956201
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008468588413812320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9f9765e0bcdf242b6810f71b563aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitRigidBody: {fileID: 7447516554118617201}
+  unitCollider: {fileID: 0}
+  spriteRenderer: {fileID: 1999465387186618625}
+  health: 500
+  speed: 0
+  attackRange: 5
+  attackCooldown: 0.33
+  faction: 0
+  visionRange: 20
+  projectilePrefab: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
+    type: 3}
+  accuracy: 95
 --- !u!212 &1999465387186618625
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -83,33 +107,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1867141305330702806
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7008468588413812320}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4b3a7c75ead644641a3540488479bf27, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitRigidBody: {fileID: 7447516554118617201}
-  unitCollider: {fileID: 0}
-  spriteRenderer: {fileID: 1999465387186618625}
-  health: 500
-  speed: 0
-  attackRange: 5
-  attackCooldown: 0.33
-  faction: 0
-  isBuilding: 1
-  onlyTargetBuildings: 0
-  visionRange: 20
-  activeEffects: []
-  projectilePrefab: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
-    type: 3}
-  accuracy: 95
 --- !u!50 &7447516554118617201
 Rigidbody2D:
   serializedVersion: 4

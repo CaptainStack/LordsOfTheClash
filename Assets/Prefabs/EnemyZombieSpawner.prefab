@@ -7,6 +7,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6233425753943681051, guid: dea63cad88941a64db2cee5b850632c8,
+        type: 3}
+      propertyPath: faction
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 6350482638282968214, guid: dea63cad88941a64db2cee5b850632c8,
         type: 3}
       propertyPath: faction

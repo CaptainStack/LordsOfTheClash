@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6350482638282968219}
   - component: {fileID: 6350482638282968216}
   - component: {fileID: 6350482638282968217}
-  - component: {fileID: 6350482638282968214}
+  - component: {fileID: 6233425753943681051}
   - component: {fileID: 7007956205973345828}
   m_Layer: 0
   m_Name: Spawner
@@ -48,6 +48,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnCooldown: 1
   unitToSpawn: {fileID: 0}
+  faction: 0
 --- !u!212 &6350482638282968217
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -98,7 +99,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6350482638282968214
+--- !u!114 &6233425753943681051
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +108,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6350482638282968215}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d678dfddd78141c47bcf22f94e953c04, type: 3}
+  m_Script: {fileID: 11500000, guid: 7e9f9765e0bcdf242b6810f71b563aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   unitRigidBody: {fileID: 7007956205973345828}
@@ -115,12 +116,12 @@ MonoBehaviour:
   spriteRenderer: {fileID: 6350482638282968217}
   health: 20
   speed: 0
-  attackRange: 1
-  attackCooldown: 1
+  attackRange: 0
+  attackCooldown: 0
   faction: 0
-  isBuilding: 1
-  onlyTargetBuildings: 0
   visionRange: 20
+  projectilePrefab: {fileID: 0}
+  accuracy: 100
 --- !u!50 &7007956205973345828
 Rigidbody2D:
   serializedVersion: 4

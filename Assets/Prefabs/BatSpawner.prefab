@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5956910301850967338}
   - component: {fileID: 5956910301850967337}
+  - component: {fileID: 4833260904744711934}
   - component: {fileID: 5956910301850967336}
-  - component: {fileID: 5956910301850967335}
   - component: {fileID: 7767305288534476693}
   m_Layer: 0
   m_Name: BatSpawner
@@ -49,6 +49,30 @@ MonoBehaviour:
   respawnCooldown: 1
   unitToSpawn: {fileID: 3222733063021698110, guid: f22580056aef4cc488fb00be860d5099,
     type: 3}
+  faction: 0
+--- !u!114 &4833260904744711934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5956910301850967334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e9f9765e0bcdf242b6810f71b563aa6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitRigidBody: {fileID: 7767305288534476693}
+  unitCollider: {fileID: 0}
+  spriteRenderer: {fileID: 5956910301850967336}
+  health: 20
+  speed: 0
+  attackRange: 0
+  attackCooldown: 0
+  faction: 0
+  visionRange: 20
+  projectilePrefab: {fileID: 0}
+  accuracy: 100
 --- !u!212 &5956910301850967336
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -99,29 +123,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &5956910301850967335
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5956910301850967334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d678dfddd78141c47bcf22f94e953c04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitRigidBody: {fileID: 7767305288534476693}
-  unitCollider: {fileID: 0}
-  spriteRenderer: {fileID: 5956910301850967336}
-  health: 20
-  speed: 0
-  attackRange: 1
-  attackCooldown: 1
-  faction: 0
-  isBuilding: 1
-  onlyTargetBuildings: 0
-  visionRange: 20
 --- !u!50 &7767305288534476693
 Rigidbody2D:
   serializedVersion: 4

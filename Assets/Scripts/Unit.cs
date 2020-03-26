@@ -19,10 +19,6 @@ public class Unit : MonoBehaviour
     public float attackCooldown = 1f;
     public Faction faction = Faction.Neutral;
 
-    // Is this unit a building, and should it only target units that are buildings
-    public bool isBuilding = false;
-    public bool onlyTargetBuildings = false;
-
     // Range of a unit's vision, used to find enemies
     public float visionRange = 20f;
 
@@ -97,11 +93,9 @@ public class Unit : MonoBehaviour
     }
 
     // Sets the z depth for this unit
-    void InitializeUnitDepth()
+    protected virtual void InitializeUnitDepth()
     {
-        if (isBuilding) // Buildings have foundations "below ground"
-            transform.position = new Vector3(transform.position.x, transform.position.y, 1f);
-        else if (this.GetComponent<FlyingUnitEffect>())
+        if (this.GetComponent<FlyingUnitEffect>()) // Flying units are above ground / outward from screen, so they have negative z value
             transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
         else // Regular units walk on the ground, so 0f
             transform.position = new Vector3(transform.position.x, transform.position.y, 0f);
@@ -225,7 +219,7 @@ public class Unit : MonoBehaviour
             int targetLayer = ~(1 << this.gameObject.layer);
 
             // z depth of units to target (to exclude buildings or ground/flying units)
-            float minDepth = onlyTargetBuildings ? 1f : (CanTargetFlying() ? -1f : 0f);
+            float minDepth = OnlyTargetBuildings() ? 1f : (CanTargetFlying() ? -1f : 0f);
             float maxDepth = float.MaxValue;
 
             // loops through all colliders in this unit's vision circle
@@ -256,8 +250,7 @@ public class Unit : MonoBehaviour
             }
             else if (currentSearchRange >= visionRange)
             {
-                // If no target found in max vision range, delay the next search
-                acquireTargetTimer *= 4;
+                acquireTargetTimer *= 4; // Delay the next search if no target found in max vision range
             }
             else // If no target found in the search, search a little farther
             {
@@ -268,6 +261,12 @@ public class Unit : MonoBehaviour
 
     // Whether this unit can target flying units or not
     protected virtual bool CanTargetFlying()
+    {
+        return false;
+    }
+
+    // Returns true if this unit can only target buildings
+    protected virtual bool OnlyTargetBuildings()
     {
         return false;
     }
