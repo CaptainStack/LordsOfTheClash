@@ -50,7 +50,7 @@ MonoBehaviour:
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 6216621718652412766}
   health: 1
-  speed: 0.5
+  speed: 0.75
   attackRange: 0.1
   attackCooldown: 1
   faction: 0
