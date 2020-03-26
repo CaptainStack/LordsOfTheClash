@@ -129,6 +129,10 @@ public class Unit : MonoBehaviour
             movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
         }
+        else
+        {
+            AcquireTarget();
+        }
     }
 
     // FixedUpdate runs synchronized with Unity physics cycle
@@ -145,10 +149,9 @@ public class Unit : MonoBehaviour
             sqrSpeed = speed * speed;
         }
 
-        // If hostile target is out of range, move toward them
+        // If hostile target is out of range, move toward them (unless we're at max speed already)
         if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed && !TargetInRange())
         {
-            AcquireTarget();
             MoveToTarget();
         }
     }
