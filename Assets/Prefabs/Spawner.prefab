@@ -48,7 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   respawnCooldown: 1
   unitToSpawn: {fileID: 0}
-  spawnPositionOffset: {x: 0, y: 0.2, z: 0}
 --- !u!212 &6350482638282968217
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -114,7 +113,7 @@ MonoBehaviour:
   unitRigidBody: {fileID: 7007956205973345828}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 6350482638282968217}
-  health: 50
+  health: 20
   speed: 0
   attackRange: 1
   attackCooldown: 1

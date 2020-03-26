@@ -45,5 +45,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   radius: 0
   faction: 0
-  damage: 3
+  damage: 5
   impactForce: 0
