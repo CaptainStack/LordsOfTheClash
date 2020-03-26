@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
 
     // Timer objects for acquiring a target, so we don't spam it (expensive computation)
     private float acquireTargetTimer = 0f;
-    private float acquireTargetCooldown = .25f;
+    private float acquireTargetCooldown = .1f;
 
     // The current range at which the unit is searching for units
     private float currentSearchRange;
@@ -72,7 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
 
-        currentSearchRange = visionRange * .25f; // initial range for the unit to search for targets
+        currentSearchRange = visionRange * .05f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
         InitializeUnitDepth();
@@ -250,19 +250,11 @@ public class Unit : MonoBehaviour
                 currentTarget = closestTarget;
                 currentSearchRange = (closestTarget.transform.position - this.transform.position).magnitude;
 
-                acquireTargetTimer *= 2; // Delay next target acquisition if this one was successful
+                acquireTargetTimer *= 5; // Delay next target acquisition if this one was successful
             }
             else // If no target found in the search, search a little farther
             {
-                // Increase search range faster at short range, slower at long (to keep search area deltas about the same)
-                if (currentSearchRange < visionRange * .125f)
-                    currentSearchRange += visionRange * .1f;
-                if (currentSearchRange < visionRange * .25f)
-                    currentSearchRange += visionRange * .05f;
-                else if (currentSearchRange < visionRange * .75f)
-                    currentSearchRange += visionRange * .025f;
-                else
-                    currentSearchRange += visionRange * .01f;
+                currentSearchRange += visionRange * .05f;
             }
         }
     }
