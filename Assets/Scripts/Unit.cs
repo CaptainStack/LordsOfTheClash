@@ -75,7 +75,7 @@ public class Unit : MonoBehaviour
     }
 
     // Sets the sprite color and layer mask for this unit's faction
-    void InitializeUnitFaction()
+    public void InitializeUnitFaction()
     {
         switch (faction)
         {
@@ -89,7 +89,12 @@ public class Unit : MonoBehaviour
                 spriteRenderer.color = Color.red;
             break;
         }
-        this.gameObject.layer = LayerMask.NameToLayer(faction.ToString());
+        this.gameObject.layer = GetFactionLayer();
+    }
+
+    private int GetFactionLayer()
+    {
+        return LayerMask.NameToLayer(faction.ToString());
     }
 
     // Sets the z depth for this unit
@@ -216,7 +221,7 @@ public class Unit : MonoBehaviour
             float closestDistance = float.MaxValue;
 
             // bit mask that specifies all layers other than this faction's layer
-            int targetLayer = ~(1 << this.gameObject.layer);
+            int targetLayer = ~(1 << GetFactionLayer());
 
             // z depth of units to target (to exclude buildings or ground/flying units)
             float minDepth = OnlyTargetBuildings() ? 1f : (CanTargetFlying() ? -1f : 0f);
@@ -228,7 +233,7 @@ public class Unit : MonoBehaviour
             {
                 Unit unit = visibleColliders[i].gameObject.GetComponent<Unit>();
 
-                if (unit)
+                if (unit && unit.faction != faction)
                 {
                     float distance = ((Vector2)this.transform.position - (Vector2)unit.transform.position).sqrMagnitude;
 
@@ -289,13 +294,6 @@ public class Unit : MonoBehaviour
     protected virtual void Attack()
     {
         // No-op, implement attack behavior in derived class
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        // Flying units should ignore collision, unless the collision is also at flying depth
-        if (collision.gameObject.transform.position.z == -1f && this.gameObject.transform.position.z != -1f)
-            Physics2D.IgnoreCollision(collision.collider, collision.otherCollider);
     }
 
     // Disables unit AI until ResumeAI has been called the same number of times
