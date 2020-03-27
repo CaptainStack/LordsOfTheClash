@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 4717939206548815867}
   - component: {fileID: 4717939206548815866}
   - component: {fileID: 4717939206548815865}
+  - component: {fileID: -1295662817628789195}
   m_Layer: 5
   m_Name: StartGameButton
   m_TagString: Untagged
@@ -207,6 +208,17 @@ MonoBehaviour:
           m_StringArgument: Game
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: -1295662817628789195}
+        m_MethodName: PlayButtonPressedSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4717939206548815865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,5 +229,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 038e56fae2af1694182d273e1dec1474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-1295662817628789195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4717939206548815871}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

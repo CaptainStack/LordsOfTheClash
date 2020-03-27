@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 3316764756728272725}
   - component: {fileID: 2350734289514807698}
   - component: {fileID: 4419728723687806811}
+  - component: {fileID: 1804814575373954084}
   m_Layer: 5
   m_Name: MainMenuButton
   m_TagString: Untagged
@@ -207,6 +208,17 @@ MonoBehaviour:
           m_StringArgument: MainMenu
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1804814575373954084}
+        m_MethodName: PlayButtonPressedSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &4419728723687806811
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -217,5 +229,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 038e56fae2af1694182d273e1dec1474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1804814575373954084
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8009526517596289211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

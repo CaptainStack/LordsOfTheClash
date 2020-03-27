@@ -1,0 +1,83 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8400463774212043441
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8400463774212043440}
+  - component: {fileID: 8400463774212043443}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8400463774212043440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400463774212043441}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 526.29266, y: 305.9258, z: -14374.667}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8400463774212043443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8400463774212043441}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1535ce2f464b1ee45aa8b53aedf9ecb3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneMusic: TitleMusic
+  sounds:
+  - name: TitleMusic
+    clip: {fileID: 8300000, guid: ea232a0990e7d2248bf5e89eacca6f86, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -7916884844803139098, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
+  - name: BattleMusic
+    clip: {fileID: 8300000, guid: 26350f10b712512488e12d4f18776c73, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -7916884844803139098, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
+  - name: UIClick
+    clip: {fileID: 8300000, guid: 40e49d509487ea2428e5adae9f55bcd5, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
+  - name: ButtonClicked
+    clip: {fileID: 8300000, guid: 22eebfdeea6f9c44d90a2cfae501679c, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
+  - name: Shoot
+    clip: {fileID: 8300000, guid: ebba89536c33cd4439b8e06a30af5082, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
+  - name: Explosion
+    clip: {fileID: 8300000, guid: 5eeaa0833c227c14da112e949b5b1e99, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
