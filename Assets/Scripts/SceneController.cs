@@ -21,10 +21,14 @@ public class SceneController : MonoBehaviour
     {
         if (newScene != null)
         {
+            if (newScene == "MainMenu")
+            {
+                AudioManager.GetInstance().ChangeMusic("TitleMusic");
+            }
             SceneManager.LoadScene(newScene);
         }
     }
-    
+
     public void QuitGame()
     {
         Application.Quit();
