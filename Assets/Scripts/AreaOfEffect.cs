@@ -21,7 +21,7 @@ public abstract class AreaOfEffect : MonoBehaviour
                 audioSource = this.gameObject.AddComponent<AudioSource>();
 
             audioSource.spatialize = true;
-            audioSource.spatialBlend = .66f;
+            audioSource.spatialBlend = .5f;
             sound.SetSource(audioSource);
             sound.PlaySound();
         }
