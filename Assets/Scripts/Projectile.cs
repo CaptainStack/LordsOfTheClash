@@ -22,6 +22,7 @@ public class Projectile : MonoBehaviour
     
     void Start()
     {
+        AudioManager.GetInstance().PlaySound("Shoot");
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
