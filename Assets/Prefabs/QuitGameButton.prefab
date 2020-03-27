@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7794442658983295882}
   - component: {fileID: 7794442658983295883}
   - component: {fileID: 7794442658983295924}
+  - component: {fileID: -192034085224317765}
   m_Layer: 5
   m_Name: QuitGameButton
   m_TagString: Untagged
@@ -130,6 +131,17 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: -192034085224317765}
+        m_MethodName: PlayButtonPressedSound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &7794442658983295924
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140,6 +152,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 038e56fae2af1694182d273e1dec1474, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-192034085224317765
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7794442658983295926}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &7794442659401762829

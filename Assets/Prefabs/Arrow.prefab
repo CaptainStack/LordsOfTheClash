@@ -50,6 +50,13 @@ MonoBehaviour:
   faction: 0
   target: {x: 0, y: 0, z: 0}
   spriteRenderer: {fileID: 1476881121787068464}
+  sound:
+    name: Shoot
+    clip: {fileID: 8300000, guid: ebba89536c33cd4439b8e06a30af5082, type: 3}
+    source: {fileID: 0}
+    loop: 0
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
 --- !u!212 &1476881121787068464
 SpriteRenderer:
   m_ObjectHideFlags: 0
