@@ -6,19 +6,32 @@ public abstract class AreaOfEffect : MonoBehaviour
 {
     public float radius = 1f;
     public Faction faction = Faction.Neutral;
-
+    public Sound sound;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         // Apply area of effect, then destroy this gameobject
         AreaOfEffectAction();
-        Destroy(this.gameObject);
+
+        if (sound.clip)
+        {
+            if (!audioSource)
+                audioSource = this.gameObject.AddComponent<AudioSource>();
+
+            audioSource.spatialize = true;
+            audioSource.spatialBlend = .5f;
+            sound.SetSource(audioSource);
+            sound.PlaySound();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!audioSource || !audioSource.isPlaying)
+            Destroy(this.gameObject);
     }
 
     // Action for this area of effect

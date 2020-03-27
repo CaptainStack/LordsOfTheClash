@@ -15,17 +15,28 @@ public class Projectile : MonoBehaviour
     // Position projectile is targetting
     public Vector3 target;
 
-    //public Rigidbody2D rigidbody2d;
     public SpriteRenderer spriteRenderer;
+    public Sound sound;
+    private AudioSource audioSource;
 
     private float detonationTimer = 0f;
     
     void Start()
     {
-        AudioManager.GetInstance().PlaySound("Shoot");
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+
+        if (sound.clip)
+        {
+            if (!audioSource)
+                audioSource = this.gameObject.AddComponent<AudioSource>();
+
+            audioSource.spatialize = true;
+            audioSource.spatialBlend = .5f;
+            sound.SetSource(audioSource);
+            sound.PlaySound();
+        }
 
         ComputeDetonationTimer();
     }
