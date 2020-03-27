@@ -20,6 +20,7 @@ public class Projectile : MonoBehaviour
     private AudioSource audioSource;
 
     private float detonationTimer = 0f;
+    private bool detonated = false;
     
     void Start()
     {
@@ -55,11 +56,23 @@ public class Projectile : MonoBehaviour
     // FixedUpdate runs synchronized with Unity physics cycle
     void FixedUpdate()
     {
+        if (detonated)
+        {
+            // Hide projectile until audio is finished playing, then destroy it
+            this.spriteRenderer.enabled = false;
+
+            if (!audioSource || !audioSource.isPlaying)
+                Destroy(this.gameObject);
+        }
         // Explode if projectile has reached target
-        if (Time.time > detonationTimer)
+        else if (Time.time > detonationTimer)
+        {
             Explode();
+        }
         else
+        {
             MoveToTarget();
+        }
     }
 
     void Explode()
@@ -68,7 +81,7 @@ public class Projectile : MonoBehaviour
         newExplosion.faction = this.faction;
 
         // Destroy projectile
-        Destroy(this.gameObject);
+        detonated = true;
     }
 
     // Move towards target
