@@ -56,6 +56,14 @@ public class ApplicationStateManager : MonoBehaviour
         {
             player.GetComponent<Player>().UseCard();
         }
+        if (Input.GetButtonDown("Card1"))
+        {
+            player.GetComponent<Player>().cardSelected = 0;
+        }
+        if (Input.GetButtonDown("Card2"))
+        {
+            player.GetComponent<Player>().cardSelected = 1;
+        }
     }
 
     void TogglePauseMenu()
