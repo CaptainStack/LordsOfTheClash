@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1744505893049169504
+--- !u!1 &6237166339268976883
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5389589909268372120}
-  - component: {fileID: 4839006541397892654}
+  - component: {fileID: 319979973439605771}
+  - component: {fileID: 5894306908530979549}
   m_Layer: 0
-  m_Name: CharmEffectAOE
+  m_Name: GravityEffectAOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5389589909268372120
+--- !u!4 &319979973439605771
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744505893049169504}
+  m_GameObject: {fileID: 6237166339268976883}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 1.7705252, y: 0.38808918, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,27 +31,26 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4839006541397892654
+--- !u!114 &5894306908530979549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1744505893049169504}
+  m_GameObject: {fileID: 6237166339268976883}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5dac7757e25119c428357c236520c51f, type: 3}
+  m_Script: {fileID: 11500000, guid: 40a4f3bac0fc17b4e90bd2f66155775e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 2
+  radius: 3
   faction: 1
-  aoeDuration: 0
-  aoeFrequency: 0
+  aoeDuration: 6
+  aoeFrequency: 0.05
   sound:
     name: 
-    clip: {fileID: 8300000, guid: 54efc8bfc9d34cd408ee6c744a499493, type: 3}
+    clip: {fileID: 0}
     source: {fileID: 0}
     loop: 0
-    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
-      type: 2}
-  charmDuration: 4
+    mixerGroup: {fileID: 0}
+  force: -2
