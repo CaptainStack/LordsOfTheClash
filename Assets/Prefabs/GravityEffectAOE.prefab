@@ -52,5 +52,6 @@ MonoBehaviour:
     clip: {fileID: 8300000, guid: de066783d41448f4aafb3973cd9b0143, type: 3}
     source: {fileID: 0}
     loop: 0
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
   force: -2

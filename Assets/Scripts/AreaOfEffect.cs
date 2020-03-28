@@ -45,13 +45,15 @@ public abstract class AreaOfEffect : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Time.time > expirationTime && (!audioSource || !audioSource.isPlaying))
-            Destroy(this.gameObject);
-        
+        if (Time.time > expirationTime)
+        {
+            if (!audioSource || !audioSource.isPlaying)
+                Destroy(this.gameObject);
+        }
         // Run action periodically, if enabled
-        if (aoeFrequency > 0 && Time.time >= nextPeriodicUpdate)
+        else if (aoeFrequency > 0 && Time.time >= nextPeriodicUpdate)
         {
             nextPeriodicUpdate = Time.time + aoeFrequency;
             AreaOfEffectAction();
@@ -74,10 +76,13 @@ public abstract class AreaOfEffect : MonoBehaviour
         List<Unit> units = CollidersToUnits(collidersHit);
 
         // Filter out enemy targets missed via layer
-        foreach (Unit unit in units)
+        for (int i = 0; i < units.Count; i++)
         {
-            if (unit.faction != faction)
-                units.Remove(unit);
+            if (units[i].faction != faction)
+            {
+                units.Remove(units[i]);
+                i--;
+            }
         }
 
         return units;
@@ -96,10 +101,13 @@ public abstract class AreaOfEffect : MonoBehaviour
         List<Unit> units = CollidersToUnits(collidersHit);
 
         // Filter out friendly targets missed via layer
-        foreach (Unit unit in units)
+        for (int i = 0; i < units.Count; i++)
         {
-            if (unit.faction == faction)
-                units.Remove(unit);
+            if (units[i].faction == faction)
+            {
+                units.Remove(units[i]);
+                i--;
+            }
         }
 
         return units;
