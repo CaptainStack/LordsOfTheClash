@@ -11,14 +11,16 @@ public class CharmUnitEffect : UnitEffect
     // What to do at the start of the effect
     protected override void OnEffectStart()
     {
-        // New charm effect overrides any previous hostile charm, or any friendly charm that expires sooner
+        // New charm effect overrides any previous hostile charm, or any same-faction charm that expires sooner
         foreach (CharmUnitEffect charm in unit.gameObject.GetComponents<CharmUnitEffect>())
         {
             if (charm != this)
             {
-                if (charm.faction != this.faction || charm.expirationTime < this.expirationTime)
+                if (charm.faction != this.faction) // Override hostile charm
                     charm.EndEffect();
-                else
+                else if (charm.expirationTime < this.expirationTime) // Override same-faction charm that expires sooner
+                    charm.EndEffect();
+                else // A same-faction charm already lasts longer, this charm effect is unnecessary
                     Destroy(this);
             }
         }
