@@ -5,7 +5,7 @@ using UnityEngine;
 public class CharmAOE : AreaOfEffect
 {
     // Duration of the charm
-    public float duration = 1f;
+    public float charmDuration = 1f;
 
     // Action for this area of effect
     protected override void AreaOfEffectAction()
@@ -15,7 +15,7 @@ public class CharmAOE : AreaOfEffect
         foreach(Unit unit in enemiesHit)
         {
             CharmUnitEffect charmUnitEffect = unit.gameObject.AddComponent<CharmUnitEffect>();
-            charmUnitEffect.duration = duration;
+            charmUnitEffect.duration = charmDuration;
             charmUnitEffect.faction = faction;
         }
     }
