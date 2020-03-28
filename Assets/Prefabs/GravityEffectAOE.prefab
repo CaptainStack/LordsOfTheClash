@@ -49,7 +49,7 @@ MonoBehaviour:
   aoeFrequency: 0.05
   sound:
     name: 
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: de066783d41448f4aafb3973cd9b0143, type: 3}
     source: {fileID: 0}
     loop: 0
     mixerGroup: {fileID: 0}
