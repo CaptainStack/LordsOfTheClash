@@ -89,10 +89,13 @@ public class Unit : MonoBehaviour
                 spriteRenderer.color = Color.red;
             break;
         }
-        this.gameObject.layer = GetFactionLayer();
+
+        // Set faction layer, unless this is a flying unit (they have their own layer)
+        if (this.gameObject.layer != LayerMask.NameToLayer("Flying"))
+            this.gameObject.layer = GetFactionLayer();
     }
 
-    private int GetFactionLayer()
+    public int GetFactionLayer()
     {
         return LayerMask.NameToLayer(faction.ToString());
     }
@@ -125,7 +128,7 @@ public class Unit : MonoBehaviour
         EnableSpawners(); // Enable spawners, in case they were disabled above
 
         // If hostile target is in range, attack them
-        if (TargetInRange())
+        if (currentTarget && currentTarget.faction != this.faction && TargetInRange())
         {
             movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();

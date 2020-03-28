@@ -19,7 +19,7 @@ public class UnitEffect : MonoBehaviour
     protected Unit unit;
 
     // Timers for effect expiration, and periodic updates
-    private float expirationTime = 0;
+    protected float expirationTime = 0;
     private float nextPeriodicUpdate = 0;
 
     void Start()

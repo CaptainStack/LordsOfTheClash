@@ -22,6 +22,6 @@ public class FlyingUnitEffect : UnitEffect
     {
         // Remove flying from target by setting its z-depth to 0 and resetting its faction layer
         unit.transform.position = new Vector3(unit.transform.position.x, unit.transform.position.y, 0f);
-        unit.InitializeUnitFaction();
+        unit.gameObject.layer = unit.GetFactionLayer();
     }
 }
