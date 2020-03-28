@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5389589909268372120}
   - component: {fileID: 4839006541397892654}
   m_Layer: 0
-  m_Name: CharmAttackAOE
+  m_Name: CharmEffectAOE
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -47,8 +47,9 @@ MonoBehaviour:
   faction: 1
   sound:
     name: 
-    clip: {fileID: 0}
+    clip: {fileID: 8300000, guid: 54efc8bfc9d34cd408ee6c744a499493, type: 3}
     source: {fileID: 0}
     loop: 0
-    mixerGroup: {fileID: 0}
+    mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
+      type: 2}
   duration: 4
