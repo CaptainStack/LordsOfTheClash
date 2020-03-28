@@ -53,8 +53,8 @@ public class AudioManager : MonoBehaviour
         PlaySound(_name);
     }
 
-     public static AudioManager GetInstance() 
-     {
+    public static AudioManager GetInstance() 
+    {
         return instance;
-     }
+    }
 }
