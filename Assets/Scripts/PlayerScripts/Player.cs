@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -66,7 +67,8 @@ public class Player : MonoBehaviour
     //Make public to call from UI?
     public void UseCard() 
     {
-        if (currentMana >= playerHand[cardSelected].manaCost)
+        // Ignore clicks over UI elements and check mana
+        if (!EventSystem.current.IsPointerOverGameObject() && currentMana >= playerHand[cardSelected].manaCost)
         {
             currentMana -= playerHand[cardSelected].manaCost;
             playerHand[cardSelected].DoCardAction();
