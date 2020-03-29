@@ -5,7 +5,7 @@ using UnityEngine;
 public class FreezeAOE : AreaOfEffect
 {
     // Duration of the freeze
-    public float duration = 1f;
+    public float freezeDuration = 1f;
 
     // Action for this area of effect
     protected override void AreaOfEffectAction()
@@ -15,7 +15,7 @@ public class FreezeAOE : AreaOfEffect
         foreach(Unit unit in enemiesHit)
         {
             FreezeUnitEffect freezeUnitEffect = unit.gameObject.AddComponent<FreezeUnitEffect>();
-            freezeUnitEffect.duration = duration;
+            freezeUnitEffect.duration = freezeDuration;
         }
     }
 }

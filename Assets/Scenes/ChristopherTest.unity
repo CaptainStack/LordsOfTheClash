@@ -1377,6 +1377,52 @@ MonoBehaviour:
   cardName: Fireball
   manaCost: 10
   effect: {fileID: 821726469}
+--- !u!1 &274451516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 274451518}
+  - component: {fileID: 274451517}
+  m_Layer: 0
+  m_Name: GravityEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &274451517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274451516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 5894306908530979549, guid: 31fa74d416404184daf9929cb036b491,
+    type: 3}
+--- !u!4 &274451518
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 274451516}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 648955880}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &282213074 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3929498861289724105, guid: d6efefad91d117d4692d825800f45c6e,
@@ -2362,6 +2408,7 @@ MonoBehaviour:
   - {fileID: 269481938}
   - {fileID: 2006609338}
   - {fileID: 210372727}
+  - {fileID: 1593729174}
 --- !u!1001 &427162943
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3114,6 +3161,7 @@ Transform:
   - {fileID: 762104231}
   - {fileID: 821726470}
   - {fileID: 1396733622}
+  - {fileID: 274451518}
   m_Father: {fileID: 47570706}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8097,6 +8145,52 @@ SpriteRenderer:
     type: 3}
   m_PrefabInstance: {fileID: 1483707479}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1593729172
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1593729173}
+  - component: {fileID: 1593729174}
+  m_Layer: 0
+  m_Name: GravityCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1593729173
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593729172}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 581.88306, y: 331.5732, z: 2588.8562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1946048364}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1593729174
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1593729172}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35f40fee41208b49b12702de6507765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardName: GravityCard
+  manaCost: 20
+  effect: {fileID: 274451517}
 --- !u!1001 &1609994370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9376,6 +9470,7 @@ Transform:
   - {fileID: 269481937}
   - {fileID: 449784582}
   - {fileID: 210372726}
+  - {fileID: 1593729173}
   m_Father: {fileID: 47570706}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

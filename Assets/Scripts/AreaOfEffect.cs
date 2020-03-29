@@ -6,14 +6,22 @@ public abstract class AreaOfEffect : MonoBehaviour
 {
     public float radius = 1f;
     public Faction faction = Faction.Neutral;
+
+    // Duration of the area of effect. 0 for instant
+    public float aoeDuration = 0;
+    // Frequency of the AOE action. 0 or less disables periodic updates
+    public float aoeFrequency = 0;
+
     public Sound sound;
     private AudioSource audioSource;
+    
+    // Timers for effect expiration, and periodic updates
+    private float expirationTime = 0;
+    private float nextPeriodicUpdate = 0;
 
     // Start is called before the first frame update
     void Start()
     {
-        // Apply area of effect, then destroy this gameobject
-        AreaOfEffectAction();
 
         if (sound.clip)
         {
@@ -25,13 +33,31 @@ public abstract class AreaOfEffect : MonoBehaviour
             sound.SetSource(audioSource);
             sound.PlaySound();
         }
+
+        // Schedule first periodic update
+        if (aoeFrequency > 0)
+        {
+            nextPeriodicUpdate = Time.time + aoeFrequency;
+        }
+
+        expirationTime = Time.time + aoeDuration;
+        AreaOfEffectAction();
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (!audioSource || !audioSource.isPlaying)
-            Destroy(this.gameObject);
+        if (Time.time > expirationTime)
+        {
+            if (!audioSource || !audioSource.isPlaying)
+                Destroy(this.gameObject);
+        }
+        // Run action periodically, if enabled
+        else if (aoeFrequency > 0 && Time.time >= nextPeriodicUpdate)
+        {
+            nextPeriodicUpdate = Time.time + aoeFrequency;
+            AreaOfEffectAction();
+        }
     }
 
     // Action for this area of effect
@@ -47,7 +73,19 @@ public abstract class AreaOfEffect : MonoBehaviour
             Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer) :
             Physics2D.OverlapPointAll(this.transform.position, targetLayer);
 
-        return CollidersToUnits(collidersHit);
+        List<Unit> units = CollidersToUnits(collidersHit);
+
+        // Filter out enemy targets missed via layer
+        for (int i = 0; i < units.Count; i++)
+        {
+            if (units[i].faction != faction)
+            {
+                units.Remove(units[i]);
+                i--;
+            }
+        }
+
+        return units;
     }
 
     // Computes a list of enemy targets hit
@@ -60,7 +98,19 @@ public abstract class AreaOfEffect : MonoBehaviour
             Physics2D.OverlapCircleAll(this.transform.position, radius, targetLayer) :
             Physics2D.OverlapPointAll(this.transform.position, targetLayer);
 
-        return CollidersToUnits(collidersHit);
+        List<Unit> units = CollidersToUnits(collidersHit);
+
+        // Filter out friendly targets missed via layer
+        for (int i = 0; i < units.Count; i++)
+        {
+            if (units[i].faction == faction)
+            {
+                units.Remove(units[i]);
+                i--;
+            }
+        }
+
+        return units;
     }
 
     // Turns a collection of colliders into a list of units attached to those colliders
