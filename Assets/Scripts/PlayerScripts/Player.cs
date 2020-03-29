@@ -13,6 +13,8 @@ public class Player : MonoBehaviour
     public Text manaText;
     public Text handText;
     public Text deckText;
+    public Text cardButton1Text;
+    public Text cardButton2Text;
     
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
@@ -48,6 +50,9 @@ public class Player : MonoBehaviour
             deckText.text += $"{card.cardName} ({card.manaCost}), ";
         }
         deckText.text += "]";
+
+        cardButton1Text.text = playerHand[0].cardName;
+        cardButton2Text.text = playerHand[1].cardName;
     }
 
     void ManaRegen()
