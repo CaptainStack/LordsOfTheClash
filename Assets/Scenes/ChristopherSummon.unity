@@ -663,6 +663,8 @@ MonoBehaviour:
   manaText: {fileID: 614471656}
   handText: {fileID: 1227391550}
   deckText: {fileID: 216778427}
+  cardButton1Text: {fileID: 408087633}
+  cardButton2Text: {fileID: 1413854449}
   currentMana: 20
   cardSelected: 0
   heroes:
