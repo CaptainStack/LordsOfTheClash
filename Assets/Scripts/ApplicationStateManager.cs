@@ -20,7 +20,7 @@ public class ApplicationStateManager : MonoBehaviour
         pauseMenu = this.transform.Find("PauseMenu").gameObject;
         pauseMenuOn = false;
         player = this.transform.Find("Player").gameObject;
-
+        Time.timeScale = 1.0f;
         AudioManager.GetInstance().ChangeMusic("BattleMusic");
 
         // Target 60 fps
