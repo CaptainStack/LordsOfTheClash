@@ -11,11 +11,15 @@ public class CursorScript : MonoBehaviour
     int cursorWidth = 32;
     int cursorHeight = 32;
     public Vector2 cursorPosition;
+    Vector2 targetPosition;
+
+    Vector2 screenBounds;
     // Start is called before the first frame update
     void Start()
     {
         Cursor.visible = false;
         cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
+       // screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
 
     private void OnGUI()
@@ -28,6 +32,8 @@ public class CursorScript : MonoBehaviour
         cursorPosition.x += h;
         cursorPosition.y += v;
 
+        targetPosition = new Vector2(Mathf.Clamp(cursorPosition.x, 0, Screen.width-45), Mathf.Clamp(cursorPosition.y, 45, Screen.height-10));
+        cursorPosition = targetPosition;
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, cursorWidth, cursorHeight), cursorSprite);
     }
 }
