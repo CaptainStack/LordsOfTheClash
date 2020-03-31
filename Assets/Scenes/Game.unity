@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eliminationTime: 2
+  handSize: 2
 --- !u!4 &15798329
 Transform:
   m_ObjectHideFlags: 0
@@ -1556,7 +1557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 7618971167709103881}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1539881584
@@ -2389,6 +2390,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15798329}
     m_Modifications:
+    - target: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.18845676
+      objectReference: {fileID: 0}
+    - target: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.20643692
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270189619723447235, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.15690638
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270189619723447235, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270189619723447235, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.15998322
+      objectReference: {fileID: 0}
     - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2418,6 +2449,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.23184773
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.21266466
       objectReference: {fileID: 0}
     - target: {fileID: 7618971167524002900, guid: c54b1a7e06f35914d8c0b03ceb454b22,
         type: 3}
@@ -2536,3 +2582,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c54b1a7e06f35914d8c0b03ceb454b22, type: 3}
+--- !u!1 &7618971167709103881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7618971166562333473, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+    type: 3}
+  m_PrefabInstance: {fileID: 7618971167709103880}
+  m_PrefabAsset: {fileID: 0}
