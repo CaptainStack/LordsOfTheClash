@@ -13,6 +13,7 @@ public class ApplicationStateManager : MonoBehaviour
     private float winLossTimer;
     public float eliminationTime;
     public int handSize = 2;
+    int pauseFix;
 
     // Start is called before the first frame update
     void Start()
@@ -53,24 +54,30 @@ public class ApplicationStateManager : MonoBehaviour
         {
             TogglePauseMenu();
         }
-        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
+        if (!pauseMenuOn && pauseFix  == 0) //makes it so player can't use abilities while the game is paused.
         {
-            player.GetComponent<Player>().UseCard(GetComponent<CursorScript>().cursorPosition);
-        }
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
+            {
+                player.GetComponent<Player>().UseCard(GetComponent<CursorScript>().cursorPosition);
+            }
 
-        if (Input.GetButtonDown("Card1"))
+            if (Input.GetButtonDown("Card1"))
+            {
+                player.GetComponent<Player>().cardSelected = 0;
+            }
+
+            if (Input.GetButtonDown("Card2"))
+            {
+                player.GetComponent<Player>().cardSelected = 1;
+            }
+
+            SwitchSelectedCard();
+        }
+        if (!pauseMenuOn)
         {
-            player.GetComponent<Player>().cardSelected = 0;
+            pauseFix = 0;
         }
-
-        if (Input.GetButtonDown("Card2"))
-        {
-            player.GetComponent<Player>().cardSelected = 1;
-        }
-
-        SwitchSelectedCard();
     }
-    
     private void SwitchSelectedCard()
     {
         if (Input.GetButtonDown("NextCard"))
@@ -113,7 +120,8 @@ public class ApplicationStateManager : MonoBehaviour
             player.SetActive(false);
             pauseMenuOn = true;
             Time.timeScale = 0.0f;
-            Cursor.visible = true;
+            Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
+            pauseFix = 1; //makes it so player doesn't use ability when turning off pause menu.
         }
     }
 

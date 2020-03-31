@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class CursorScript : MonoBehaviour
 {
+    //contains mouse input and creates mouse cursor.
     public Texture2D cursorSprite;
     public float horizontalSpeed = 2.0f;
     public float verticalSpeed = 2.0f;
@@ -19,7 +20,6 @@ public class CursorScript : MonoBehaviour
     {
         Cursor.visible = false;
         cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
-       // screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
     }
 
     private void OnGUI()
