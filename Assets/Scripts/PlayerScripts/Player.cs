@@ -70,13 +70,13 @@ public class Player : MonoBehaviour
 
     //press button on keyboard to use card 
     //Make public to call from UI?
-    public void UseCard() 
+    public void UseCard(Vector2 cursorPos) 
     {
         // Ignore clicks over UI elements and check mana
         if (!EventSystem.current.IsPointerOverGameObject() && currentMana >= playerHand[cardSelected].manaCost)
         {
             currentMana -= playerHand[cardSelected].manaCost;
-            playerHand[cardSelected].DoCardAction();
+            playerHand[cardSelected].DoCardAction(cursorPos);
             RemoveCardFromHand();
             DrawCardFromDeck();
         }

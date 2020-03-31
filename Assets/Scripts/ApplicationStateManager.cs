@@ -54,7 +54,7 @@ public class ApplicationStateManager : MonoBehaviour
         }
         if (Input.GetButtonDown("Submit"))
         {
-            player.GetComponent<Player>().UseCard();
+            player.GetComponent<Player>().UseCard(GetComponent<CursorScript>().cursorPosition);
         }
         if (Input.GetButtonDown("Card1"))
         {
