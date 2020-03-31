@@ -12,6 +12,7 @@ public class ApplicationStateManager : MonoBehaviour
     private Unit[] units;
     private float winLossTimer;
     public float eliminationTime;
+    public int handSize = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -42,8 +43,8 @@ public class ApplicationStateManager : MonoBehaviour
         if (winner == Faction.Friendly)
         {
             sceneController.SwitchScene("MainMenu");
-        } 
-        else if (winner == Faction.Enemy) 
+        }
+        else if (winner == Faction.Enemy)
         {
             sceneController.SwitchScene("GameOver");
         }
@@ -52,17 +53,47 @@ public class ApplicationStateManager : MonoBehaviour
         {
             TogglePauseMenu();
         }
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
         {
             player.GetComponent<Player>().UseCard(GetComponent<CursorScript>().cursorPosition);
         }
+
         if (Input.GetButtonDown("Card1"))
         {
             player.GetComponent<Player>().cardSelected = 0;
         }
+
         if (Input.GetButtonDown("Card2"))
         {
             player.GetComponent<Player>().cardSelected = 1;
+        }
+
+        SwitchSelectedCard();
+    }
+    
+    private void SwitchSelectedCard()
+    {
+        if (Input.GetButtonDown("NextCard"))
+        {
+            if (player.GetComponent<Player>().cardSelected == handSize - 1)
+            {
+                player.GetComponent<Player>().cardSelected = 0;
+            }
+            else
+            {
+                player.GetComponent<Player>().cardSelected += 1;
+            }
+        }
+        if (Input.GetButtonDown("PreviousCard"))
+        {
+            if (player.GetComponent<Player>().cardSelected != 0)
+            {
+                player.GetComponent<Player>().cardSelected -= 1;
+            }
+            else
+            {
+                player.GetComponent<Player>().cardSelected = handSize - 1;
+            }
         }
     }
 

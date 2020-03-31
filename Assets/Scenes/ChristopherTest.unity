@@ -450,6 +450,7 @@ GameObject:
   - component: {fileID: 47570706}
   - component: {fileID: 47570705}
   - component: {fileID: 47570704}
+  - component: {fileID: 47570707}
   m_Layer: 0
   m_Name: ApplicationStateManager
   m_TagString: Untagged
@@ -504,6 +505,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &47570707
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 47570703}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765d40836edc95c48a64b3f7710b4341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorSprite: {fileID: 2800000, guid: db85bcbf8919a4848973319330e7118e, type: 3}
+  horizontalSpeed: 500
+  verticalSpeed: 500
+  cursorPosition: {x: 0, y: 0}
 --- !u!212 &82283543 stripped
 SpriteRenderer:
   m_CorrespondingSourceObject: {fileID: 3929498861289724105, guid: d6efefad91d117d4692d825800f45c6e,
