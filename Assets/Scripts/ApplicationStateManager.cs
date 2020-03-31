@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class ApplicationStateManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ApplicationStateManager : MonoBehaviour
     public float eliminationTime;
     public int handSize = 2;
     int pauseFix;
+    public Button resumeButton;//used to have the Resume Button in the pause menu start selected and highlighted.
 
     // Start is called before the first frame update
     void Start()
@@ -122,6 +124,8 @@ public class ApplicationStateManager : MonoBehaviour
             Time.timeScale = 0.0f;
             Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
             pauseFix = 1; //makes it so player doesn't use ability when turning off pause menu.
+            resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
+            resumeButton.OnSelect(null);//sets resume button color to its selected color
         }
     }
 
