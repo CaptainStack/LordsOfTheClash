@@ -16,6 +16,8 @@ public class ApplicationStateManager : MonoBehaviour
     public int handSize = 2;
     int pauseFix;
     public Button resumeButton;//used to have the Resume Button in the pause menu start selected and highlighted.
+    public Button cardButton0;//used to highlight selected card
+    public Button cardButton1;//used to highlight selected card
 
     // Start is called before the first frame update
     void Start()
@@ -56,6 +58,7 @@ public class ApplicationStateManager : MonoBehaviour
         {
             TogglePauseMenu();
         }
+
         if (!pauseMenuOn && pauseFix  == 0) //makes it so player can't use abilities while the game is paused.
         {
             if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
@@ -75,12 +78,16 @@ public class ApplicationStateManager : MonoBehaviour
 
             SwitchSelectedCard();
         }
+
         if (!pauseMenuOn)
         {
             pauseFix = 0;
         }
+
+        HighlightSelectedCard();
     }
-    private void SwitchSelectedCard()
+
+    private void SwitchSelectedCard() //use bumpers to change selected card
     {
         if (Input.GetButtonDown("NextCard"))
         {
@@ -129,6 +136,20 @@ public class ApplicationStateManager : MonoBehaviour
                 resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
                 resumeButton.OnSelect(null);//sets resume button color to its selected color
             }
+        }
+    }
+
+    void HighlightSelectedCard() //Highlights card currently selected
+    {
+        if (player.GetComponent<Player>().cardSelected == 0 && !pauseMenuOn)
+        {
+            cardButton0.Select();
+            cardButton0.OnSelect(null);
+        }
+        else if (player.GetComponent<Player>().cardSelected == 1 && !pauseMenuOn)
+        {
+            cardButton1.Select();
+            cardButton1.OnSelect(null);
         }
     }
 

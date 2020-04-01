@@ -155,6 +155,8 @@ MonoBehaviour:
   eliminationTime: 2
   handSize: 2
   resumeButton: {fileID: 7618971167709103882}
+  cardButton0: {fileID: 152968071}
+  cardButton1: {fileID: 1500318908}
 --- !u!4 &15798329
 Transform:
   m_ObjectHideFlags: 0
