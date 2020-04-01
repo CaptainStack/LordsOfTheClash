@@ -1,9 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
-public class CursorScript : MonoBehaviour
+public class CursorScript2 : MonoBehaviour
 {
     //contains mouse input and creates mouse cursor.
     public Texture2D cursorSprite;
@@ -11,14 +10,11 @@ public class CursorScript : MonoBehaviour
     public float verticalSpeed = 2.0f;
     public float horizontalSpeedMouse = 2.0f; //Mouse Speed
     public float verticalSpeedMouse = 2.0f;
-    public bool collidingWithButton;
-    public GameObject collidingButton;
 
     int cursorWidth = 32;
     int cursorHeight = 32;
     public Vector2 cursorPosition;
     Vector2 targetPosition;
-    Vector3 objectTargetPosition;
 
     Vector2 screenBounds;
     // Start is called before the first frame update
@@ -26,8 +22,6 @@ public class CursorScript : MonoBehaviour
     {
         Cursor.visible = false;
         cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);
-
-       // this.gameObject.AddComponent<BoxCollider2D>();
     }
 
     private void OnGUI()
@@ -40,27 +34,8 @@ public class CursorScript : MonoBehaviour
         cursorPosition.x += h;
         cursorPosition.y += v;
 
-        targetPosition = new Vector2(Mathf.Clamp(cursorPosition.x, 0, Screen.width-45), Mathf.Clamp(cursorPosition.y, 45, Screen.height-10));
+        targetPosition = new Vector2(Mathf.Clamp(cursorPosition.x, 0, Screen.width - 45), Mathf.Clamp(cursorPosition.y, 45, Screen.height - 10));
         cursorPosition = targetPosition;
-        objectTargetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, cursorWidth, cursorHeight), cursorSprite);
-        this.transform.position = objectTargetPosition;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if(collision.gameObject.tag == "Button")
-        {
-            collidingWithButton = true;
-            collidingButton = collision.gameObject;
-            Debug.Log("Clooisng");
-        }
-    }
-    private void OnTriggerExit2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Button")
-        {
-            collidingWithButton = false;
-        }
     }
 }

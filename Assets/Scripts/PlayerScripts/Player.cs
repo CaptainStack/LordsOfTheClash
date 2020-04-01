@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public Text deckText;
     public Text cardButton1Text;
     public Text cardButton2Text;
+    public Transform playerCursor;
     
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
@@ -73,7 +74,7 @@ public class Player : MonoBehaviour
     public void UseCard(Vector2 cursorPos) 
     {
         // Ignore clicks over UI elements and check mana
-        if (!EventSystem.current.IsPointerOverGameObject() && currentMana >= playerHand[cardSelected].manaCost)
+        if (!EventSystem.current.IsPointerOverGameObject() && !playerCursor.GetComponent<CursorScript>().collidingWithButton && currentMana >= playerHand[cardSelected].manaCost)
         {
             currentMana -= playerHand[cardSelected].manaCost;
             playerHand[cardSelected].DoCardAction(cursorPos);

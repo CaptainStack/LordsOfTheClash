@@ -63,7 +63,14 @@ public class ApplicationStateManager : MonoBehaviour
         {
             if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
             {
-                player.GetComponent<Player>().UseCard(GetComponent<CursorScript>().cursorPosition);
+                if (GetComponentInChildren<CursorScript>().collidingWithButton)
+                {
+                    player.GetComponent<Player>().cardSelected = GetComponentInChildren<CursorScript>().collidingButton.GetComponent<ButtonNumber>().cardNumber;
+                }
+                else
+                {
+                    player.GetComponent<Player>().UseCard(GetComponentInChildren<CursorScript>().cursorPosition);
+                }
             }
 
             if (Input.GetButtonDown("Card1"))
@@ -75,7 +82,7 @@ public class ApplicationStateManager : MonoBehaviour
             {
                 player.GetComponent<Player>().cardSelected = 1;
             }
-
+            
             SwitchSelectedCard();
         }
 
