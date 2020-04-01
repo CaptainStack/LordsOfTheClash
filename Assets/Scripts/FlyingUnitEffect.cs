@@ -8,9 +8,17 @@ public class FlyingUnitEffect : UnitEffect
     // What to do at the start of the effect
     protected override void OnEffectStart()
     {
-        // Flying can only be applied to ground units, not flying or building units
-        if (unit.transform.position.z < 0 || unit.transform.position.z > 0)
-            Destroy(this);
+        // Only one flying effect at a time
+        FlyingUnitEffect[] flyingUnitEffects = unit.GetComponents<FlyingUnitEffect>();
+        foreach (FlyingUnitEffect flyingEffect in flyingUnitEffects)
+        {
+            if (flyingEffect == this)
+                continue;
+            else if (permanent || expirationTime > flyingEffect.expirationTime)
+                flyingEffect.EndEffect();
+            else
+                Destroy(this);
+        }
 
         // Apply flying to target by setting its z-depth to -1 and moving it to the "Flying" layer
         unit.transform.position = new Vector3(unit.transform.position.x, unit.transform.position.y, -1f);

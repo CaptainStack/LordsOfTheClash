@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 
 // Faction of the units
 public enum Faction { Neutral, Friendly, Enemy }
@@ -169,20 +170,89 @@ public class Unit : MonoBehaviour
         
         if (!movementTarget.Equals(Vector2.zero))
         {
-
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
             {
-                Vector3 movementDir = (movementTarget - (Vector2)this.transform.position).normalized;
+                bool isFlying = this.GetComponent<FlyingUnitEffect>() != null; // Flying units should move directly toward target
+                Vector3 movementDir = ((isFlying ? movementTarget : ComputeNextMoveStep()) - (Vector2)transform.position).normalized;
 
                 // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
                 // (this also makes unit movement feel more organic)
-                Vector3 normal = Vector3.Cross(movementDir, Vector3.forward);
-                movementDir += normal * Random.Range(-.33f, .33f);
+                Vector3 cross = Vector3.Cross(movementDir, Vector3.forward);
+                movementDir += cross * Random.Range(-.1f, .1f);
                 movementDir = movementDir.normalized;
 
                 this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
             }
+        }
+    }
+
+    bool pathFresh = false; // If path needs recalculating
+    NavMeshPath movePath; // Cached movement path
+    int currentCorner = 0; // Current corner in movement path
+    Vector2 prevMovementTarget; // Previous movementTarget used for pathfinding
+    float nextPathfindingUpdate = 0f;
+    float pathfindingUpdateFrequency = 1f;
+    // Computes the position of the next movement step this unit should take
+    Vector2 ComputeNextMoveStep()
+    {
+        // If close to target, just go toward it
+        if (((Vector2)transform.position - movementTarget).sqrMagnitude < 1f)
+            return movementTarget;
+
+        if (movePath == null)
+            movePath = new NavMeshPath();
+        
+        // Mark path dirty if the movement target has changed substantially
+        if ((movementTarget - prevMovementTarget).sqrMagnitude < 2f)
+        {
+            pathFresh = false;
+            prevMovementTarget = movementTarget;
+        }
+
+        // Update path if necessary
+        if (!pathFresh || Time.time > nextPathfindingUpdate)
+        {
+            nextPathfindingUpdate = Time.time + pathfindingUpdateFrequency;
+
+            NavMeshHit navMeshHit = new NavMeshHit();
+
+            // Use SamplePosition to find exact start/end points on the navmesh
+
+            Vector3 startPos = new Vector3(transform.position.x, 0, transform.position.y);
+            if(NavMesh.SamplePosition(startPos, out navMeshHit, 1f, NavMesh.AllAreas))
+                startPos = navMeshHit.position;
+
+            Vector3 endPos = new Vector3(movementTarget.x, 0, movementTarget.y);
+            if(NavMesh.SamplePosition(endPos, out navMeshHit, 1f, NavMesh.AllAreas))
+                endPos = navMeshHit.position;
+
+            pathFresh = NavMesh.CalculatePath(
+                startPos,
+                endPos, 
+                NavMesh.AllAreas,
+                movePath);
+            
+            if (pathFresh)
+                currentCorner = 0; // If path updated, start at first corner for direction
+        }
+
+        if (currentCorner < movePath.corners.Count())
+        {
+            // If close to the current corner, advance to the next corner
+            if (((Vector2)transform.position - new Vector2(movePath.corners[currentCorner].x, movePath.corners[currentCorner].z)).sqrMagnitude < .1f)
+                currentCorner++;
+        }
+
+        if (currentCorner < movePath.corners.Count())
+        {
+            // Return the next corner position 
+            return new Vector2(movePath.corners[currentCorner].x, movePath.corners[currentCorner].z);
+        }
+        else 
+        {
+            // Otherwise don't move
+            return (Vector2)transform.position;
         }
     }
 
