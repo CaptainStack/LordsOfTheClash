@@ -124,8 +124,11 @@ public class ApplicationStateManager : MonoBehaviour
             Time.timeScale = 0.0f;
             Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
             pauseFix = 1; //makes it so player doesn't use ability when turning off pause menu.
-            resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
-            resumeButton.OnSelect(null);//sets resume button color to its selected color
+            if (resumeButton != null)
+            {
+                resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
+                resumeButton.OnSelect(null);//sets resume button color to its selected color
+            }
         }
     }
 
