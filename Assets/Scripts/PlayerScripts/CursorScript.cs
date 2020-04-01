@@ -8,6 +8,8 @@ public class CursorScript : MonoBehaviour
     public Texture2D cursorSprite;
     public float horizontalSpeed = 2.0f;
     public float verticalSpeed = 2.0f;
+    public float horizontalSpeedMouse = 2.0f;
+    public float verticalSpeedMouse = 2.0f;
 
     int cursorWidth = 32;
     int cursorHeight = 32;
@@ -24,8 +26,8 @@ public class CursorScript : MonoBehaviour
 
     private void OnGUI()
     {
-        float h = horizontalSpeed * Input.GetAxis("Mouse X") * Time.deltaTime;
-        float v = verticalSpeed * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        float h = horizontalSpeedMouse * Input.GetAxis("Mouse X") * Time.deltaTime;
+        float v = verticalSpeedMouse * Input.GetAxis("Mouse Y") * Time.deltaTime;
         h += horizontalSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
         v += horizontalSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
 
