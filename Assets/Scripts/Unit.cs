@@ -169,21 +169,84 @@ public class Unit : MonoBehaviour
         
         if (!movementTarget.Equals(Vector2.zero))
         {
-
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
             {
-                Vector3 movementDir = (movementTarget - (Vector2)this.transform.position).normalized;
+                bool isFlying = this.GetComponent<FlyingUnitEffect>() != null;
+                Vector3 movementDir = ((isFlying ? movementTarget : ComputeNextMoveStep()) - (Vector2)transform.position).normalized;
 
+/*
                 // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
                 // (this also makes unit movement feel more organic)
-                Vector3 normal = Vector3.Cross(movementDir, Vector3.forward);
-                movementDir += normal * Random.Range(-.33f, .33f);
+                Vector3 cross = Vector3.Cross(movementDir, Vector3.forward);
+                movementDir += cross * Random.Range(-.33f, .33f);
                 movementDir = movementDir.normalized;
+                */
 
                 this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
             }
         }
+    }
+
+    bool pathFresh = false;
+    UnityEngine.AI.NavMeshPath movePath;
+    int currentCorner = 0;
+    Vector2 prevMovementTarget;
+    float nextPathfindingUpdate = 0f;
+    float pathfindingUpdateFrequency = 2f;
+    Vector2 ComputeNextMoveStep()
+    {
+        // If close to target, just go toward it
+        if (((Vector2)transform.position - movementTarget).sqrMagnitude < 1f)
+            return movementTarget;
+
+        if (movePath == null)
+            movePath = new UnityEngine.AI.NavMeshPath();
+        
+        // Mark path dirty if the movement target has changed substantially
+        if ((movementTarget - prevMovementTarget).sqrMagnitude < 2f)
+        {
+            pathFresh = false;
+            prevMovementTarget = movementTarget;
+        }
+
+        if (!pathFresh || Time.time > nextPathfindingUpdate)
+        {
+            nextPathfindingUpdate = Time.time + pathfindingUpdateFrequency;
+
+            UnityEngine.AI.NavMeshHit navMeshHit = new UnityEngine.AI.NavMeshHit();
+
+            Vector3 startPos = new Vector3(transform.position.x, 0, transform.position.y);
+            if(UnityEngine.AI.NavMesh.SamplePosition(startPos, out navMeshHit, 1f, UnityEngine.AI.NavMesh.AllAreas))
+                startPos = navMeshHit.position;
+
+            Vector3 endPos = new Vector3(movementTarget.x, 0, movementTarget.y);
+            if(UnityEngine.AI.NavMesh.SamplePosition(endPos, out navMeshHit, 1f, UnityEngine.AI.NavMesh.AllAreas))
+                endPos = navMeshHit.position;
+
+            pathFresh = UnityEngine.AI.NavMesh.CalculatePath(
+                startPos,
+                endPos, 
+                UnityEngine.AI.NavMesh.AllAreas,
+                movePath);
+            
+            if (pathFresh)
+                currentCorner = 0;
+        }
+
+        if (currentCorner < movePath.corners.Count())
+        {
+            if (((Vector2)transform.position - new Vector2(movePath.corners[currentCorner].x, movePath.corners[currentCorner].z)).sqrMagnitude < .1f)
+                currentCorner++;
+        }
+
+        if (currentCorner < movePath.corners.Count())
+        {
+            return new Vector2(movePath.corners[currentCorner].x, movePath.corners[currentCorner].z);
+        }
+        else
+            return (Vector2)transform.position;
+            //return movementTarget;
     }
 
     // Checks if the current target is alive and in range
