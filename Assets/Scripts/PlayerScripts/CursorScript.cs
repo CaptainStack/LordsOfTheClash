@@ -6,9 +6,9 @@ public class CursorScript : MonoBehaviour
 {
     //contains mouse input and creates mouse cursor.
     public Texture2D cursorSprite;
-    public float horizontalSpeed = 2.0f;
+    public float horizontalSpeed = 2.0f; //Joystick Speed
     public float verticalSpeed = 2.0f;
-    public float horizontalSpeedMouse = 2.0f;
+    public float horizontalSpeedMouse = 2.0f; //Mouse Speed
     public float verticalSpeedMouse = 2.0f;
 
     int cursorWidth = 32;
