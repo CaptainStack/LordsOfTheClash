@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonNumber : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int cardNumber; //Used ApplicationStateManager can know which card the cursor is over.
+    public int cardNumber;
     void Start()
     {
         

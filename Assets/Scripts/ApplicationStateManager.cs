@@ -14,7 +14,7 @@ public class ApplicationStateManager : MonoBehaviour
     private float winLossTimer;
     public float eliminationTime;
     public int handSize = 2;
-    bool pauseFix;
+    int pauseFix;
     public Button resumeButton;//used to have the Resume Button in the pause menu start selected and highlighted.
     public Button cardButton0;//used to highlight selected card
     public Button cardButton1;//used to highlight selected card
@@ -59,11 +59,11 @@ public class ApplicationStateManager : MonoBehaviour
             TogglePauseMenu();
         }
 
-        if (!pauseMenuOn && !pauseFix) //pauseFix makes it so player can't use abilities while the game is paused.
+        if (!pauseMenuOn && pauseFix  == 0) //makes it so player can't use abilities while the game is paused.
         {
             if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
             {
-                if (GetComponentInChildren<CursorScript>().collidingWithButton) //if cursor colliding with card button, select that card
+                if (GetComponentInChildren<CursorScript>().collidingWithButton)
                 {
                     player.GetComponent<Player>().cardSelected = GetComponentInChildren<CursorScript>().collidingButton.GetComponent<ButtonNumber>().cardNumber;
                 }
@@ -86,9 +86,9 @@ public class ApplicationStateManager : MonoBehaviour
             SwitchSelectedCard();
         }
 
-        if (!pauseMenuOn) //change pauseFix to false if menu is off
+        if (!pauseMenuOn)
         {
-            pauseFix = false;
+            pauseFix = 0;
         }
 
         HighlightSelectedCard();
@@ -137,7 +137,7 @@ public class ApplicationStateManager : MonoBehaviour
             pauseMenuOn = true;
             Time.timeScale = 0.0f;
             Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
-            pauseFix = true; //makes it so player doesn't use ability when turning off pause menu.
+            pauseFix = 1; //makes it so player doesn't use ability when turning off pause menu.
             if (resumeButton != null)
             {
                 resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu

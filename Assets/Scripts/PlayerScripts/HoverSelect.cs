@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HoverSelect : MonoBehaviour
 {
-    public Button button;
+    public Button card;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,9 +18,9 @@ public class HoverSelect : MonoBehaviour
         
     }
 
-    public void SelectButton()//Called in an EventTrigger on menu buttons
+    public void SelectButton()
     {
-        button.Select(); //sets card object when you hover over it
-        button.OnSelect(null);//highlights card
+        card.Select(); //sets 'resume button' to selected when you open the pause menu
+        card.OnSelect(null);
     }
 }

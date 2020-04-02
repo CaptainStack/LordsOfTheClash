@@ -8254,7 +8254,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1563360277}
+  card: {fileID: 1563360277}
 --- !u!114 &1563360281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8295,7 +8295,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1563360279}
+  card: {fileID: 1563360279}
 --- !u!114 &1563360283
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8638,7 +8638,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1701934298}
+  card: {fileID: 1701934298}
 --- !u!114 &1701934298 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
