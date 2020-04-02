@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 421136422}
+  card: {fileID: 421136422}
 --- !u!114 &421136421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -677,7 +677,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 0}
+  card: {fileID: 0}
 --- !u!4 &1217294811
 Transform:
   m_ObjectHideFlags: 0
@@ -710,7 +710,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 1283020102}
+  card: {fileID: 1283020102}
 --- !u!114 &1283020101
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -850,7 +850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  button: {fileID: 2142514449}
+  card: {fileID: 2142514449}
 --- !u!114 &2142514448
 MonoBehaviour:
   m_ObjectHideFlags: 0
