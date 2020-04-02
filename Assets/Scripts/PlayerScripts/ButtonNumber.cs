@@ -5,7 +5,7 @@ using UnityEngine;
 public class ButtonNumber : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int cardNumber;
+    public int cardNumber;//used to set the card in ApplicationStateManager when hovering over card button and selecting it.
     void Start()
     {
         

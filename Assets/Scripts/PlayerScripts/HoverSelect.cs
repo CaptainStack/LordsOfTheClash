@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class HoverSelect : MonoBehaviour
 {
-    public Button card;
+    public Button card; //in Unity editor set this as the button this script is attached to.
     // Start is called before the first frame update
     void Start()
     {

@@ -14,7 +14,7 @@ public class ApplicationStateManager : MonoBehaviour
     private float winLossTimer;
     public float eliminationTime;
     public int handSize = 2;
-    int pauseFix;
+    bool pauseFix; //makes it so player doesn't use spell when pressing 'A' in the pause menu to resume game.
     public Button resumeButton;//used to have the Resume Button in the pause menu start selected and highlighted.
     public Button cardButton0;//used to highlight selected card
     public Button cardButton1;//used to highlight selected card
@@ -59,7 +59,7 @@ public class ApplicationStateManager : MonoBehaviour
             TogglePauseMenu();
         }
 
-        if (!pauseMenuOn && pauseFix  == 0) //makes it so player can't use abilities while the game is paused.
+        if (!pauseMenuOn && !pauseFix) //makes it pressing "Fire1" to unpause doesn't also make you use a spell.
         {
             if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
             {
@@ -88,7 +88,7 @@ public class ApplicationStateManager : MonoBehaviour
 
         if (!pauseMenuOn)
         {
-            pauseFix = 0;
+            pauseFix = false; //now pressing "Fire1" will use a spell again
         }
 
         HighlightSelectedCard();
@@ -137,7 +137,7 @@ public class ApplicationStateManager : MonoBehaviour
             pauseMenuOn = true;
             Time.timeScale = 0.0f;
             Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
-            pauseFix = 1; //makes it so player doesn't use ability when turning off pause menu.
+            pauseFix = true; //makes it so player doesn't use ability when turning off pause menu.
             if (resumeButton != null)
             {
                 resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
@@ -150,8 +150,8 @@ public class ApplicationStateManager : MonoBehaviour
     {
         if (player.GetComponent<Player>().cardSelected == 0 && !pauseMenuOn)
         {
-            cardButton0.Select();
-            cardButton0.OnSelect(null);
+            cardButton0.Select(); //Selects button
+            cardButton0.OnSelect(null); //highlights button
         }
         else if (player.GetComponent<Player>().cardSelected == 1 && !pauseMenuOn)
         {
