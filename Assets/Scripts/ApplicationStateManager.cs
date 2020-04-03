@@ -120,7 +120,7 @@ public class ApplicationStateManager : MonoBehaviour
         }
     }
 
-    void TogglePauseMenu()
+    public void TogglePauseMenu() //public so this can be accessed from a button
     {
         if (pauseMenuOn)
         {
