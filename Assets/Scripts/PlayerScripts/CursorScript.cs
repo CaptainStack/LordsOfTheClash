@@ -12,6 +12,7 @@ public class CursorScript : MonoBehaviour
     public float horizontalSpeedMouse = 2.0f; //Mouse Speed
     public float verticalSpeedMouse = 2.0f;
     public bool collidingWithButton;
+    public bool usingCursor; //used to determine if cursor should appear in pause menu
     public GameObject collidingButton; //don't need to set object in editor. We get object from collider.
 
     int cursorWidth = 32;
@@ -25,13 +26,28 @@ public class CursorScript : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
+        usingCursor = false;
         cursorPosition = new Vector2(Screen.width / 2f, Screen.height / 2f);//starts cursor at center of screen
     }
 
     private void OnGUI()
     {
+       
         float h = horizontalSpeedMouse * Input.GetAxis("Mouse X") * Time.deltaTime; //mouse speed
         float v = verticalSpeedMouse * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        float controllerH = Input.GetAxis("Horizontal");
+        float controllerV = Input.GetAxis("Vertical");
+
+        if (controllerH != 0 || controllerV != 0 && usingCursor)
+        {
+           usingCursor = false;
+        }
+
+
+        else if (h != 0 || v != 0 && !usingCursor) //if cursor moved set usingCursor to true
+        {
+            usingCursor = true;
+        }
         h += horizontalSpeed * Input.GetAxis("Horizontal") * Time.deltaTime; //joystick speed
         v += horizontalSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
 

@@ -91,6 +91,11 @@ public class ApplicationStateManager : MonoBehaviour
             pauseFix = false; //now pressing "Fire1" will use a spell again
         }
 
+        if (pauseMenuOn && Input.GetAxis("Mouse X") != 0 && Input.GetAxis("Mouse Y") != 0)
+        {
+            Cursor.visible = true;//now you can make the OS cursor appear even when in pause menu
+        }
+
         HighlightSelectedCard();
     }
 
@@ -136,7 +141,10 @@ public class ApplicationStateManager : MonoBehaviour
             player.SetActive(false);
             pauseMenuOn = true;
             Time.timeScale = 0.0f;
-            Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
+            if (GetComponentInChildren<CursorScript>().usingCursor)//only show cursor if using mouse and keyboard
+            {
+                Cursor.visible = true; //makes it so player can use mouse cursor to navigate menu.
+            }
             pauseFix = true; //makes it so player doesn't use ability when turning off pause menu.
             if (resumeButton != null)
             {
