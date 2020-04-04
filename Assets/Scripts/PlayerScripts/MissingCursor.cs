@@ -6,7 +6,7 @@ using UnityEngine;
 //Makes it so cursor can disappear in main menu if controller is being used.
 public class MissingCursor : MonoBehaviour
 {
-    bool usingCursor; //
+    bool usingCursor;
 
     void Start()
     {
@@ -26,11 +26,13 @@ public class MissingCursor : MonoBehaviour
         float v = Input.GetAxis("Mouse Y");
         float controllerH = Input.GetAxis("Horizontal"); //Joystick input
         float controllerV = Input.GetAxis("Vertical"); 
+
         if (controllerH != 0 || controllerV != 0 && usingCursor) //if the mouse isn't moving for 5 seconds set 'usingCursor' to false
         {
                 usingCursor = false;
                 Cursor.visible = false;   
         }
+
         else if (h != 0 || v != 0 && !usingCursor) //if cursor moved set usingCursor to true
         {
             usingCursor = true;

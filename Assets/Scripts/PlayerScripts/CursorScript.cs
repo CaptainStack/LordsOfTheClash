@@ -42,11 +42,11 @@ public class CursorScript : MonoBehaviour
         {
            usingCursor = false;
         }
-
         else if (h != 0 || v != 0 && !usingCursor) //if mouse is moved set usingCursor to true
         {
             usingCursor = true;
         }
+
         h += horizontalSpeed * Input.GetAxis("Horizontal") * Time.deltaTime; //joystick speed
         v += horizontalSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
 
