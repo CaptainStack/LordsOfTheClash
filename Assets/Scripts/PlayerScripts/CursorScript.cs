@@ -38,13 +38,12 @@ public class CursorScript : MonoBehaviour
         float controllerH = Input.GetAxis("Horizontal");
         float controllerV = Input.GetAxis("Vertical");
 
-        if (controllerH != 0 || controllerV != 0 && usingCursor)
+        if (controllerH != 0 || controllerV != 0 && usingCursor) //if controller used set usingCUrsor to false
         {
            usingCursor = false;
         }
 
-
-        else if (h != 0 || v != 0 && !usingCursor) //if cursor moved set usingCursor to true
+        else if (h != 0 || v != 0 && !usingCursor) //if mouse is moved set usingCursor to true
         {
             usingCursor = true;
         }
