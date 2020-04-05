@@ -4,7 +4,7 @@ using UnityEngine;
 
 //Makes it so cursor will appear in main menu after a victory 
 //Makes it so cursor can disappear in main menu if controller is being used.
-public class MissingCursor : MonoBehaviour
+public class MainMenuInput : MonoBehaviour
 {
     bool usingCursor;
 

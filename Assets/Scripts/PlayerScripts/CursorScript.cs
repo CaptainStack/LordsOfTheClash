@@ -19,6 +19,7 @@ public class CursorScript : MonoBehaviour
     public Vector2 cursorPosition;
     Vector2 targetPosition;//GUI cursor's target position
     Vector3 objectTargetPosition;//This object's target position (set to be same as cursor's)
+    bool usingMouse;
 
 
     Vector2 screenBounds;
@@ -31,22 +32,44 @@ public class CursorScript : MonoBehaviour
 
     private void OnGUI()
     {
-        //if (!IsCursorOnScreen())
-          //  return;
-        float h = horizontalSpeedMouse * Input.GetAxis("Mouse X") * Time.deltaTime; //mouse speed
-        float v = verticalSpeedMouse * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        //Check if using mouse
+        float h = Input.GetAxis("Mouse X"); 
+        float v = Input.GetAxis("Mouse Y");
+        if (h != 0 || v != 0)
+        {
+            usingMouse = true;
+        }
+        //check if using controller
         float controllerH = Input.GetAxis("Horizontal"); //joystick speed
         float controllerV = Input.GetAxis("Vertical");
+        if (controllerH != 0 || controllerV != 0)
+        {
+            usingMouse = false;
+        }
 
-        h += horizontalSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;  //final x speed is mouse speed + controller speed
-        v += horizontalSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+        //movespeed with joystick
+        controllerH = horizontalSpeed * controllerH * Time.deltaTime;
+        controllerV = verticalSpeed * controllerV * Time.deltaTime;
 
-        cursorPosition.x += h;
-        cursorPosition.y += v;
+        //move cursor based on controller input and speed multiplier
+        cursorPosition.x += controllerH;
+        cursorPosition.y += controllerV;
 
         targetPosition = new Vector2(Mathf.Clamp(cursorPosition.x, 0, Screen.width-45), Mathf.Clamp(cursorPosition.y, 45, Screen.height-10)); //keep cursor on screen
         cursorPosition = targetPosition;
         objectTargetPosition = new Vector3(targetPosition.x, targetPosition.y, 0f);
+
+        //If OS cursor is on screen, set the in-game cursor position to the OS cursor position
+        if (IsCursorOnScreen())
+        {
+            if (usingMouse)
+            {
+                cursorPosition.x = Input.mousePosition.x;
+                cursorPosition.y = Input.mousePosition.y;
+            }
+        }
+      
+
         GUI.DrawTexture(new Rect(cursorPosition.x, Screen.height - cursorPosition.y, cursorWidth, cursorHeight), cursorSprite);
         this.transform.position = objectTargetPosition;
     }
