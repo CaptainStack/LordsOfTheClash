@@ -20,6 +20,7 @@ public class CursorScript : MonoBehaviour
     Vector2 targetPosition;//GUI cursor's target position
     Vector3 objectTargetPosition;//This object's target position (set to be same as cursor's)
 
+
     Vector2 screenBounds;
     // Start is called before the first frame update
     void Start()
@@ -30,7 +31,8 @@ public class CursorScript : MonoBehaviour
 
     private void OnGUI()
     {
-       
+        //if (!IsCursorOnScreen())
+          //  return;
         float h = horizontalSpeedMouse * Input.GetAxis("Mouse X") * Time.deltaTime; //mouse speed
         float v = verticalSpeedMouse * Input.GetAxis("Mouse Y") * Time.deltaTime;
         float controllerH = Input.GetAxis("Horizontal"); //joystick speed
@@ -63,5 +65,18 @@ public class CursorScript : MonoBehaviour
         {
             collidingWithButton = false;
         }
+    }
+
+    bool IsCursorOnScreen () //Check if OS cursor is on screen
+    {
+        if (Input.mousePosition.x < 0 || Input.mousePosition.x > Screen.width)
+        {
+            return false;
+        }
+        if (Input.mousePosition.y < 0 || Input.mousePosition.y > Screen.height)
+        {
+            return false;
+        }
+        return true;
     }
 }
