@@ -22,9 +22,9 @@ public class Effect : MonoBehaviour
         
     }
 
-   public void Action(Vector2 cursorPos)
+   public void Action(Vector2 position)
     {
-        Vector2 mousePosition = cursorPos;
+        Vector2 mousePosition = position;
         Vector3 point = cam.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, cam.nearClipPlane));
         point.z = 0f;
 
