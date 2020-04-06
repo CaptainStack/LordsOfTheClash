@@ -14,7 +14,7 @@ public class ApplicationStateManager : MonoBehaviour
     private float winLossTimer;
     public float eliminationTime;
     public int handSize = 2;
-    bool pauseFix; //makes it so player doesn't use spell when pressing 'A' in the pause menu to resume game.
+    bool isPaused; //makes it so player doesn't use spell when pressing 'A' in the pause menu to resume game.
     public Button resumeButton;//used to have the Resume Button in the pause menu start selected and highlighted.
     public Button cardButton0;//used to highlight selected card
     public Button cardButton1;//used to highlight selected card
@@ -59,7 +59,7 @@ public class ApplicationStateManager : MonoBehaviour
             TogglePauseMenu();
         }
 
-        if (!pauseMenuOn && !pauseFix) //makes it pressing "Fire1" to unpause doesn't also make you use a spell.
+        if (!pauseMenuOn && !isPaused) //makes it pressing "Fire1" to unpause doesn't also make you use a spell.
         {
             if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
             {
@@ -88,7 +88,7 @@ public class ApplicationStateManager : MonoBehaviour
 
         if (!pauseMenuOn)
         {
-            pauseFix = false; //now pressing "Fire1" will use a spell again
+            isPaused = false; //now pressing "Fire1" will use a spell again
         }
 
         ShowCursorWhilePaused();
@@ -137,7 +137,7 @@ public class ApplicationStateManager : MonoBehaviour
             player.SetActive(false);
             pauseMenuOn = true;
             Time.timeScale = 0.0f;
-            pauseFix = true; //makes it so player doesn't use ability when turning off pause menu.
+            isPaused = true; //makes it so player doesn't use ability when turning off pause menu.
             if (resumeButton != null)
             {
                 resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
