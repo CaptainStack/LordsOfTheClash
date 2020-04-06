@@ -7007,63 +7007,13 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 1563360275}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1563360279
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360277}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  card: {fileID: 1563360276}
---- !u!1 &1563360280 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 476123747337147114, guid: c54b1a7e06f35914d8c0b03ceb454b22,
-    type: 3}
-  m_PrefabInstance: {fileID: 1563360275}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1563360283 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 402906852333442687, guid: c54b1a7e06f35914d8c0b03ceb454b22,
-    type: 3}
-  m_PrefabInstance: {fileID: 1563360275}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1563360284 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
-    type: 3}
-  m_PrefabInstance: {fileID: 1563360275}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1563360285
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  card: {fileID: 1563360284}
 --- !u!114 &1563360286 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8122233835100423797, guid: c54b1a7e06f35914d8c0b03ceb454b22,
     type: 3}
   m_PrefabInstance: {fileID: 1563360275}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360280}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
@@ -7075,7 +7025,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1563360275}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360280}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 038e56fae2af1694182d273e1dec1474, type: 3}
@@ -7087,7 +7037,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1563360275}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360283}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
@@ -7099,68 +7049,12 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 1563360275}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360283}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 038e56fae2af1694182d273e1dec1474, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1563360290
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: SelectButton
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
---- !u!114 &1563360291
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1563360283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 1563360285}
-          m_MethodName: SelectButton
-          m_Mode: 1
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
 --- !u!1 &1576609733
 GameObject:
   m_ObjectHideFlags: 0
