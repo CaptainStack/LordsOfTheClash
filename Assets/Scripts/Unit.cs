@@ -46,6 +46,9 @@ public class Unit : MonoBehaviour
     private float prevRange;
     private float sqrRange;
 
+    private GameObject navAgentGameObj;
+    private NavMeshAgent navMeshAgent;
+
     // Use this for initialization
     protected virtual void Start ()
     {
@@ -68,6 +71,23 @@ public class Unit : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+        
+        if (!navMeshAgent)
+        {
+            // Adding nav agent initially changes gameObject position, so cache/restore it
+            Vector3 tmpPos = transform.position;
+            navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+            transform.position = tmpPos;
+
+            navMeshAgent.updatePosition = false;
+            navMeshAgent.updateRotation = false;
+            navMeshAgent.updateUpAxis = false;
+            navMeshAgent.radius = unitCollider.radius;
+            navMeshAgent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+            navMeshAgent.avoidancePriority = 99;
+            navMeshAgent.autoBraking = false;
+            navMeshAgent.autoRepath = false;
+        }
 
         currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
 
@@ -173,7 +193,7 @@ public class Unit : MonoBehaviour
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
             {
-                bool isFlying = transform.position.z == -1f; // Flying units should move directly toward target
+                bool isFlying = transform.position.z == -1f; // Flying units are at -1 Z depth
                 Vector3 movementDir = ((isFlying ? movementTarget : ComputeNextMoveStep()) - (Vector2)transform.position).normalized;
 
                 // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
@@ -215,23 +235,15 @@ public class Unit : MonoBehaviour
         {
             nextPathfindingUpdate = Time.time + pathfindingUpdateFrequency;
 
-            NavMeshHit navMeshHit = new NavMeshHit();
-
-            // Use SamplePosition to find exact start/end points on the navmesh
-
             Vector3 startPos = new Vector3(transform.position.x, 0, transform.position.y);
-            if(NavMesh.SamplePosition(startPos, out navMeshHit, 1f, NavMesh.AllAreas))
-                startPos = navMeshHit.position;
-
             Vector3 endPos = new Vector3(movementTarget.x, 0, movementTarget.y);
-            if(NavMesh.SamplePosition(endPos, out navMeshHit, 1f, NavMesh.AllAreas))
-                endPos = navMeshHit.position;
 
-            pathFresh = NavMesh.CalculatePath(
-                startPos,
-                endPos, 
-                NavMesh.AllAreas,
-                movePath);
+            // Warping nav agent changes gameObject position, so cache/restore it
+            Vector3 tmpPos = transform.position;
+            navMeshAgent.Warp(startPos);
+            transform.position = tmpPos;
+
+            pathFresh = navMeshAgent.CalculatePath(endPos, movePath);
             
             if (pathFresh)
                 currentCorner = 0; // If path updated, start at first corner for direction
