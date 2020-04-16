@@ -46,7 +46,7 @@ public class Unit : MonoBehaviour
     private float prevRange;
     private float sqrRange;
 
-    private GameObject navAgentGameObj;
+    // Used for pathfinding
     private NavMeshAgent navMeshAgent;
 
     // Use this for initialization
@@ -79,14 +79,15 @@ public class Unit : MonoBehaviour
             navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
             transform.position = tmpPos;
 
+            // Manually control position of agent when computing path
             navMeshAgent.updatePosition = false;
             navMeshAgent.updateRotation = false;
             navMeshAgent.updateUpAxis = false;
+
+            // Agent's size and obstacle avoidance tendencies
             navMeshAgent.radius = unitCollider.radius;
             navMeshAgent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.LowQualityObstacleAvoidance;
             navMeshAgent.avoidancePriority = 99;
-            navMeshAgent.autoBraking = false;
-            navMeshAgent.autoRepath = false;
         }
 
         currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
