@@ -173,7 +173,7 @@ public class Unit : MonoBehaviour
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
             {
-                bool isFlying = this.GetComponent<FlyingUnitEffect>() != null; // Flying units should move directly toward target
+                bool isFlying = transform.position.z == -1f; // Flying units should move directly toward target
                 Vector3 movementDir = ((isFlying ? movementTarget : ComputeNextMoveStep()) - (Vector2)transform.position).normalized;
 
                 // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
