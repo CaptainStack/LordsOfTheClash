@@ -221,7 +221,7 @@ public class Unit : MonoBehaviour
     int currentCorner = 0; // Current corner in movement path
     Vector2 prevMovementTarget; // Previous movementTarget used for pathfinding
     float nextPathfindingUpdate = 0f;
-    float pathfindingUpdateFrequency = 2f;
+    float pathfindingUpdateFrequency = 1f;
     // Computes the position of the next movement step this unit should take
     Vector2 ComputeNextMoveStep()
     {
