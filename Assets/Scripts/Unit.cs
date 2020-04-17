@@ -120,7 +120,6 @@ public class Unit : MonoBehaviour
 
     public int GetFactionLayer()
     {
-        //return LayerMask.NameToLayer(faction.ToString());
         switch (faction)
         {
             case Faction.Friendly:
