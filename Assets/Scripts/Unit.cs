@@ -72,6 +72,7 @@ public class Unit : MonoBehaviour
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
         
+        // Add Pathfinding
         if (!navMeshAgent)
         {
             // Adding nav agent initially changes gameObject position, so cache/restore it
@@ -119,7 +120,18 @@ public class Unit : MonoBehaviour
 
     public int GetFactionLayer()
     {
-        return LayerMask.NameToLayer(faction.ToString());
+        //return LayerMask.NameToLayer(faction.ToString());
+        switch (faction)
+        {
+            case Faction.Friendly:
+                return LayerMask.NameToLayer("Friendly");
+            case Faction.Neutral:
+                return LayerMask.NameToLayer("Neutral");
+            case Faction.Enemy:
+                return LayerMask.NameToLayer("Enemy");
+            default:
+                return LayerMask.NameToLayer("Neutral");
+        }
     }
 
     // Sets the z depth for this unit
@@ -155,10 +167,6 @@ public class Unit : MonoBehaviour
             movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
         }
-        else
-        {
-            AcquireTarget();
-        }
     }
 
     // FixedUpdate runs synchronized with Unity physics cycle
@@ -178,6 +186,7 @@ public class Unit : MonoBehaviour
         // If hostile target is out of range, move toward them (unless we're at max speed already)
         if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed && !TargetInRange())
         {
+            AcquireTarget();
             MoveToTarget();
         }
     }
