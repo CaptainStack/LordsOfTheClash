@@ -212,7 +212,7 @@ public class Unit : MonoBehaviour
                 movementDir += cross * Random.Range(-.1f, .1f);
                 movementDir = movementDir.normalized;
 
-                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
+                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .25f, ForceMode2D.Impulse);
             }
         }
     }
@@ -222,7 +222,7 @@ public class Unit : MonoBehaviour
     int currentCorner = 0; // Current corner in movement path
     Vector2 prevMovementTarget; // Previous movementTarget used for pathfinding
     float nextPathfindingUpdate = 0f;
-    float pathfindingUpdateFrequency = 1f;
+    float pathfindingUpdateFrequency = 2f;
     // Computes the position of the next movement step this unit should take
     Vector2 ComputeNextMoveStep()
     {
@@ -234,7 +234,7 @@ public class Unit : MonoBehaviour
             movePath = new NavMeshPath();
         
         // Mark path dirty if the movement target has changed substantially
-        if ((movementTarget - prevMovementTarget).sqrMagnitude < 2f)
+        if ((movementTarget - prevMovementTarget).sqrMagnitude < 1f)
         {
             pathFresh = false;
             prevMovementTarget = movementTarget;
