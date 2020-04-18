@@ -160,8 +160,12 @@ public class Unit : MonoBehaviour
         }
         EnableSpawners(); // Enable spawners, in case they were disabled above
 
+        // Reset current hostile target if their faction matches (faction may have changed)
+        if (currentTarget && currentTarget.faction == faction)
+            currentTarget = null;
+
         // If hostile target is in range, attack them
-        if (currentTarget && currentTarget.faction != this.faction && TargetInRange())
+        if (TargetInRange())
         {
             movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
@@ -191,7 +195,7 @@ public class Unit : MonoBehaviour
     }
 
     // Move towards current target
-    Vector2 movementTarget = Vector2.zero;
+    private Vector2 movementTarget = Vector2.zero;
     void MoveToTarget()
     {
         if (currentTarget != null)
