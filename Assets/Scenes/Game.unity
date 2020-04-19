@@ -151,7 +151,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c770739e3059b49a2655aec1cc1c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pauseMenuOn: 0
   eliminationTime: 2
+  handSize: 2
+  resumeButton: {fileID: 7618971167709103882}
+  cardButton0: {fileID: 152968071}
+  cardButton1: {fileID: 1500318908}
 --- !u!4 &15798329
 Transform:
   m_ObjectHideFlags: 0
@@ -168,6 +173,7 @@ Transform:
   - {fileID: 391025912}
   - {fileID: 1539881584}
   - {fileID: 1673289825}
+  - {fileID: 704483211}
   - {fileID: 2036679788}
   - {fileID: 183065873}
   - {fileID: 84144897}
@@ -218,7 +224,7 @@ Transform:
   - {fileID: 91289981}
   - {fileID: 856578708}
   m_Father: {fileID: 15798329}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91289980
 GameObject:
@@ -280,9 +286,13 @@ GameObject:
   - component: {fileID: 152968071}
   - component: {fileID: 152968070}
   - component: {fileID: 152968074}
+  - component: {fileID: 152968075}
+  - component: {fileID: 152968077}
+  - component: {fileID: 152968076}
+  - component: {fileID: 152968078}
   m_Layer: 5
   m_Name: Card1Button
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -342,7 +352,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.130162, g: 0.7075472, b: 0.13531844, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -421,6 +431,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &152968075
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152968068}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.18630981, y: -0.20140457}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 154.9046, y: 26.377266}
+  m_EdgeRadius: 0
+--- !u!114 &152968076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152968068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ff5531578439f4aa609984255131f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardNumber: 0
+--- !u!50 &152968077
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152968068}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &152968078
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 152968068}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 152968071}
 --- !u!1 &183065872
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,7 +535,7 @@ Transform:
   - {fileID: 851656224}
   - {fileID: 1061725069}
   m_Father: {fileID: 15798329}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!224 &391025912 stripped
 RectTransform:
@@ -506,6 +589,106 @@ MonoBehaviour:
   cardName: SummonCard
   manaCost: 1
   effect: {fileID: 1245876834}
+--- !u!1 &704483210
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 704483211}
+  - component: {fileID: 704483214}
+  - component: {fileID: 704483213}
+  - component: {fileID: 704483212}
+  m_Layer: 5
+  m_Name: PlayerCursor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &704483211
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704483210}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 15798329}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &704483212
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704483210}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!61 &704483213
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704483210}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 17.660248, y: -20.891724}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 5.8027954, y: 22.060913}
+  m_EdgeRadius: 0
+--- !u!114 &704483214
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 704483210}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 765d40836edc95c48a64b3f7710b4341, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cursorSprite: {fileID: 2800000, guid: db85bcbf8919a4848973319330e7118e, type: 3}
+  horizontalSpeed: 500
+  verticalSpeed: 500
+  horizontalSpeedMouse: 1400
+  verticalSpeedMouse: 1400
+  collidingWithButton: 0
+  collidingButton: {fileID: 0}
+  cursorPosition: {x: 0, y: 0}
 --- !u!1001 &743629598
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1460,9 +1643,13 @@ GameObject:
   - component: {fileID: 1500318908}
   - component: {fileID: 1500318907}
   - component: {fileID: 1500318911}
+  - component: {fileID: 1500318912}
+  - component: {fileID: 1500318914}
+  - component: {fileID: 1500318913}
+  - component: {fileID: 1500318915}
   m_Layer: 5
   m_Name: Card2Button
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1522,7 +1709,7 @@ MonoBehaviour:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
     m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
-    m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_SelectedColor: {r: 0.19708103, g: 0.754717, b: 0.17443931, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
     m_ColorMultiplier: 1
     m_FadeDuration: 0.1
@@ -1601,6 +1788,79 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe033117e7845445975ab94c2173788, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &1500318912
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500318905}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: -0.20239258}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 157.24048, y: 27.310913}
+  m_EdgeRadius: 0
+--- !u!114 &1500318913
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500318905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48ff5531578439f4aa609984255131f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardNumber: 1
+--- !u!50 &1500318914
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500318905}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!114 &1500318915
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1500318905}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ad240f7931d7589498bb9fb27641f647, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  card: {fileID: 1500318908}
 --- !u!1 &1539881581
 GameObject:
   m_ObjectHideFlags: 0
@@ -1650,7 +1910,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
+  m_FirstSelected: {fileID: 7618971167709103881}
   m_sendNavigationEvents: 1
   m_DragThreshold: 10
 --- !u!4 &1539881584
@@ -1795,6 +2055,9 @@ MonoBehaviour:
   manaText: {fileID: 1344969078}
   handText: {fileID: 1151429722}
   deckText: {fileID: 2101303924}
+  cardButton1Text: {fileID: 1441756808}
+  cardButton2Text: {fileID: 1767844144}
+  playerCursor: {fileID: 704483211}
   currentMana: 10
   cardSelected: 0
   heroes:
@@ -2317,7 +2580,7 @@ PrefabInstance:
     - target: {fileID: 8400463774212043440, guid: a66708a7baed85148bf8d44efed0bd1e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 8
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 8400463774212043440, guid: a66708a7baed85148bf8d44efed0bd1e,
         type: 3}
@@ -2376,7 +2639,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 15798329}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2036679789
 MonoBehaviour:
@@ -2481,6 +2744,36 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 15798329}
     m_Modifications:
+    - target: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.18845676
+      objectReference: {fileID: 0}
+    - target: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.7264151
+      objectReference: {fileID: 0}
+    - target: {fileID: 402906852333442626, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.20643692
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270189619723447235, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.15690638
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270189619723447235, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.7735849
+      objectReference: {fileID: 0}
+    - target: {fileID: 5270189619723447235, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.15998322
+      objectReference: {fileID: 0}
     - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
@@ -2510,6 +2803,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.r
+      value: 0.23184773
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.g
+      value: 0.764151
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+        type: 3}
+      propertyPath: m_Colors.m_SelectedColor.b
+      value: 0.21266466
       objectReference: {fileID: 0}
     - target: {fileID: 7618971167524002900, guid: c54b1a7e06f35914d8c0b03ceb454b22,
         type: 3}
@@ -2628,3 +2936,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c54b1a7e06f35914d8c0b03ceb454b22, type: 3}
+--- !u!1 &7618971167709103881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7618971166562333473, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+    type: 3}
+  m_PrefabInstance: {fileID: 7618971167709103880}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7618971167709103882 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+    type: 3}
+  m_PrefabInstance: {fileID: 7618971167709103880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7618971167709103881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

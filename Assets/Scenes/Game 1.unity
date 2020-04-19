@@ -152,6 +152,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   eliminationTime: 2
+  handSize: 2
+  resumeButton: {fileID: 7618971167709103881}
+  cardButton0: {fileID: 786341552}
+  cardButton1: {fileID: 336013520}
 --- !u!4 &15798329
 Transform:
   m_ObjectHideFlags: 0
@@ -1724,6 +1728,8 @@ MonoBehaviour:
   manaText: {fileID: 1344969078}
   handText: {fileID: 1151429722}
   deckText: {fileID: 2101303924}
+  cardButton1Text: {fileID: 1605341121}
+  cardButton2Text: {fileID: 285565003}
   currentMana: 10
   cardSelected: 0
   heroes:
@@ -2401,3 +2407,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c54b1a7e06f35914d8c0b03ceb454b22, type: 3}
+--- !u!114 &7618971167709103881 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7618971166562333475, guid: c54b1a7e06f35914d8c0b03ceb454b22,
+    type: 3}
+  m_PrefabInstance: {fileID: 7618971167709103880}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

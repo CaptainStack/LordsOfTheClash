@@ -13,6 +13,9 @@ public class Player : MonoBehaviour
     public Text manaText;
     public Text handText;
     public Text deckText;
+    public Text cardButton1Text;
+    public Text cardButton2Text;
+    public Transform playerCursor;
     
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
@@ -48,6 +51,9 @@ public class Player : MonoBehaviour
             deckText.text += $"{card.cardName} ({card.manaCost}), ";
         }
         deckText.text += "]";
+
+        cardButton1Text.text = playerHand[0].cardName;
+        cardButton2Text.text = playerHand[1].cardName;
     }
 
     void ManaRegen()
@@ -65,13 +71,13 @@ public class Player : MonoBehaviour
 
     //press button on keyboard to use card 
     //Make public to call from UI?
-    public void UseCard() 
+    public void UseCard(Vector2 position) 
     {
         // Ignore clicks over UI elements and check mana
-        if (!EventSystem.current.IsPointerOverGameObject() && currentMana >= playerHand[cardSelected].manaCost)
+        if (!EventSystem.current.IsPointerOverGameObject() && !playerCursor.GetComponent<CursorScript>().collidingWithButton && currentMana >= playerHand[cardSelected].manaCost)
         {
             currentMana -= playerHand[cardSelected].manaCost;
-            playerHand[cardSelected].DoCardAction();
+            playerHand[cardSelected].DoCardAction(position);
             RemoveCardFromHand();
             DrawCardFromDeck();
         }
