@@ -46,6 +46,9 @@ public class Unit : MonoBehaviour
     private float prevRange;
     private float sqrRange;
 
+    // Used for pathfinding
+    private NavMeshAgent navMeshAgent;
+
     // Use this for initialization
     protected virtual void Start ()
     {
@@ -68,6 +71,25 @@ public class Unit : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+        
+        // Add Pathfinding
+        if (!navMeshAgent)
+        {
+            // Adding nav agent initially changes gameObject position, so cache/restore it
+            Vector3 tmpPos = transform.position;
+            navMeshAgent = gameObject.AddComponent<NavMeshAgent>();
+            transform.position = tmpPos;
+
+            // Manually control position of agent when computing path
+            navMeshAgent.updatePosition = false;
+            navMeshAgent.updateRotation = false;
+            navMeshAgent.updateUpAxis = false;
+
+            // Agent's size and obstacle avoidance tendencies
+            navMeshAgent.radius = unitCollider.radius;
+            navMeshAgent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.LowQualityObstacleAvoidance;
+            navMeshAgent.avoidancePriority = 99;
+        }
 
         currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
 
@@ -98,7 +120,17 @@ public class Unit : MonoBehaviour
 
     public int GetFactionLayer()
     {
-        return LayerMask.NameToLayer(faction.ToString());
+        switch (faction)
+        {
+            case Faction.Friendly:
+                return LayerMask.NameToLayer("Friendly");
+            case Faction.Neutral:
+                return LayerMask.NameToLayer("Neutral");
+            case Faction.Enemy:
+                return LayerMask.NameToLayer("Enemy");
+            default:
+                return LayerMask.NameToLayer("Neutral");
+        }
     }
 
     // Sets the z depth for this unit
@@ -128,15 +160,15 @@ public class Unit : MonoBehaviour
         }
         EnableSpawners(); // Enable spawners, in case they were disabled above
 
+        // Reset current hostile target if their faction matches (faction may have changed)
+        if (currentTarget && currentTarget.faction == faction)
+            currentTarget = null;
+
         // If hostile target is in range, attack them
-        if (currentTarget && currentTarget.faction != this.faction && TargetInRange())
+        if (TargetInRange())
         {
             movementTarget = Vector2.zero; // Stop moving once in range of the target
             FightTarget();
-        }
-        else
-        {
-            AcquireTarget();
         }
     }
 
@@ -157,12 +189,13 @@ public class Unit : MonoBehaviour
         // If hostile target is out of range, move toward them (unless we're at max speed already)
         if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed && !TargetInRange())
         {
+            AcquireTarget();
             MoveToTarget();
         }
     }
 
     // Move towards current target
-    Vector2 movementTarget = Vector2.zero;
+    private Vector2 movementTarget = Vector2.zero;
     void MoveToTarget()
     {
         if (currentTarget != null)
@@ -173,7 +206,7 @@ public class Unit : MonoBehaviour
             // Accelerate in direction, up to max speed
             if (this.unitRigidBody.velocity.sqrMagnitude < sqrSpeed)
             {
-                bool isFlying = this.GetComponent<FlyingUnitEffect>() != null; // Flying units should move directly toward target
+                bool isFlying = transform.position.z == -1f; // Flying units are at -1 Z depth
                 Vector3 movementDir = ((isFlying ? movementTarget : ComputeNextMoveStep()) - (Vector2)transform.position).normalized;
 
                 // Add a small amount of random side-to-side movement for better bunching (units form crowds instead of lines)
@@ -182,7 +215,7 @@ public class Unit : MonoBehaviour
                 movementDir += cross * Random.Range(-.1f, .1f);
                 movementDir = movementDir.normalized;
 
-                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .5f, ForceMode2D.Impulse);
+                this.unitRigidBody.AddForce(movementDir * this.unitRigidBody.mass * .25f, ForceMode2D.Impulse);
             }
         }
     }
@@ -204,7 +237,7 @@ public class Unit : MonoBehaviour
             movePath = new NavMeshPath();
         
         // Mark path dirty if the movement target has changed substantially
-        if ((movementTarget - prevMovementTarget).sqrMagnitude < 2f)
+        if ((movementTarget - prevMovementTarget).sqrMagnitude < 1f)
         {
             pathFresh = false;
             prevMovementTarget = movementTarget;
@@ -215,23 +248,15 @@ public class Unit : MonoBehaviour
         {
             nextPathfindingUpdate = Time.time + pathfindingUpdateFrequency;
 
-            NavMeshHit navMeshHit = new NavMeshHit();
-
-            // Use SamplePosition to find exact start/end points on the navmesh
-
             Vector3 startPos = new Vector3(transform.position.x, 0, transform.position.y);
-            if(NavMesh.SamplePosition(startPos, out navMeshHit, 1f, NavMesh.AllAreas))
-                startPos = navMeshHit.position;
-
             Vector3 endPos = new Vector3(movementTarget.x, 0, movementTarget.y);
-            if(NavMesh.SamplePosition(endPos, out navMeshHit, 1f, NavMesh.AllAreas))
-                endPos = navMeshHit.position;
 
-            pathFresh = NavMesh.CalculatePath(
-                startPos,
-                endPos, 
-                NavMesh.AllAreas,
-                movePath);
+            // Warping nav agent changes gameObject position, so cache/restore it
+            Vector3 tmpPos = transform.position;
+            navMeshAgent.Warp(startPos);
+            transform.position = tmpPos;
+
+            pathFresh = navMeshAgent.CalculatePath(endPos, movePath);
             
             if (pathFresh)
                 currentCorner = 0; // If path updated, start at first corner for direction

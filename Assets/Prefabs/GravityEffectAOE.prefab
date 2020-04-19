@@ -46,7 +46,7 @@ MonoBehaviour:
   radius: 3
   faction: 1
   aoeDuration: 6
-  aoeFrequency: 0.05
+  aoeFrequency: 0.1
   sound:
     name: 
     clip: {fileID: 8300000, guid: de066783d41448f4aafb3973cd9b0143, type: 3}
