@@ -25,7 +25,7 @@ public class SceneController : MonoBehaviour
             {
                 AudioManager.GetInstance().ChangeMusic("TitleMusic");
             }
-            SceneManager.LoadScene(newScene);
+            Mirror.NetworkManager.singleton.ServerChangeScene(newScene);
         }
     }
 
