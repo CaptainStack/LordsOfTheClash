@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 4833260904744711934}
   - component: {fileID: 5956910301850967336}
   - component: {fileID: 7767305288534476693}
+  - component: {fileID: 5781004704850881038}
   m_Layer: 0
   m_Name: BatSpawner
   m_TagString: Untagged
@@ -62,6 +63,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9f9765e0bcdf242b6810f71b563aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   unitRigidBody: {fileID: 7767305288534476693}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 5956910301850967336}
@@ -73,6 +76,7 @@ MonoBehaviour:
   visionRange: 20
   projectilePrefab: {fileID: 0}
   accuracy: 100
+  navigationObstacle: {fileID: 0}
 --- !u!212 &5956910301850967336
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -144,3 +148,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &5781004704850881038
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5956910301850967334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 

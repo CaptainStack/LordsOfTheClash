@@ -103,5 +103,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: NeutralZombieSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: m_AssetId
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}

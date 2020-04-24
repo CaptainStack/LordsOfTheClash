@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
-public class ApplicationStateManager : MonoBehaviour
+public class ApplicationStateManager : Mirror.NetworkBehaviour
 {
     public bool pauseMenuOn;
     private GameObject pauseMenu;
@@ -36,22 +36,25 @@ public class ApplicationStateManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        winLossTimer -= Time.deltaTime;
-        var winner = Faction.Neutral;
+        if (isServer)
+        {
+            winLossTimer -= Time.deltaTime;
+            var winner = Faction.Neutral;
 
-        if (winLossTimer <= 0f)
-        {
-            winLossTimer = eliminationTime;
-            winner = WinningFaction();
-        }
+            if (winLossTimer <= 0f)
+            {
+                winLossTimer = eliminationTime;
+                winner = WinningFaction();
+            }
 
-        if (winner == Faction.Friendly)
-        {
-            sceneController.SwitchScene("MainMenu");
-        }
-        else if (winner == Faction.Enemy)
-        {
-            sceneController.SwitchScene("GameOver");
+            if (winner == Faction.Friendly)
+            {
+                sceneController.SwitchScene("MainMenu");
+            }
+            else if (winner == Faction.Enemy)
+            {
+                sceneController.SwitchScene("GameOver");
+            }
         }
 
         if (Input.GetButtonDown("Cancel"))

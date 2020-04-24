@@ -151,6 +151,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c770739e3059b49a2655aec1cc1c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   pauseMenuOn: 0
   eliminationTime: 2
   handSize: 2
@@ -761,6 +763,11 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 616923690
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
 --- !u!1 &851656222
@@ -1033,6 +1040,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 199019329
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1148,6 +1160,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 2525041288
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724103, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: m_Name
@@ -1276,6 +1293,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992768664326658268, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
+        type: 3}
+      propertyPath: sceneId
+      value: 2310114466
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd194b4f2ba5b914d9e0b002cdd9cf14, type: 3}
@@ -1549,6 +1571,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 4194489458
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
@@ -1934,6 +1961,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5227068503374489860, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: sceneId
+      value: 982499283
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2130,6 +2162,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2992768664326658268, guid: bd194b4f2ba5b914d9e0b002cdd9cf14,
+        type: 3}
+      propertyPath: sceneId
+      value: 902777438
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bd194b4f2ba5b914d9e0b002cdd9cf14, type: 3}
@@ -2360,6 +2397,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendlyZombieSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 2777522194
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
 --- !u!1001 &1841236320
@@ -2369,6 +2411,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5227068503374489860, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: sceneId
+      value: 1602159204
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalPosition.x

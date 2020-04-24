@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: -2539355857561956201}
   - component: {fileID: 1999465387186618625}
   - component: {fileID: 7447516554118617201}
+  - component: {fileID: 896887544366674173}
   m_Layer: 0
   m_Name: Tower
   m_TagString: Untagged
@@ -45,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e9f9765e0bcdf242b6810f71b563aa6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   unitRigidBody: {fileID: 7447516554118617201}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 1999465387186618625}
@@ -57,6 +60,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 2218057220283464135, guid: 924b4167afe07584392128388dc2df2c,
     type: 3}
   accuracy: 95
+  navigationObstacle: {fileID: 0}
 --- !u!212 &1999465387186618625
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -128,3 +132,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &896887544366674173
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7008468588413812320}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 
