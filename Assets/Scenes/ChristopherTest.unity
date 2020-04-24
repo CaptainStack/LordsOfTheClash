@@ -353,8 +353,8 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2038909255}
-  - {fileID: 291858004}
   - {fileID: 620209923}
+  - {fileID: 291858004}
   - {fileID: 911208283}
   - {fileID: 2036875457}
   - {fileID: 407159843}
@@ -2621,7 +2621,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 47570706}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &620209924
 MonoBehaviour:
@@ -4322,8 +4322,8 @@ MonoBehaviour:
   startOnHeadless: 1
   showDebugMessages: 0
   serverTickRate: 30
-  offlineScene: Assets/Scenes/ChristopherTest.unity
-  onlineScene: Assets/Scenes/ChristopherTest.unity
+  offlineScene: 
+  onlineScene: 
   transport: {fileID: 1073416470}
   networkAddress: localhost
   maxConnections: 4
