@@ -53,7 +53,6 @@ public class Unit : Mirror.NetworkBehaviour
 
     // Used for networking
     private Mirror.NetworkIdentity networkIdentity;
-    //private Mirror.NetworkTransform networkTransform;
     [Mirror.SyncVar]
     private Vector3 networkPosition;
     [Mirror.SyncVar]
@@ -104,9 +103,6 @@ public class Unit : Mirror.NetworkBehaviour
         networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
         if (!networkIdentity)
             networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
-
-        //if (!networkTransform)
-            //networkTransform = gameObject.AddComponent<Mirror.NetworkTransform>();
 
         currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
 
@@ -165,7 +161,7 @@ public class Unit : Mirror.NetworkBehaviour
         // Client units follow server units, but otherwise have logic disabled
         if(!isServer)
             return;
-
+        
         // If dead, destroy self
         if (health <= 0f)
         {
