@@ -7,7 +7,7 @@ using UnityEngine.AI;
 // Faction of the units
 public enum Faction { Neutral, Friendly, Enemy }
 
-public class Unit : MonoBehaviour
+public class Unit : Mirror.NetworkBehaviour
 {
     public Rigidbody2D unitRigidBody;
     public CircleCollider2D unitCollider;
@@ -18,6 +18,8 @@ public class Unit : MonoBehaviour
     public float speed = 1f;
     public float attackRange = 1f;
     public float attackCooldown = 1f;
+
+    [Mirror.SyncVar]
     public Faction faction = Faction.Neutral;
 
     // Range of a unit's vision, used to find enemies
@@ -48,6 +50,14 @@ public class Unit : MonoBehaviour
 
     // Used for pathfinding
     private NavMeshAgent navMeshAgent;
+
+    // Used for networking
+    private Mirror.NetworkIdentity networkIdentity;
+    //private Mirror.NetworkTransform networkTransform;
+    [Mirror.SyncVar]
+    private Vector3 networkPosition;
+    [Mirror.SyncVar]
+    private Vector2 networkVelocity;
 
     // Use this for initialization
     protected virtual void Start ()
@@ -90,6 +100,13 @@ public class Unit : MonoBehaviour
             navMeshAgent.obstacleAvoidanceType = UnityEngine.AI.ObstacleAvoidanceType.LowQualityObstacleAvoidance;
             navMeshAgent.avoidancePriority = 99;
         }
+
+        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
+        if (!networkIdentity)
+            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
+
+        //if (!networkTransform)
+            //networkTransform = gameObject.AddComponent<Mirror.NetworkTransform>();
 
         currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
 
@@ -145,6 +162,10 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        // Client units follow server units, but otherwise have logic disabled
+        if(!isServer)
+            return;
+
         // If dead, destroy self
         if (health <= 0f)
         {
@@ -175,6 +196,24 @@ public class Unit : MonoBehaviour
     // FixedUpdate runs synchronized with Unity physics cycle
     void FixedUpdate()
     {
+        // Client units follow server units, but otherwise have logic disabled
+        if(!isServer)
+        {
+            // Interpolate network position updates depending on how far away we currently are
+            float sqrDistance = (transform.position - networkPosition).sqrMagnitude;
+            if (sqrDistance > 1f)
+                transform.position = networkPosition;
+            else if (sqrDistance > .5f)
+                transform.position = .01f * (50*transform.position + 50*networkPosition);
+            else if (sqrDistance > .01f)
+                transform.position = .01f * (95*transform.position + 5*networkPosition);
+
+            unitRigidBody.velocity = networkVelocity;
+            return;
+        }
+        networkPosition = transform.position;
+        networkVelocity = unitRigidBody.velocity;
+
         // Check if Unit AI has been disabled
         if (disableAICount > 0)
             return;
