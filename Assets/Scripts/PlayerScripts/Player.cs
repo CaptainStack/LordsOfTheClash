@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : Mirror.NetworkBehaviour
 {
     public float totalMana;
     public float manaRechargeTime;
@@ -13,14 +13,19 @@ public class Player : MonoBehaviour
     public Text manaText;
     public Text handText;
     public Text deckText;
+    public Button cardButton1;
+    public Button cardButton2;
     public Text cardButton1Text;
     public Text cardButton2Text;
-    public Transform playerCursor;
+    public CursorScript playerCursor;
     
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
     float timer;
-    
+    ApplicationStateManager applicationStateManager;
+
+    // Used for networking
+    private Mirror.NetworkIdentity networkIdentity;
 
     public List<Hero> heroes = new List<Hero>();
     public List<Card> playerDeck = new List<Card>();
@@ -28,10 +33,16 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        applicationStateManager = FindObjectOfType<ApplicationStateManager>();
+        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
+        if (!networkIdentity)
+            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
+
+        playerCursor = GetComponentInChildren<CursorScript>();
+
         FillDeck();
         FillHand();
     }
-
 
     void Update()
     {
@@ -54,6 +65,78 @@ public class Player : MonoBehaviour
 
         cardButton1Text.text = playerHand[0].cardName;
         cardButton2Text.text = playerHand[1].cardName;
+
+        HandleInput();
+    }
+
+    void HandleInput()
+    {
+        if (!applicationStateManager.pauseMenuOn) //makes it pressing "Fire1" to unpause doesn't also make you use a spell.
+        {
+            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
+            {
+                if (playerCursor.collidingWithButton)
+                {
+                    cardSelected = playerCursor.collidingButton.GetComponent<ButtonNumber>().cardNumber;
+                }
+                else
+                {
+                    UseCard(playerCursor.cursorPosition);
+                }
+            }
+
+            if (Input.GetButtonDown("Card1"))
+            {
+                cardSelected = 0;
+            }
+
+            if (Input.GetButtonDown("Card2"))
+            {
+                cardSelected = 1;
+            }
+            
+            SwitchSelectedCard();
+        }
+    }
+
+    private void SwitchSelectedCard() //use bumpers to change selected card
+    {
+        if (Input.GetButtonDown("NextCard"))
+        {
+            if (cardSelected == playerHandSize - 1)
+            {
+                cardSelected = 0;
+            }
+            else
+            {
+                cardSelected += 1;
+            }
+        }
+        if (Input.GetButtonDown("PreviousCard"))
+        {
+            if (cardSelected != 0)
+            {
+                cardSelected -= 1;
+            }
+            else
+            {
+                cardSelected = playerHandSize - 1;
+            }
+        }
+    }
+
+    void HighlightSelectedCard() //Highlights card currently selected
+    {
+        if (cardSelected == 0 && !applicationStateManager.pauseMenuOn)
+        {
+            cardButton1.Select(); //Selects button
+            cardButton1.OnSelect(null); //highlights button
+        }
+        else if (cardSelected == 1 && !applicationStateManager.pauseMenuOn)
+        {
+            cardButton2.Select();
+            cardButton2.OnSelect(null);
+        }
     }
 
     void ManaRegen()
