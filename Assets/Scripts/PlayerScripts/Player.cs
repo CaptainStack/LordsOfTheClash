@@ -91,7 +91,7 @@ public class Player : Mirror.NetworkBehaviour
         isPaused = true;
 
         if (isLocalPlayer)
-            gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(false);
     }
 
     public void Resume()
@@ -111,12 +111,21 @@ public class Player : Mirror.NetworkBehaviour
     void TargetRpcPause(bool pauseState)
     {
         isPaused = pauseState;
+
+        if (isLocalPlayer)
+            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(!pauseState);
     }
 
     [Mirror.Command]
     void CmdPause(bool pauseState)
     {
+        ApplicationStateManager applicationStateManger = FindObjectOfType<ApplicationStateManager>();
+        applicationStateManger.pauseMenuOn = true;
+
         isPaused = pauseState;
+
+        if (isLocalPlayer)
+            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(!pauseState);
     }
 
     void HandleInput()

@@ -42,28 +42,42 @@ public class ApplicationStateManager : MonoBehaviour
             pauseMenuOn = false;
             Cursor.visible = false;
 
-            if (gameStateManager)
-                gameStateManager.Resume();
-
-            foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
-                player.Resume();
+            SetPauseState(false);
         } 
         else
         {
             pauseMenu.SetActive(true);
             pauseMenuOn = true;
 
-            if (gameStateManager)
-                gameStateManager.Pause();
-
-            foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
-                player.Pause();
+            SetPauseState(true);
 
             if (resumeButton != null)
             {
                 resumeButton.Select(); //sets 'resume button' to selected when you open the pause menu
                 resumeButton.OnSelect(null);//sets resume button color to its selected color
             }
+        }
+    }
+
+    public void SetPauseState(bool pause)
+    {
+        GameStateManager gameStateManager = FindObjectOfType<GameStateManager>();
+
+        if (pause)
+        {
+            if (gameStateManager)
+                gameStateManager.Pause();
+
+            foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
+                player.Pause();
+        }
+        else
+        {
+            if (gameStateManager)
+                gameStateManager.Resume();
+
+            foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
+                player.Resume();
         }
     }
 
