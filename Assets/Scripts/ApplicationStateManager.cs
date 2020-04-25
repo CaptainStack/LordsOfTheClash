@@ -65,7 +65,8 @@ public class ApplicationStateManager : MonoBehaviour
 
         if (pause)
         {
-            if (gameStateManager)
+            // Pause game state logic if singleplayer
+            if (gameStateManager && gameStateManager.isServer && Mirror.NetworkManager.singleton.numPlayers == 1)
                 gameStateManager.Pause();
 
             foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
@@ -73,7 +74,8 @@ public class ApplicationStateManager : MonoBehaviour
         }
         else
         {
-            if (gameStateManager)
+            // Resume game state logic if singleplayer
+            if (gameStateManager && gameStateManager.isServer && Mirror.NetworkManager.singleton.numPlayers == 1)
                 gameStateManager.Resume();
 
             foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
