@@ -168,7 +168,11 @@ public class Unit : Mirror.NetworkBehaviour
     {
         // Client units follow server units, but otherwise have logic disabled
         if(!isServer)
+        {
+            // Hide client unit spriteRenderer when at position (0,0,0), which is where Mirror spawns them until they get their position initialized
+            spriteRenderer.enabled = transform.position == Vector3.zero ? false : true;
             return;
+        }
         
         // If dead, destroy self
         if (health <= 0f)
