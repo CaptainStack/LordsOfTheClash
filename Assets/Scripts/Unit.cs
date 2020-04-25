@@ -60,7 +60,7 @@ public class Unit : Mirror.NetworkBehaviour
     private Color networkSpriteColor;
 
     // Use this for initialization
-    protected virtual void Start()
+    public override void OnStartServer()
     {
         // Add RigidBody2D
         if (!unitRigidBody)
