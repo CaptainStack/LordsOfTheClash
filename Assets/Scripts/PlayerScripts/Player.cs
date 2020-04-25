@@ -77,6 +77,7 @@ public class Player : Mirror.NetworkBehaviour
         cardButton2Text.text = playerHand[1].cardName;
 
         HandleInput();
+        HighlightSelectedCard();
     }
 
     void HandleInput()
