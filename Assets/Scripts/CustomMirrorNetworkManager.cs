@@ -77,6 +77,10 @@ public class CustomMirrorNetworkManager : NetworkManager
     public override void ServerChangeScene(string newSceneName)
     {
         base.ServerChangeScene(newSceneName);
+        if (newSceneName == "MainMenu")
+            singleton.StopHost();
+        else
+            singleton.StartHost();
     }
 
     /// <summary>
