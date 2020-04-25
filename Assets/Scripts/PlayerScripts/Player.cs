@@ -120,7 +120,7 @@ public class Player : Mirror.NetworkBehaviour
     void CmdPause(bool pauseState)
     {
         ApplicationStateManager applicationStateManger = FindObjectOfType<ApplicationStateManager>();
-        applicationStateManger.pauseMenuOn = true;
+        applicationStateManger.SetPauseState(pauseState);
 
         isPaused = pauseState;
 
