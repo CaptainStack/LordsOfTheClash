@@ -32,6 +32,9 @@ public class Player : Mirror.NetworkBehaviour
     public List<Card> playerDeck = new List<Card>();
     public List<Card> playerHand = new List<Card>(); //Cards in player's hand
 
+    [Mirror.SyncVar]
+    private bool isPaused = false;
+
     void Start()
     {
         applicationStateManager = FindObjectOfType<ApplicationStateManager>();
@@ -53,7 +56,10 @@ public class Player : Mirror.NetworkBehaviour
 
     void Update()
     {
-        if (!isLocalPlayer)
+        if (isServer)
+            isPaused = applicationStateManager.pauseMenuOn;
+
+        if (!isLocalPlayer || isPaused)
             return;
 
         manaText.text = "Mana: " + currentMana.ToString();
@@ -82,32 +88,29 @@ public class Player : Mirror.NetworkBehaviour
 
     void HandleInput()
     {
-        if (!applicationStateManager.pauseMenuOn) //makes it pressing "Fire1" to unpause doesn't also make you use a spell.
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (Input.GetButtonDown("Submit") || Input.GetButtonDown("Fire1"))
+            if (playerCursor.collidingWithButton)
             {
-                if (playerCursor.collidingWithButton)
-                {
-                    cardSelected = playerCursor.collidingButton.GetComponent<ButtonNumber>().cardNumber;
-                }
-                else
-                {
-                    UseCard(playerCursor.cursorPosition);
-                }
+                cardSelected = playerCursor.collidingButton.GetComponent<ButtonNumber>().cardNumber;
             }
-
-            if (Input.GetButtonDown("Card1"))
+            else
             {
-                cardSelected = 0;
+                UseCard(playerCursor.cursorPosition);
             }
-
-            if (Input.GetButtonDown("Card2"))
-            {
-                cardSelected = 1;
-            }
-            
-            SwitchSelectedCard();
         }
+
+        if (Input.GetButtonDown("Card1"))
+        {
+            cardSelected = 0;
+        }
+
+        if (Input.GetButtonDown("Card2"))
+        {
+            cardSelected = 1;
+        }
+        
+        SwitchSelectedCard();
     }
 
     private void SwitchSelectedCard() //use bumpers to change selected card

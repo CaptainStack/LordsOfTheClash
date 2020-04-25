@@ -8,18 +8,13 @@ public class ApplicationStateManager : MonoBehaviour
 {
     public bool pauseMenuOn;
     private GameObject pauseMenu;
-    private Player player;
     public Button resumeButton;//used to have the Resume Button in the pause menu start selected and highlighted.
-
-    private GameStateManager gameStateManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        gameStateManager = FindObjectOfType<GameStateManager>();
         pauseMenu = this.transform.Find("PauseMenu").gameObject;
         pauseMenuOn = false;
-        player = FindObjectOfType<Player>();
         AudioManager.GetInstance().ChangeMusic("BattleMusic");
 
         // Target 60 fps
@@ -39,7 +34,7 @@ public class ApplicationStateManager : MonoBehaviour
 
     public void TogglePauseMenu() //public so this can be accessed from a button
     {
-        gameStateManager = FindObjectOfType<GameStateManager>();
+        GameStateManager gameStateManager = FindObjectOfType<GameStateManager>();
 
         if (pauseMenuOn)
         {
@@ -50,7 +45,7 @@ public class ApplicationStateManager : MonoBehaviour
             if (gameStateManager)
                 gameStateManager.Resume();
 
-            if (player)
+            foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
                 player.gameObject.SetActive(true);
         } 
         else
@@ -61,7 +56,7 @@ public class ApplicationStateManager : MonoBehaviour
             if (gameStateManager)
                 gameStateManager.Pause();
 
-            if (player)
+            foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
                 player.gameObject.SetActive(false);
 
             if (resumeButton != null)
