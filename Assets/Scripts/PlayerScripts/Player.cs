@@ -33,9 +33,12 @@ public class Player : Mirror.NetworkBehaviour
 
     [Mirror.SyncVar]
     private bool isPaused = false;
+    private Canvas playerCanvas;
 
     void Start()
     {
+        playerCanvas = (Canvas)gameObject.GetComponentInChildren(typeof(Canvas), true);
+
         networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
         if (!networkIdentity)
             networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
@@ -48,7 +51,7 @@ public class Player : Mirror.NetworkBehaviour
         if (!isLocalPlayer)
         {
             // Disable all non-local player canvas UI elements
-            gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+            playerCanvas.gameObject.SetActive(false);
         }
     }
 
@@ -78,7 +81,10 @@ public class Player : Mirror.NetworkBehaviour
         cardButton2Text.text = playerHand[1].cardName;
 
         HandleInput();
-        HighlightSelectedCard();
+
+        // Highlight selected card, if canvas is active
+        if (playerCanvas.gameObject.activeInHierarchy)
+            HighlightSelectedCard();
     }
 
     public void Pause()
@@ -100,7 +106,10 @@ public class Player : Mirror.NetworkBehaviour
 
         // Toggle canvas buttons / UI visibility while paused, even in multiplayer, but only for the local player
         if (isLocalPlayer)
-            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(!pauseState);
+        {
+            playerCanvas.gameObject.SetActive(!pauseState);
+            playerCursor.gameObject.SetActive(!pauseState);
+        }
     }
 
     void HandleInput()
