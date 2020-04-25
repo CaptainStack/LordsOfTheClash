@@ -43,6 +43,12 @@ public class Player : Mirror.NetworkBehaviour
 
         FillDeck();
         FillHand();
+
+        if (!isLocalPlayer)
+        {
+            // Disable all non-local player canvas UI elements
+            gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -168,17 +174,18 @@ public class Player : Mirror.NetworkBehaviour
             Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
             point.z = 0f;
 
-            CmdDoCardAction(cardSelected, (Vector2)point);
+            Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+            CmdDoCardAction(cardSelected, (Vector2)point, faction);
             RemoveCardFromHand();
             DrawCardFromDeck();
         }
     }
 
     [Mirror.Command]
-    void CmdDoCardAction(int cardIndexInHand, Vector2 position)
+    void CmdDoCardAction(int cardIndexInHand, Vector2 position, Faction faction)
     {
         cardSelected = cardIndexInHand;
-        playerHand[cardSelected].DoCardAction(position);
+        playerHand[cardSelected].DoCardAction(position, faction);
         RemoveCardFromHand();
         DrawCardFromDeck();
     }
