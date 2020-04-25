@@ -42,14 +42,18 @@ public class ApplicationStateManager : MonoBehaviour
             pauseMenuOn = false;
             Cursor.visible = false;
 
-            SetPauseState(false);
+            // Set pause state if singleplayer
+            if (gameStateManager.isServer && Mirror.NetworkManager.singleton.numPlayers == 1)
+                SetPauseState(false);
         } 
         else
         {
             pauseMenu.SetActive(true);
             pauseMenuOn = true;
 
-            SetPauseState(true);
+            // Set pause state if singleplayer
+            if (gameStateManager.isServer && Mirror.NetworkManager.singleton.numPlayers == 1)
+                SetPauseState(true);
 
             if (resumeButton != null)
             {

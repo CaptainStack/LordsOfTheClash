@@ -83,47 +83,20 @@ public class Player : Mirror.NetworkBehaviour
 
     public void Pause()
     {
-        if (isServer)
-            TargetRpcPause(true);
-        else if (isLocalPlayer)
-            CmdPause(true);
-
-        isPaused = true;
-
-        if (isLocalPlayer)
-            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(false);
+        PauseInternal(true);
     }
 
     public void Resume()
     {
-        if (isServer)
-            TargetRpcPause(false);
-        else if (isLocalPlayer)
-            CmdPause(false);
-
-        isPaused = false;
-
-        if (isLocalPlayer)
-            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(true);
+        PauseInternal(false);
     }
 
-    [Mirror.TargetRpc]
-    void TargetRpcPause(bool pauseState)
+    // Internal Player pause implementation
+    private void PauseInternal(bool pauseState)
     {
         isPaused = pauseState;
 
-        if (isLocalPlayer)
-            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(!pauseState);
-    }
-
-    [Mirror.Command]
-    void CmdPause(bool pauseState)
-    {
-        ApplicationStateManager applicationStateManger = FindObjectOfType<ApplicationStateManager>();
-        applicationStateManger.SetPauseState(pauseState);
-
-        isPaused = pauseState;
-
+        // Toggle canvas buttons / UI visibility while paused, but only for the local player
         if (isLocalPlayer)
             gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(!pauseState);
     }
