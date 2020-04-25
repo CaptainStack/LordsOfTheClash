@@ -52,6 +52,7 @@ public class Player : Mirror.NetworkBehaviour
         {
             // Disable all non-local player canvas UI elements
             playerCanvas.gameObject.SetActive(false);
+            playerCursor.gameObject.SetActive(false);
         }
     }
 
