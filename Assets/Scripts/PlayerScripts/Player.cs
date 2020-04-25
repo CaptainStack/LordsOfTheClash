@@ -94,9 +94,11 @@ public class Player : Mirror.NetworkBehaviour
     // Internal Player pause implementation
     private void PauseInternal(bool pauseState)
     {
-        isPaused = pauseState;
+        // Set pause state if singleplayer
+        if (isServer && Mirror.NetworkManager.singleton.numPlayers == 1)
+            isPaused = pauseState;
 
-        // Toggle canvas buttons / UI visibility while paused, but only for the local player
+        // Toggle canvas buttons / UI visibility while paused, even in multiplayer, but only for the local player
         if (isLocalPlayer)
             gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(!pauseState);
     }
