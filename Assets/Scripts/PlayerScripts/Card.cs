@@ -20,8 +20,8 @@ public class Card : MonoBehaviour
         
     }
 
-    public void DoCardAction(Vector2 position)
+    public void DoCardAction(Vector2 position, Faction faction)
     {
-        effect.Action(position);
+        effect.Action(position, faction);
     }
 }

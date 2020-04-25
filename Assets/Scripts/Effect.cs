@@ -22,16 +22,18 @@ public class Effect : MonoBehaviour
         
     }
 
-    public void Action(Vector2 position)
+    public void Action(Vector2 position, Faction faction)
     {
         if (areaOfEffectPrefab != null) //Apply Area Of Effect at mouse position
         {
             AreaOfEffect newAreaOfEffect = Instantiate(areaOfEffectPrefab, position, Quaternion.identity);
+            newAreaOfEffect.faction = faction;
             Mirror.NetworkServer.Spawn(newAreaOfEffect.gameObject);
         }
         if (summon != null) //summon unit at mouse position
         {
             Unit newUnit = Instantiate(summon, position, Quaternion.identity);
+            newUnit.faction = faction;
             Mirror.NetworkServer.Spawn(newUnit.gameObject);
         }
     }
