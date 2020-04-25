@@ -133,10 +133,10 @@ public class Unit : Mirror.NetworkBehaviour
             this.gameObject.layer = GetFactionLayer();
     }
 
+    // Updates client spriterenderer color to match the server's whenever it changes
     void OnChangeNetworkSpriteColor(Color oldSpriteColor, Color newSpriteColor)
     {
-        if (!isServer)
-            spriteRenderer.color = newSpriteColor;
+        spriteRenderer.color = newSpriteColor;
     }
 
     public int GetFactionLayer()
@@ -209,7 +209,9 @@ public class Unit : Mirror.NetworkBehaviour
                 transform.position = networkPosition;
             else if (sqrDistance > .5f)
                 transform.position = .01f * (50*transform.position + 50*networkPosition);
-            else if (sqrDistance > .01f)
+            else if (sqrDistance > .25f)
+                transform.position = .01f * (75*transform.position + 25*networkPosition);
+            else 
                 transform.position = .01f * (95*transform.position + 5*networkPosition);
 
             unitRigidBody.velocity = networkVelocity;
