@@ -79,7 +79,7 @@ public class CustomMirrorNetworkManager : NetworkManager
         base.ServerChangeScene(newSceneName);
         if (newSceneName == "MainMenu")
             singleton.StopHost();
-        else
+        else if (!isNetworkActive)
             singleton.StartHost();
     }
 
