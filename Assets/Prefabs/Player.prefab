@@ -212,6 +212,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   summon: {fileID: 0}
   areaOfEffectPrefab: {fileID: 5894306908530979549, guid: 31fa74d416404184daf9929cb036b491,
     type: 3}
@@ -672,6 +674,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   summon: {fileID: 0}
   areaOfEffectPrefab: {fileID: 1543248416313270366, guid: f9d6d868390fc044184e3de6bd0e2ae9,
     type: 3}
@@ -718,6 +722,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   summon: {fileID: 0}
   areaOfEffectPrefab: {fileID: 4838131356619756789, guid: ab172e4b12d0922428aca31993e15c64,
     type: 3}
@@ -918,6 +924,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   summon: {fileID: 0}
   areaOfEffectPrefab: {fileID: 4839006541397892654, guid: 856ce3a99b5e96b47b71265b5d4157de,
     type: 3}
@@ -1010,6 +1018,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   summon: {fileID: 561224213952772499, guid: 228a69535b2618b4793d88bdd9172def, type: 3}
   areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &1858794720

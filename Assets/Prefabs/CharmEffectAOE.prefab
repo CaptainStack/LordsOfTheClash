@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5389589909268372120}
   - component: {fileID: 4839006541397892654}
+  - component: {fileID: 9118514367304679889}
   m_Layer: 0
   m_Name: CharmEffectAOE
   m_TagString: Untagged
@@ -43,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dac7757e25119c428357c236520c51f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   radius: 2
   faction: 1
   aoeDuration: 0
@@ -55,3 +58,18 @@ MonoBehaviour:
     mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
       type: 2}
   charmDuration: 4
+--- !u!114 &9118514367304679889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1744505893049169504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 

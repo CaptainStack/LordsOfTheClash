@@ -13,6 +13,7 @@ public class Projectile : Mirror.NetworkBehaviour
     public Faction faction;
 
     // Position projectile is targetting
+    [Mirror.SyncVar]
     public Vector3 target;
 
     public SpriteRenderer spriteRenderer;
