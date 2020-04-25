@@ -78,6 +78,8 @@ public class Projectile : Mirror.NetworkBehaviour
         {
             Explosion newExplosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
             newExplosion.faction = this.faction;
+
+            Mirror.NetworkServer.Spawn(newExplosion.gameObject);
         }
 
         // Destroy projectile

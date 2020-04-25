@@ -77,7 +77,7 @@ public class CustomMirrorNetworkManager : NetworkManager
     public override void ServerChangeScene(string newSceneName)
     {
         base.ServerChangeScene(newSceneName);
-        if (newSceneName == "MainMenu")
+        if (newSceneName == "MainMenu" || newSceneName == "GameOver")
             singleton.StopHost();
         else if (!isNetworkActive)
             singleton.StartHost();
@@ -105,7 +105,7 @@ public class CustomMirrorNetworkManager : NetworkManager
     /// <param name="customHandling">true to indicate that scene loading will be handled through overrides</param>
     public override void OnClientChangeScene(string newSceneName, SceneOperation sceneOperation, bool customHandling)
     {
-        if (newSceneName == "MainMenu")
+        if (newSceneName == "MainMenu" || newSceneName == "GameOver")
             singleton.StopClient();
     }
 
