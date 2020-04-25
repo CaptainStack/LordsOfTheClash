@@ -23,7 +23,6 @@ public class Player : Mirror.NetworkBehaviour
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
     float timer;
-    ApplicationStateManager applicationStateManager;
 
     // Used for networking
     private Mirror.NetworkIdentity networkIdentity;
@@ -37,7 +36,6 @@ public class Player : Mirror.NetworkBehaviour
 
     void Start()
     {
-        applicationStateManager = FindObjectOfType<ApplicationStateManager>();
         networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
         if (!networkIdentity)
             networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
@@ -56,9 +54,6 @@ public class Player : Mirror.NetworkBehaviour
 
     void Update()
     {
-        if (isServer)
-            isPaused = applicationStateManager.pauseMenuOn;
-
         if (!isLocalPlayer || isPaused)
             return;
 
@@ -84,6 +79,44 @@ public class Player : Mirror.NetworkBehaviour
 
         HandleInput();
         HighlightSelectedCard();
+    }
+
+    public void Pause()
+    {
+        if (isServer)
+            TargetRpcPause(true);
+        else if (isLocalPlayer)
+            CmdPause(true);
+
+        isPaused = true;
+
+        if (isLocalPlayer)
+            gameObject.GetComponentInChildren<Canvas>().gameObject.SetActive(false);
+    }
+
+    public void Resume()
+    {
+        if (isServer)
+            TargetRpcPause(false);
+        else if (isLocalPlayer)
+            CmdPause(false);
+
+        isPaused = false;
+
+        if (isLocalPlayer)
+            gameObject.GetComponentInChildren(typeof(Canvas), true).gameObject.SetActive(true);
+    }
+
+    [Mirror.TargetRpc]
+    void TargetRpcPause(bool pauseState)
+    {
+        isPaused = pauseState;
+    }
+
+    [Mirror.Command]
+    void CmdPause(bool pauseState)
+    {
+        isPaused = pauseState;
     }
 
     void HandleInput()
@@ -141,12 +174,12 @@ public class Player : Mirror.NetworkBehaviour
 
     void HighlightSelectedCard() //Highlights card currently selected
     {
-        if (cardSelected == 0 && !applicationStateManager.pauseMenuOn)
+        if (cardSelected == 0)
         {
             cardButton1.Select(); //Selects button
             cardButton1.OnSelect(null); //highlights button
         }
-        else if (cardSelected == 1 && !applicationStateManager.pauseMenuOn)
+        else if (cardSelected == 1)
         {
             cardButton2.Select();
             cardButton2.OnSelect(null);

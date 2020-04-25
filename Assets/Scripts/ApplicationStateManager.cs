@@ -46,7 +46,7 @@ public class ApplicationStateManager : MonoBehaviour
                 gameStateManager.Resume();
 
             foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
-                player.gameObject.SetActive(true);
+                player.Resume();
         } 
         else
         {
@@ -57,7 +57,7 @@ public class ApplicationStateManager : MonoBehaviour
                 gameStateManager.Pause();
 
             foreach (Player player in Resources.FindObjectsOfTypeAll<Player>())
-                player.gameObject.SetActive(false);
+                player.Pause();
 
             if (resumeButton != null)
             {
