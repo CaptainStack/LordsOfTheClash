@@ -6,7 +6,7 @@ public class Building : RangedUnit
     // For pathfinding
     public Obstacle navigationObstacle;
 
-    override protected void Start()
+    protected override void Start()
     {
         base.Start();
 

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 319979973439605771}
   - component: {fileID: 5894306908530979549}
+  - component: {fileID: -7129325098061689420}
   m_Layer: 0
   m_Name: GravityEffectAOE
   m_TagString: Untagged
@@ -43,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40a4f3bac0fc17b4e90bd2f66155775e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   radius: 3
   faction: 1
   aoeDuration: 6
@@ -55,3 +58,18 @@ MonoBehaviour:
     mixerGroup: {fileID: -3709648982317432591, guid: 968bfb174e722f149a35054d4683acfa,
       type: 2}
   force: -2
+--- !u!114 &-7129325098061689420
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6237166339268976883}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 

@@ -11,7 +11,7 @@ public class Effect : MonoBehaviour
     public AreaOfEffect areaOfEffectPrefab;
 
     private Camera cam;
-    
+
     void Start()
     {
         cam = Camera.main;   
@@ -22,19 +22,17 @@ public class Effect : MonoBehaviour
         
     }
 
-   public void Action(Vector2 position)
+    public void Action(Vector2 position)
     {
-        Vector2 mousePosition = position;
-        Vector3 point = cam.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, cam.nearClipPlane));
-        point.z = 0f;
-
         if (areaOfEffectPrefab != null) //Apply Area Of Effect at mouse position
         {
-            AreaOfEffect newAreaOfEffect = Instantiate(areaOfEffectPrefab, point, Quaternion.identity);
+            AreaOfEffect newAreaOfEffect = Instantiate(areaOfEffectPrefab, position, Quaternion.identity);
+            Mirror.NetworkServer.Spawn(newAreaOfEffect.gameObject);
         }
         if (summon != null) //summon unit at mouse position
         {
-            Unit newUnit = Instantiate(summon, point, Quaternion.identity);
+            Unit newUnit = Instantiate(summon, position, Quaternion.identity);
+            Mirror.NetworkServer.Spawn(newUnit.gameObject);
         }
     }
 }

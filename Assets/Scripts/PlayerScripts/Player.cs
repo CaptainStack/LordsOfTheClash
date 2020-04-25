@@ -19,6 +19,7 @@ public class Player : Mirror.NetworkBehaviour
     public Text cardButton2Text;
     public CursorScript playerCursor;
     
+    [Mirror.SyncVar]
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
     float timer;
@@ -46,6 +47,9 @@ public class Player : Mirror.NetworkBehaviour
 
     void Update()
     {
+        if (!isLocalPlayer)
+            return;
+
         manaText.text = "Mana: " + currentMana.ToString();
         ManaRegen();
 
@@ -160,10 +164,23 @@ public class Player : Mirror.NetworkBehaviour
         if (!EventSystem.current.IsPointerOverGameObject() && !playerCursor.GetComponent<CursorScript>().collidingWithButton && currentMana >= playerHand[cardSelected].manaCost)
         {
             currentMana -= playerHand[cardSelected].manaCost;
-            playerHand[cardSelected].DoCardAction(position);
+
+            Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
+            point.z = 0f;
+
+            CmdDoCardAction(cardSelected, (Vector2)point);
             RemoveCardFromHand();
             DrawCardFromDeck();
         }
+    }
+
+    [Mirror.Command]
+    void CmdDoCardAction(int cardIndexInHand, Vector2 position)
+    {
+        cardSelected = cardIndexInHand;
+        playerHand[cardSelected].DoCardAction(position);
+        RemoveCardFromHand();
+        DrawCardFromDeck();
     }
 
     void RemoveCardFromHand()

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class AreaOfEffect : MonoBehaviour
+public abstract class AreaOfEffect : Mirror.NetworkBehaviour
 {
     public float radius = 1f;
     public Faction faction = Faction.Neutral;
@@ -19,9 +19,15 @@ public abstract class AreaOfEffect : MonoBehaviour
     private float expirationTime = 0;
     private float nextPeriodicUpdate = 0;
 
+    // Used for networking
+    private Mirror.NetworkIdentity networkIdentity;
+
     // Start is called before the first frame update
     void Start()
     {
+        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
+        if (!networkIdentity)
+            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
 
         if (sound.clip)
         {
@@ -41,7 +47,8 @@ public abstract class AreaOfEffect : MonoBehaviour
         }
 
         expirationTime = Time.time + aoeDuration;
-        AreaOfEffectAction();
+        if (isServer)
+            AreaOfEffectAction();
     }
 
     // Update is called once per frame
@@ -56,7 +63,8 @@ public abstract class AreaOfEffect : MonoBehaviour
         else if (aoeFrequency > 0 && Time.time >= nextPeriodicUpdate)
         {
             nextPeriodicUpdate = Time.time + aoeFrequency;
-            AreaOfEffectAction();
+            if (isServer)
+                AreaOfEffectAction();
         }
     }
 

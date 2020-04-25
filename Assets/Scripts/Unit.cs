@@ -19,7 +19,6 @@ public class Unit : Mirror.NetworkBehaviour
     public float attackRange = 1f;
     public float attackCooldown = 1f;
 
-    [Mirror.SyncVar]
     public Faction faction = Faction.Neutral;
 
     // Range of a unit's vision, used to find enemies
@@ -57,9 +56,11 @@ public class Unit : Mirror.NetworkBehaviour
     private Vector3 networkPosition;
     [Mirror.SyncVar]
     private Vector2 networkVelocity;
+    [Mirror.SyncVar(hook = "OnChangeNetworkSpriteColor")]
+    private Color networkSpriteColor;
 
     // Use this for initialization
-    protected virtual void Start ()
+    protected virtual void Start()
     {
         // Add RigidBody2D
         if (!unitRigidBody)
@@ -125,10 +126,17 @@ public class Unit : Mirror.NetworkBehaviour
                 spriteRenderer.color = Color.red;
             break;
         }
+        networkSpriteColor = spriteRenderer.color;
 
         // Set faction layer, unless this is a flying unit (they have their own layer)
         if (this.gameObject.layer != LayerMask.NameToLayer("Flying"))
             this.gameObject.layer = GetFactionLayer();
+    }
+
+    void OnChangeNetworkSpriteColor(Color oldSpriteColor, Color newSpriteColor)
+    {
+        if (!isServer)
+            spriteRenderer.color = newSpriteColor;
     }
 
     public int GetFactionLayer()
