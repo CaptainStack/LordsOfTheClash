@@ -72,9 +72,6 @@ public class Unit : Mirror.NetworkBehaviour
             unitRigidBody.freezeRotation = true;
         }
 
-        // Client units don't need full rigidbody physics simulation since they just mirror the server unit position
-        unitRigidBody.isKinematic = !isServer;
-
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
