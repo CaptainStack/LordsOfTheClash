@@ -59,7 +59,33 @@ public class Unit : Mirror.NetworkBehaviour
     [Mirror.SyncVar(hook = "OnChangeNetworkSpriteColor")]
     private Color networkSpriteColor;
 
-    // Initialize unit on the server
+
+    // Use for initialization of all units (client and server)
+    void Start()
+    {
+        // Add RigidBody2D
+        if (!unitRigidBody)
+        {
+            unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
+            unitRigidBody.drag = 5f;
+            unitRigidBody.gravityScale = 0.0f;
+            unitRigidBody.freezeRotation = true;
+        }
+
+        // Client units don't need full rigidbody physics simulation since they just mirror the server unit position
+        unitRigidBody.isKinematic = !isServer;
+
+        // Add Sprite
+        if (!spriteRenderer)
+            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+
+        // Add Network Identity
+        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
+        if (!networkIdentity)
+            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
+    }
+
+    // Use for additional initialization of units on server only
     public override void OnStartServer()
     {
         // Add Collider
@@ -92,25 +118,6 @@ public class Unit : Mirror.NetworkBehaviour
 
         InitializeUnitFaction();
         InitializeUnitDepth();
-    }
-
-    // Initialize unit on the client (including the host, if the host is a server+client)
-    public override void OnStartClient()
-    {
-        // Add RigidBody2D
-        if (!unitRigidBody)
-        {
-            unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
-            unitRigidBody.drag = 5f;
-            unitRigidBody.gravityScale = 0.0f;
-            unitRigidBody.freezeRotation = true;
-        }
-
-        unitRigidBody.isKinematic = !isServer;
-
-        // Add Sprite
-        if (!spriteRenderer)
-            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
     }
 
     // Sets the sprite color and layer mask for this unit's faction
@@ -223,6 +230,7 @@ public class Unit : Mirror.NetworkBehaviour
             unitRigidBody.velocity = networkVelocity;
             return;
         }
+        // Update server's network position/velocity
         networkPosition = transform.position;
         networkVelocity = unitRigidBody.velocity;
 
