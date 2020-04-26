@@ -59,28 +59,15 @@ public class Unit : Mirror.NetworkBehaviour
     [Mirror.SyncVar(hook = "OnChangeNetworkSpriteColor")]
     private Color networkSpriteColor;
 
-    // Use this for initialization
+    // Initialize unit on the server
     public override void OnStartServer()
     {
-        // Add RigidBody2D
-        if (!unitRigidBody)
-        {
-            unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
-            unitRigidBody.drag = 5f;
-            unitRigidBody.gravityScale = 0.0f;
-            unitRigidBody.freezeRotation = true;
-        }
-
         // Add Collider
         if (!unitCollider)
         {
             unitCollider = this.gameObject.AddComponent<CircleCollider2D>();
             unitCollider.radius = 0.09f;
         }
-
-        // Add Sprite
-        if (!spriteRenderer)
-            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
         
         // Add Pathfinding
         if (!navMeshAgent)
@@ -101,14 +88,29 @@ public class Unit : Mirror.NetworkBehaviour
             navMeshAgent.avoidancePriority = 99;
         }
 
-        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
-        if (!networkIdentity)
-            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
-
         currentSearchRange = visionRange * .2f; // initial range for the unit to search for targets
 
         InitializeUnitFaction();
         InitializeUnitDepth();
+    }
+
+    // Initialize unit on the client (including the host, if the host is a server+client)
+    public override void OnStartClient()
+    {
+        // Add RigidBody2D
+        if (!unitRigidBody)
+        {
+            unitRigidBody = this.gameObject.AddComponent<Rigidbody2D>();
+            unitRigidBody.drag = 5f;
+            unitRigidBody.gravityScale = 0.0f;
+            unitRigidBody.freezeRotation = true;
+        }
+
+        unitRigidBody.isKinematic = !isServer;
+
+        // Add Sprite
+        if (!spriteRenderer)
+            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
     }
 
     // Sets the sprite color and layer mask for this unit's faction
