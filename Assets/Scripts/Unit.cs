@@ -174,11 +174,7 @@ public class Unit : Mirror.NetworkBehaviour
     {
         // Client units follow server units, but otherwise have logic disabled
         if(!isServer)
-        {
-            // Hide client unit spriteRenderer when at position (0,0,0), which is where Mirror spawns them until they get their position initialized
-            spriteRenderer.enabled = transform.position == Vector3.zero ? false : true;
             return;
-        }
         
         // If dead, destroy self
         if (health <= 0f)
@@ -214,17 +210,20 @@ public class Unit : Mirror.NetworkBehaviour
         if(!isServer)
         {
             // Interpolate network position updates depending on how far away we currently are
-            float sqrDistance = (transform.position - networkPosition).sqrMagnitude;
-            if (sqrDistance > 1f)
-                transform.position = networkPosition;
-            else if (sqrDistance > .5f)
-                transform.position = .01f * (50*transform.position + 50*networkPosition);
-            else if (sqrDistance > .25f)
-                transform.position = .01f * (75*transform.position + 25*networkPosition);
-            else 
-                transform.position = .01f * (95*transform.position + 5*networkPosition);
+            if (networkPosition != Vector3.zero) // Wait for network position to be initialized
+            {
+                float sqrDistance = (transform.position - networkPosition).sqrMagnitude;
+                if (sqrDistance > 1f)
+                    transform.position = networkPosition;
+                else if (sqrDistance > .5f)
+                    transform.position = .01f * (50*transform.position + 50*networkPosition);
+                else if (sqrDistance > .25f)
+                    transform.position = .01f * (75*transform.position + 25*networkPosition);
+                else 
+                    transform.position = .01f * (95*transform.position + 5*networkPosition);
 
-            unitRigidBody.velocity = networkVelocity;
+                unitRigidBody.velocity = networkVelocity;
+            }
             return;
         }
         // Update server's network position/velocity
