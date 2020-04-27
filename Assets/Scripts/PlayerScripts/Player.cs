@@ -31,7 +31,6 @@ public class Player : Mirror.NetworkBehaviour
     public List<Card> playerDeck = new List<Card>();
     public List<Card> playerHand = new List<Card>(); //Cards in player's hand
 
-    [Mirror.SyncVar]
     private bool isPaused = false;
     private Canvas playerCanvas;
 
