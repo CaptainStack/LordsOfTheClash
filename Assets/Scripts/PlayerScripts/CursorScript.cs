@@ -62,7 +62,7 @@ public class CursorScript : MonoBehaviour
         //If OS cursor is on screen, set the in-game cursor position to the OS cursor position
         if (IsCursorOnScreen())
         {
-            if (usingMouse && !GetComponentInParent<ApplicationStateManager>().pauseMenuOn)
+            if (usingMouse && !FindObjectOfType<ApplicationStateManager>().pauseMenuOn)
             {
                 cursorPosition.x = Input.mousePosition.x;
                 cursorPosition.y = Input.mousePosition.y;
