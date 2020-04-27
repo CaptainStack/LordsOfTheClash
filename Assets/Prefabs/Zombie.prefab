@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3069252791627576518}
   - component: {fileID: 5792965055255907238}
   - component: {fileID: 7367976320967762439}
+  - component: {fileID: -3504945542991381970}
   m_Layer: 0
   m_Name: Zombie
   m_TagString: Untagged
@@ -45,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99782ea55b3578b4a8db32da47673c3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   unitRigidBody: {fileID: 7367976320967762439}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 5792965055255907238}
@@ -53,8 +56,6 @@ MonoBehaviour:
   attackRange: 0.1
   attackCooldown: 1
   faction: 0
-  isBuilding: 0
-  onlyTargetBuildings: 0
   visionRange: 20
   attackDamage: 3
 --- !u!212 &5792965055255907238
@@ -128,3 +129,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-3504945542991381970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3069252791627576519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 

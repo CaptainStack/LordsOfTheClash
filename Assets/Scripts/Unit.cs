@@ -7,7 +7,7 @@ using UnityEngine.AI;
 // Faction of the units
 public enum Faction { Neutral, Friendly, Enemy }
 
-public class Unit : MonoBehaviour
+public class Unit : Mirror.NetworkBehaviour
 {
     public Rigidbody2D unitRigidBody;
     public CircleCollider2D unitCollider;
@@ -18,6 +18,7 @@ public class Unit : MonoBehaviour
     public float speed = 1f;
     public float attackRange = 1f;
     public float attackCooldown = 1f;
+
     public Faction faction = Faction.Neutral;
 
     // Range of a unit's vision, used to find enemies
@@ -49,8 +50,18 @@ public class Unit : MonoBehaviour
     // Used for pathfinding
     private NavMeshAgent navMeshAgent;
 
-    // Use this for initialization
-    protected virtual void Start ()
+    // Used for networking
+    private Mirror.NetworkIdentity networkIdentity;
+    [Mirror.SyncVar]
+    private Vector3 networkPosition;
+    [Mirror.SyncVar]
+    private Vector2 networkVelocity;
+    [Mirror.SyncVar(hook = "OnChangeNetworkSpriteColor")]
+    private Color networkSpriteColor;
+
+
+    // Use for initialization of all units (client and server)
+    void Start()
     {
         // Add RigidBody2D
         if (!unitRigidBody)
@@ -61,16 +72,25 @@ public class Unit : MonoBehaviour
             unitRigidBody.freezeRotation = true;
         }
 
+        // Add Sprite
+        if (!spriteRenderer)
+            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+
+        // Add Network Identity
+        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
+        if (!networkIdentity)
+            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
+    }
+
+    // Use for additional initialization of units on server only
+    public override void OnStartServer()
+    {
         // Add Collider
         if (!unitCollider)
         {
             unitCollider = this.gameObject.AddComponent<CircleCollider2D>();
             unitCollider.radius = 0.09f;
         }
-
-        // Add Sprite
-        if (!spriteRenderer)
-            spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
         
         // Add Pathfinding
         if (!navMeshAgent)
@@ -112,10 +132,17 @@ public class Unit : MonoBehaviour
                 spriteRenderer.color = Color.red;
             break;
         }
+        networkSpriteColor = spriteRenderer.color;
 
         // Set faction layer, unless this is a flying unit (they have their own layer)
         if (this.gameObject.layer != LayerMask.NameToLayer("Flying"))
             this.gameObject.layer = GetFactionLayer();
+    }
+
+    // Updates client spriterenderer color to match the server's whenever it changes
+    void OnChangeNetworkSpriteColor(Color oldSpriteColor, Color newSpriteColor)
+    {
+        spriteRenderer.color = newSpriteColor;
     }
 
     public int GetFactionLayer()
@@ -145,6 +172,10 @@ public class Unit : MonoBehaviour
 	// Update is called once per frame
 	void Update ()
     {
+        // Client units follow server units, but otherwise have logic disabled
+        if(!isServer)
+            return;
+        
         // If dead, destroy self
         if (health <= 0f)
         {
@@ -175,6 +206,30 @@ public class Unit : MonoBehaviour
     // FixedUpdate runs synchronized with Unity physics cycle
     void FixedUpdate()
     {
+        // Client units follow server units, but otherwise have logic disabled
+        if(!isServer)
+        {
+            // Interpolate network position updates depending on how far away we currently are
+            if (networkPosition != Vector3.zero) // Wait for network position to be initialized
+            {
+                float sqrDistance = (transform.position - networkPosition).sqrMagnitude;
+                if (sqrDistance > 1f)
+                    transform.position = networkPosition;
+                else if (sqrDistance > .5f)
+                    transform.position = .01f * (50*transform.position + 50*networkPosition);
+                else if (sqrDistance > .25f)
+                    transform.position = .01f * (75*transform.position + 25*networkPosition);
+                else 
+                    transform.position = .01f * (95*transform.position + 5*networkPosition);
+
+                unitRigidBody.velocity = networkVelocity;
+            }
+            return;
+        }
+        // Update server's network position/velocity
+        networkPosition = transform.position;
+        networkVelocity = unitRigidBody.velocity;
+
         // Check if Unit AI has been disabled
         if (disableAICount > 0)
             return;

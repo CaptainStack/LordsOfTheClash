@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8809334734076854343}
   - component: {fileID: 7000082399752587141}
   - component: {fileID: 6269496328380083748}
+  - component: {fileID: -49190965109102654}
   m_Layer: 0
   m_Name: Giant
   m_TagString: Untagged
@@ -45,6 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d975d24cee5b0540aa9aa4ceb4e6619, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   unitRigidBody: {fileID: 6269496328380083748}
   unitCollider: {fileID: 0}
   spriteRenderer: {fileID: 7000082399752587141}
@@ -126,3 +129,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &-49190965109102654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2006876983201790180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b91ecbcc199f4492b9a91e820070131, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneId: 0
+  serverOnly: 0
+  m_AssetId: 

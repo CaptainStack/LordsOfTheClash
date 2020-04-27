@@ -38,6 +38,8 @@ public class RangedUnit : Unit
             Projectile newProjectile = Instantiate(projectilePrefab, this.transform.position, Quaternion.identity);
             newProjectile.target = target;
             newProjectile.faction = this.faction;
+
+            Mirror.NetworkServer.Spawn(newProjectile.gameObject);
         }
     }
 }

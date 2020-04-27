@@ -6,9 +6,9 @@ public class Building : RangedUnit
     // For pathfinding
     public Obstacle navigationObstacle;
 
-    override protected void Start()
+    public override void OnStartServer()
     {
-        base.Start();
+        base.OnStartServer();
 
         // Buildings can't move
         this.speed = 0f;

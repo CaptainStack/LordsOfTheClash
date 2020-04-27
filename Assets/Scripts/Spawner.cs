@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Spawner : MonoBehaviour
+public class Spawner : Mirror.NetworkBehaviour
 {
     // How long between respawns
     public float respawnCooldown;
@@ -29,7 +29,7 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isEnabled)
+        if (isServer && isEnabled)
         {
             timeUntilNextSpawn -= Time.deltaTime;
 
@@ -44,6 +44,8 @@ public class Spawner : MonoBehaviour
                 Vector3 spawnPosition = this.transform.position + spawnPositionOffset;
                 Unit newUnit = Instantiate(unitToSpawn, spawnPosition, Quaternion.identity);
                 newUnit.faction = faction;
+
+                Mirror.NetworkServer.Spawn(newUnit.gameObject);
             }
         }
     }

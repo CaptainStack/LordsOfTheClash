@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Projectile : MonoBehaviour
+public class Projectile : Mirror.NetworkBehaviour
 {
     public float speed = 1f;
 
@@ -13,11 +13,13 @@ public class Projectile : MonoBehaviour
     public Faction faction;
 
     // Position projectile is targetting
+    [Mirror.SyncVar]
     public Vector3 target;
 
     public SpriteRenderer spriteRenderer;
     public Sound sound;
     private AudioSource audioSource;
+    private Mirror.NetworkIdentity networkIdentity;
 
     private float detonationTimer = 0f;
     
@@ -26,6 +28,10 @@ public class Projectile : MonoBehaviour
         // Add Sprite
         if (!spriteRenderer)
             spriteRenderer = this.gameObject.AddComponent<SpriteRenderer>();
+        
+        networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
+        if (!networkIdentity)
+            networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
 
         if (sound.clip)
         {
@@ -68,8 +74,13 @@ public class Projectile : MonoBehaviour
 
     void Explode()
     {
-        Explosion newExplosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
-        newExplosion.faction = this.faction;
+        if (isServer)
+        {
+            Explosion newExplosion = Instantiate(explosionPrefab, this.transform.position, Quaternion.identity);
+            newExplosion.faction = this.faction;
+
+            Mirror.NetworkServer.Spawn(newExplosion.gameObject);
+        }
 
         // Destroy projectile
         Destroy(this.gameObject);
