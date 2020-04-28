@@ -18,6 +18,9 @@ public class Player : Mirror.NetworkBehaviour
     public Text cardButton1Text;
     public Text cardButton2Text;
     public CursorScript playerCursor;
+
+    bool isWindows;
+    bool isMac;
     
     [Mirror.SyncVar]
     public float currentMana;
@@ -53,6 +56,16 @@ public class Player : Mirror.NetworkBehaviour
             playerCanvas.gameObject.SetActive(false);
             playerCursor.gameObject.SetActive(false);
         }
+
+        if (Application.platform == RuntimePlatform.WindowsEditor || Application.platform == RuntimePlatform.WindowsPlayer)
+        {
+            isWindows = true;
+        }
+        else if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.OSXPlayer)
+        {
+            isMac = true;
+        }
+
     }
 
     void Update()
@@ -80,7 +93,14 @@ public class Player : Mirror.NetworkBehaviour
         cardButton1Text.text = playerHand[0].cardName;
         cardButton2Text.text = playerHand[1].cardName;
 
-        HandleInput();
+        if (isWindows)
+        {
+            HandleInputWindows();
+        }
+        else if (isMac)
+        {
+            HandleInputMac();
+        }
 
         // Highlight selected card, if canvas is active
         if (playerCanvas.gameObject.activeInHierarchy)
@@ -112,9 +132,9 @@ public class Player : Mirror.NetworkBehaviour
         }
     }
 
-    void HandleInput()
+    void HandleInputWindows()
     {
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1Windows"))
         {
             if (playerCursor.collidingWithButton)
             {
@@ -136,12 +156,39 @@ public class Player : Mirror.NetworkBehaviour
             cardSelected = 1;
         }
         
-        SwitchSelectedCard();
+        SwitchSelectedCardWindows();
     }
 
-    private void SwitchSelectedCard() //use bumpers to change selected card
+    void HandleInputMac()
     {
-        if (Input.GetButtonDown("NextCard"))
+        if (Input.GetButtonDown("Fire1Mac"))
+        {
+            if (playerCursor.collidingWithButton)
+            {
+                cardSelected = playerCursor.collidingButton.GetComponent<ButtonNumber>().cardNumber;
+            }
+            else
+            {
+                UseCard(playerCursor.cursorPosition);
+            }
+        }
+
+        if (Input.GetButtonDown("Card1"))
+        {
+            cardSelected = 0;
+        }
+
+        if (Input.GetButtonDown("Card2"))
+        {
+            cardSelected = 1;
+        }
+
+        SwitchSelectedCardMac();
+    }
+
+    private void SwitchSelectedCardWindows() //use bumpers to change selected card
+    {
+        if (Input.GetButtonDown("NextCardWindows"))
         {
             if (cardSelected == playerHandSize - 1)
             {
@@ -152,7 +199,33 @@ public class Player : Mirror.NetworkBehaviour
                 cardSelected += 1;
             }
         }
-        if (Input.GetButtonDown("PreviousCard"))
+        if (Input.GetButtonDown("PreviousCardWindows"))
+        {
+            if (cardSelected != 0)
+            {
+                cardSelected -= 1;
+            }
+            else
+            {
+                cardSelected = playerHandSize - 1;
+            }
+        }
+    }
+
+    private void SwitchSelectedCardMac()
+    {
+        if (Input.GetButtonDown("NextCardMac"))
+        {
+            if (cardSelected == playerHandSize - 1)
+            {
+                cardSelected = 0;
+            }
+            else
+            {
+                cardSelected += 1;
+            }
+        }
+        if (Input.GetButtonDown("PreviousCardMac"))
         {
             if (cardSelected != 0)
             {
