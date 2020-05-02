@@ -23,6 +23,8 @@ public class Player : Mirror.NetworkBehaviour
 
     bool isWindows;
     bool isMac;
+    bool isXboxController;
+    bool isPS4Controller;
     
     [Mirror.SyncVar]
     public float currentMana;
@@ -44,12 +46,6 @@ public class Player : Mirror.NetworkBehaviour
 
     void Start()
     {
-        stringArray = Input.GetJoystickNames();
-        controllerList = stringArray.ToList();
-        foreach (string str in controllerList)
-        {
-            Debug.Log(str);
-        }
         playerCanvas = (Canvas)gameObject.GetComponentInChildren(typeof(Canvas), true);
 
         networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
@@ -77,6 +73,19 @@ public class Player : Mirror.NetworkBehaviour
             isMac = true;
         }
 
+        stringArray = Input.GetJoystickNames();
+        controllerList = stringArray.ToList();
+        foreach (string str in controllerList)
+        {
+            Debug.Log(str);
+        }
+        if (isMac && stringArray[0] == "Unknown Wireless Controller")
+        {
+            isPS4Controller = true;
+        }
+
+        
+Debug.Log(isPS4Controller);
     }
 
     void Update()
