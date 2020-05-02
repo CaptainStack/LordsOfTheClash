@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System.Text;
+using System.Linq;
 
 public class Player : Mirror.NetworkBehaviour
 {
@@ -37,8 +39,17 @@ public class Player : Mirror.NetworkBehaviour
     private bool isPaused = false;
     private Canvas playerCanvas;
 
+    List<string> controllerList;
+    string[] stringArray;
+
     void Start()
     {
+        stringArray = Input.GetJoystickNames();
+        controllerList = stringArray.ToList();
+        foreach (string str in controllerList)
+        {
+            Debug.Log(str);
+        }
         playerCanvas = (Canvas)gameObject.GetComponentInChildren(typeof(Canvas), true);
 
         networkIdentity = gameObject.GetComponent<Mirror.NetworkIdentity>();
