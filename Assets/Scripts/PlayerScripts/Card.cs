@@ -7,7 +7,7 @@ public class Card : MonoBehaviour
 {
     public string cardName;
     public int manaCost; //how much it costs to summon
-    public int totalCasts;
+    public int totalCasts = 1;
     public Effect effect;
 
     void Start()
