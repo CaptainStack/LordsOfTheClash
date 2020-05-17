@@ -45,6 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: CharmCard
   manaCost: 20
+  totalCasts: 0
   effect: {fileID: 1396733623}
 --- !u!1 &223750937
 GameObject:
@@ -168,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Fireball
   manaCost: 10
+  totalCasts: 0
   effect: {fileID: 821726469}
 --- !u!1 &274451516
 GameObject:
@@ -636,6 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Freeze
   manaCost: 20
+  totalCasts: 0
   effect: {fileID: 762104230}
 --- !u!1 &648955879
 GameObject:
@@ -1009,6 +1012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: GravityCard
   manaCost: 20
+  totalCasts: 0
   effect: {fileID: 274451517}
 --- !u!1 &1779736270
 GameObject:
@@ -1021,7 +1025,7 @@ GameObject:
   - component: {fileID: 1779736272}
   - component: {fileID: 1779736271}
   m_Layer: 0
-  m_Name: SpawnEffect
+  m_Name: SpawnRangedEffect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1426,7 +1430,7 @@ GameObject:
   - component: {fileID: 2006609337}
   - component: {fileID: 2006609338}
   m_Layer: 0
-  m_Name: SpawnCard
+  m_Name: SpawnRangedCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1458,8 +1462,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b35f40fee41208b49b12702de6507765, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: SummonCard
+  cardName: SummonRanged
   manaCost: 1
+  totalCasts: 3
   effect: {fileID: 1779736271}
 --- !u!1 &2036875456
 GameObject:

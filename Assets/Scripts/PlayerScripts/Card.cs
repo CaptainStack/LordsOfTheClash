@@ -7,6 +7,7 @@ public class Card : MonoBehaviour
 {
     public string cardName;
     public int manaCost; //how much it costs to summon
+    public int totalCasts;
     public Effect effect;
 
     void Start()
@@ -20,8 +21,8 @@ public class Card : MonoBehaviour
         
     }
 
-    public void DoCardAction(Vector2 position, Faction faction)
+    public void DoCardAction(Vector2 position, Faction faction, int totalCasts)
     {
-        effect.Action(position, faction);
+        effect.Action(position, faction, totalCasts);
     }
 }

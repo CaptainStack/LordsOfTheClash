@@ -207,7 +207,7 @@ public class Player : Mirror.NetworkBehaviour
             Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
 
             // Tell the server to do the card action
-            CmdDoCardAction(cardSelected, (Vector2)point, faction);
+            CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalCasts);
 
             // Update local player deck
             RemoveCardFromHand();
@@ -217,10 +217,10 @@ public class Player : Mirror.NetworkBehaviour
 
     // Send a command from the client to the server, asking it to use the selected card at the given target position
     [Mirror.Command]
-    void CmdDoCardAction(int cardIndexInHand, Vector2 position, Faction faction)
+    void CmdDoCardAction(int cardIndexInHand, Vector2 position, Faction faction, int totalCasts)
     {
         cardSelected = cardIndexInHand;
-        playerHand[cardSelected].DoCardAction(position, faction);
+        playerHand[cardSelected].DoCardAction(position, faction, playerHand[cardSelected].totalCasts);
 
         // Update server's card deck and hand so it matches client
         if (!isLocalPlayer) // Skip if server == local player, because deck was already updated for local player before sending the command
