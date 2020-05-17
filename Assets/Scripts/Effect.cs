@@ -22,7 +22,7 @@ public class Effect : MonoBehaviour
         
     }
 
-    public void Action(Vector2 position, Faction faction, int totalCasts)
+    public void Action(Vector2 position, Faction faction, int totalSummons)
     {
         if (areaOfEffectPrefab != null) //Apply Area Of Effect at mouse position
         {
@@ -32,7 +32,7 @@ public class Effect : MonoBehaviour
         }
         if (summon != null) //summon unit at mouse position
         {
-            for (int i = 0; i < totalCasts; i++)
+            for (int i = 0; i < totalSummons; i++)
             {
                 Unit newUnit = Instantiate(summon, position, Quaternion.identity);
                 newUnit.faction = faction;

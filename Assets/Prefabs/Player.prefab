@@ -45,7 +45,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: CharmCard
   manaCost: 20
-  totalCasts: 0
+  totalSummons: 1
   effect: {fileID: 1396733623}
 --- !u!1 &223750937
 GameObject:
@@ -169,7 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Fireball
   manaCost: 10
-  totalCasts: 0
+  totalSummons: 1
   effect: {fileID: 821726469}
 --- !u!1 &274451516
 GameObject:
@@ -638,7 +638,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Freeze
   manaCost: 20
-  totalCasts: 0
+  totalSummons: 1
   effect: {fileID: 762104230}
 --- !u!1 &648955879
 GameObject:
@@ -672,6 +672,7 @@ Transform:
   - {fileID: 821726470}
   - {fileID: 1396733622}
   - {fileID: 274451518}
+  - {fileID: 5612376404149031042}
   m_Father: {fileID: 7698354131178463360}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -765,7 +766,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   summon: {fileID: 0}
-  areaOfEffectPrefab: {fileID: 4838131356619756789, guid: ab172e4b12d0922428aca31993e15c64,
+  areaOfEffectPrefab: {fileID: 4838131356619756789, guid: 09e0c3d434fd0bc45a9bb482bf651a91,
     type: 3}
 --- !u!1 &1060067315
 GameObject:
@@ -1012,7 +1013,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: GravityCard
   manaCost: 20
-  totalCasts: 0
+  totalSummons: 1
   effect: {fileID: 274451517}
 --- !u!1 &1779736270
 GameObject:
@@ -1416,6 +1417,7 @@ Transform:
   - {fileID: 449784582}
   - {fileID: 210372726}
   - {fileID: 1593729173}
+  - {fileID: 3514980727489399196}
   m_Father: {fileID: 7698354131178463360}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1464,7 +1466,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: SummonRanged
   manaCost: 1
-  totalCasts: 3
+  totalSummons: 3
   effect: {fileID: 1779736271}
 --- !u!1 &2036875456
 GameObject:
@@ -1747,6 +1749,52 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: Game
+--- !u!1 &7025969065752983968
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5612376404149031042}
+  - component: {fileID: 8102422243444963917}
+  m_Layer: 0
+  m_Name: MagicMissilesEffect
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5612376404149031042
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025969065752983968}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 648955880}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8102422243444963917
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7025969065752983968}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8edd88e6d413de84ab7373dcda9e8bce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 4838131356619756789, guid: ab172e4b12d0922428aca31993e15c64,
+    type: 3}
 --- !u!1 &7698354131178463361
 GameObject:
   m_ObjectHideFlags: 0
@@ -1835,3 +1883,50 @@ MonoBehaviour:
   sceneId: 0
   serverOnly: 0
   m_AssetId: 
+--- !u!1 &7758282569952476733
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3514980727489399196}
+  - component: {fileID: 749944340923969473}
+  m_Layer: 0
+  m_Name: MagicMissilesCard
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3514980727489399196
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758282569952476733}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 581.88306, y: 331.5732, z: 2588.8562}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1946048364}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &749944340923969473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7758282569952476733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b35f40fee41208b49b12702de6507765, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardName: MagicMissiles
+  manaCost: 20
+  totalSummons: 1
+  effect: {fileID: 8102422243444963917}
