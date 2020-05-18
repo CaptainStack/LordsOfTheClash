@@ -13,6 +13,8 @@ public class CursorScript : MonoBehaviour
     public float verticalSpeedMouse = 2.0f;
     public bool collidingWithButton;
     public GameObject collidingButton; //don't need to set object in editor. We get object from collider.
+    public bool collidingWithPlayerSide; //check if you are on your own side so you can summon
+    public GameObject collidingSide;
 
     int cursorWidth = 32;
     int cursorHeight = 32;
@@ -81,12 +83,22 @@ public class CursorScript : MonoBehaviour
             collidingWithButton = true;
             collidingButton = collision.gameObject;
         }
+        else if (collision.gameObject.tag == "PlayerSide")
+        {
+            collidingWithPlayerSide = true;
+            collidingSide = collision.gameObject;
+            Debug.Log("Works");
+        }
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Button")
         {
             collidingWithButton = false;
+        }
+        else if (collision.gameObject.tag == "PlayerSide")
+        {
+            collidingWithPlayerSide = false;
         }
     }
 

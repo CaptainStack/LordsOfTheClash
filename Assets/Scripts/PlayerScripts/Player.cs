@@ -18,6 +18,7 @@ public class Player : Mirror.NetworkBehaviour
     public Text cardButton1Text;
     public Text cardButton2Text;
     public CursorScript playerCursor;
+    public GameObject playerSide;
     
     [Mirror.SyncVar]
     public float currentMana;
@@ -43,6 +44,7 @@ public class Player : Mirror.NetworkBehaviour
             networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
 
         playerCursor = GetComponentInChildren<CursorScript>();
+        playerSide = GameObject.FindGameObjectWithTag("PlayerSide");
 
         FillDeck();
         FillHand();
@@ -196,22 +198,48 @@ public class Player : Mirror.NetworkBehaviour
     //Make public to call from UI?
     public void UseCard(Vector2 position) 
     {
+        
         // Ignore clicks over UI elements and check mana
         if (!EventSystem.current.IsPointerOverGameObject() && !playerCursor.GetComponent<CursorScript>().collidingWithButton && currentMana >= playerHand[cardSelected].manaCost)
         {
-            currentMana -= playerHand[cardSelected].manaCost;
-
             Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
             point.z = 0f;
+            if (playerHand[cardSelected].castAnywhere == true) //check if spell can be cast anywhere on the map
+            {
+                currentMana -= playerHand[cardSelected].manaCost;
 
-            Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+               // Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
+               // point.z = 0f;
 
-            // Tell the server to do the card action
-            CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
+                Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
 
-            // Update local player deck
-            RemoveCardFromHand();
-            DrawCardFromDeck();
+                // Tell the server to do the card action
+                CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
+
+                // Update local player deck
+                RemoveCardFromHand();
+                DrawCardFromDeck();
+                if (playerSide.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)point))
+                {
+                    Debug.Log("In Bounds");
+                }
+            }
+            else if (playerSide.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)point))
+            {
+                currentMana -= playerHand[cardSelected].manaCost;
+
+                //Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
+               // point.z = 0f;
+
+                Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+
+                // Tell the server to do the card action
+                CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
+
+                // Update local player deck
+                RemoveCardFromHand();
+                DrawCardFromDeck();
+            }
         }
     }
 

@@ -1062,6 +1062,8 @@ MonoBehaviour:
   verticalSpeedMouse: 1400
   collidingWithButton: 0
   collidingButton: {fileID: 0}
+  collidingWithPlayerSide: 0
+  collidingSide: {fileID: 0}
   cursorPosition: {x: 0, y: 0}
 --- !u!61 &2036875459
 BoxCollider2D:
@@ -1338,6 +1340,7 @@ MonoBehaviour:
   manaCost: 1
   totalSummons: 3
   effect: {fileID: 6630078162433171886}
+  castAnywhere: 0
 --- !u!1 &903488739877421847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1388,7 @@ MonoBehaviour:
   manaCost: 20
   totalSummons: 1
   effect: {fileID: 1894312308986351534}
+  castAnywhere: 0
 --- !u!1 &923757659978151767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1477,6 +1481,7 @@ MonoBehaviour:
   manaCost: 20
   totalSummons: 1
   effect: {fileID: 7426120439663990224}
+  castAnywhere: 1
 --- !u!1 &1194346663020026476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1524,6 +1529,7 @@ MonoBehaviour:
   manaCost: 10
   totalSummons: 10
   effect: {fileID: 6227980275228755763}
+  castAnywhere: 0
 --- !u!1 &1214690473305323713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1571,6 +1577,7 @@ MonoBehaviour:
   manaCost: 20
   totalSummons: 1
   effect: {fileID: 2436777634851538747}
+  castAnywhere: 1
 --- !u!1 &2318183092340727840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1710,6 +1717,7 @@ MonoBehaviour:
   manaCost: 20
   totalSummons: 1
   effect: {fileID: 7826692828737783257}
+  castAnywhere: 1
 --- !u!1 &5521444206199196768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1757,6 +1765,7 @@ MonoBehaviour:
   manaCost: 20
   totalSummons: 1
   effect: {fileID: 8346275415903091288}
+  castAnywhere: 1
 --- !u!1 &6254290461529626019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1895,6 +1904,7 @@ MonoBehaviour:
   manaCost: 10
   totalSummons: 5
   effect: {fileID: 1426282152775930154}
+  castAnywhere: 0
 --- !u!1 &7351082575843212914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2052,6 +2062,7 @@ MonoBehaviour:
   cardButton1Text: {fileID: 1170251584}
   cardButton2Text: {fileID: 1060067317}
   playerCursor: {fileID: 0}
+  playerSide: {fileID: 0}
   currentMana: 10
   cardSelected: 0
   heroes:
