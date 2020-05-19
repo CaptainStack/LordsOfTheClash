@@ -5,7 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - Button
-  - PlayerSide
+  - Player1Side
+  - Player2Side
   layers:
   - Default
   - TransparentFX

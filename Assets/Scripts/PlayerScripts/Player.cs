@@ -18,8 +18,9 @@ public class Player : Mirror.NetworkBehaviour
     public Text cardButton1Text;
     public Text cardButton2Text;
     public CursorScript playerCursor;
-    public GameObject playerSide;
-    
+    public GameObject player1Side;
+    public GameObject player2Side;
+
     [Mirror.SyncVar]
     public float currentMana;
     public int cardSelected; //player input on button click determines which card is selected
@@ -44,7 +45,9 @@ public class Player : Mirror.NetworkBehaviour
             networkIdentity = gameObject.AddComponent<Mirror.NetworkIdentity>();
 
         playerCursor = GetComponentInChildren<CursorScript>();
-        playerSide = GameObject.FindGameObjectWithTag("PlayerSide");
+
+        player1Side = GameObject.FindGameObjectWithTag("Player1Side");
+        player2Side = GameObject.FindGameObjectWithTag("Player2Side");
 
         FillDeck();
         FillHand();
@@ -204,6 +207,8 @@ public class Player : Mirror.NetworkBehaviour
         {
             Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
             point.z = 0f;
+            Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+
             if (playerHand[cardSelected].castAnywhere == true) //check if spell can be cast anywhere on the map
             {
                 currentMana -= playerHand[cardSelected].manaCost;
@@ -211,7 +216,7 @@ public class Player : Mirror.NetworkBehaviour
                // Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
                // point.z = 0f;
 
-                Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+                //Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
 
                 // Tell the server to do the card action
                 CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
@@ -219,19 +224,15 @@ public class Player : Mirror.NetworkBehaviour
                 // Update local player deck
                 RemoveCardFromHand();
                 DrawCardFromDeck();
-                if (playerSide.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)point))
-                {
-                    Debug.Log("In Bounds");
-                }
             }
-            else if (playerSide.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)point))
+            else if ((faction == Faction.Friendly && player1Side.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)point)) || (faction == Faction.Enemy && player2Side.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)point)))
             {
                 currentMana -= playerHand[cardSelected].manaCost;
 
                 //Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
                // point.z = 0f;
 
-                Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+                //Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
 
                 // Tell the server to do the card action
                 CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
@@ -247,14 +248,29 @@ public class Player : Mirror.NetworkBehaviour
     [Mirror.Command]
     void CmdDoCardAction(int cardIndexInHand, Vector2 position, Faction faction, int totalSummons)
     {
-        cardSelected = cardIndexInHand;
-        playerHand[cardSelected].DoCardAction(position, faction, playerHand[cardSelected].totalSummons);
-
-        // Update server's card deck and hand so it matches client
-        if (!isLocalPlayer) // Skip if server == local player, because deck was already updated for local player before sending the command
+        if (playerHand[cardSelected].castAnywhere == true)
         {
-            RemoveCardFromHand();
-            DrawCardFromDeck();
+            cardSelected = cardIndexInHand;
+            playerHand[cardSelected].DoCardAction(position, faction, playerHand[cardSelected].totalSummons);
+
+            // Update server's card deck and hand so it matches client
+            if (!isLocalPlayer) // Skip if server == local player, because deck was already updated for local player before sending the command
+            {
+                RemoveCardFromHand();
+                DrawCardFromDeck();
+            }
+        }
+        else if ((faction == Faction.Friendly && player1Side.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)position)) || (faction == Faction.Enemy && player2Side.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)position)))
+        {
+            cardSelected = cardIndexInHand;
+            playerHand[cardSelected].DoCardAction(position, faction, playerHand[cardSelected].totalSummons);
+
+            // Update server's card deck and hand so it matches client
+            if (!isLocalPlayer) // Skip if server == local player, because deck was already updated for local player before sending the command
+            {
+                RemoveCardFromHand();
+                DrawCardFromDeck();
+            }
         }
     }
 
