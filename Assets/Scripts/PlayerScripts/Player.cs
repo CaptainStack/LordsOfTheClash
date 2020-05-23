@@ -20,6 +20,7 @@ public class Player : Mirror.NetworkBehaviour
     public CursorScript playerCursor;
     public GameObject player1Side;
     public GameObject player2Side;
+    public GameObject[] neutralColliders;
 
     [Mirror.SyncVar]
     public float currentMana;
@@ -48,6 +49,12 @@ public class Player : Mirror.NetworkBehaviour
 
         player1Side = GameObject.FindGameObjectWithTag("Player1Side");
         player2Side = GameObject.FindGameObjectWithTag("Player2Side");
+        neutralColliders = GameObject.FindGameObjectsWithTag("NeutralSide"); //put all neutral colliders in the scene in an array
+
+        for (int i = 0; i < neutralColliders.Length; i++) //set the neutral colliders to inactive (they get set active in Building script when building is destroyed)
+        {
+            neutralColliders[i].SetActive(false);
+        }
 
         FillDeck();
         FillHand();
@@ -69,14 +76,14 @@ public class Player : Mirror.NetworkBehaviour
         ManaRegen();
 
         handText.text = $"Hand: [";
-        foreach(Card card in playerHand)
+        foreach (Card card in playerHand)
         {
             handText.text += $"{card.cardName} ({card.manaCost}), ";
         }
         handText.text += "]";
 
         deckText.text = $"Deck: [";
-        foreach(Card card in playerDeck)
+        foreach (Card card in playerDeck)
         {
             deckText.text += $"{card.cardName} ({card.manaCost}), ";
         }
@@ -140,7 +147,7 @@ public class Player : Mirror.NetworkBehaviour
         {
             cardSelected = 1;
         }
-        
+
         SwitchSelectedCard();
     }
 
@@ -199,9 +206,8 @@ public class Player : Mirror.NetworkBehaviour
 
     //press button on keyboard to use card 
     //Make public to call from UI?
-    public void UseCard(Vector2 position) 
+    public void UseCard(Vector2 position)
     {
-        
         // Ignore clicks over UI elements and check mana
         if (!EventSystem.current.IsPointerOverGameObject() && !playerCursor.GetComponent<CursorScript>().collidingWithButton && currentMana >= playerHand[cardSelected].manaCost)
         {
@@ -212,11 +218,6 @@ public class Player : Mirror.NetworkBehaviour
             if (playerHand[cardSelected].castAnywhere == true) //check if spell can be cast anywhere on the map
             {
                 currentMana -= playerHand[cardSelected].manaCost;
-
-               // Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
-               // point.z = 0f;
-
-                //Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
 
                 // Tell the server to do the card action
                 CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
@@ -229,10 +230,16 @@ public class Player : Mirror.NetworkBehaviour
             {
                 currentMana -= playerHand[cardSelected].manaCost;
 
-                //Vector3 point = Camera.main.ScreenToWorldPoint(new Vector3(position.x, position.y, Camera.main.nearClipPlane));
-               // point.z = 0f;
+                // Tell the server to do the card action
+                CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
 
-                //Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+                // Update local player deck
+                RemoveCardFromHand();
+                DrawCardFromDeck();
+            }
+            else if (CollidingWithNeutralSide(point, neutralColliders))
+            {
+                currentMana -= playerHand[cardSelected].manaCost;
 
                 // Tell the server to do the card action
                 CmdDoCardAction(cardSelected, (Vector2)point, faction, playerHand[cardSelected].totalSummons);
@@ -248,6 +255,7 @@ public class Player : Mirror.NetworkBehaviour
     [Mirror.Command]
     void CmdDoCardAction(int cardIndexInHand, Vector2 position, Faction faction, int totalSummons)
     {
+        bool sideNeutral = CollidingWithNeutralSide(position, neutralColliders);
         if (playerHand[cardSelected].castAnywhere == true)
         {
             cardSelected = cardIndexInHand;
@@ -261,6 +269,18 @@ public class Player : Mirror.NetworkBehaviour
             }
         }
         else if ((faction == Faction.Friendly && player1Side.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)position)) || (faction == Faction.Enemy && player2Side.GetComponent<BoxCollider2D>().bounds.Contains((Vector2)position)))
+        {
+            cardSelected = cardIndexInHand;
+            playerHand[cardSelected].DoCardAction(position, faction, playerHand[cardSelected].totalSummons);
+
+            // Update server's card deck and hand so it matches client
+            if (!isLocalPlayer) // Skip if server == local player, because deck was already updated for local player before sending the command
+            {
+                RemoveCardFromHand();
+                DrawCardFromDeck();
+            }
+        }
+        else if (sideNeutral)
         {
             cardSelected = cardIndexInHand;
             playerHand[cardSelected].DoCardAction(position, faction, playerHand[cardSelected].totalSummons);
@@ -325,6 +345,19 @@ public class Player : Mirror.NetworkBehaviour
     {
         cardSelected = 1;
         Debug.Log(playerHand[cardSelected].name);
+    }
+
+    public bool CollidingWithNeutralSide(Vector2 cursorPosition, GameObject[] neutralColliders) //return true if colliding w/ neutral, otherwise return false
+    {
+        int size = neutralColliders.Length;
+        for (int i = 0; i < size; i++)
+        {
+            if (neutralColliders[i].GetComponent<BoxCollider2D>().bounds.Contains((Vector2)cursorPosition))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

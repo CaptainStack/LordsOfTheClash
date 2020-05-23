@@ -5,8 +5,12 @@ TagManager:
   serializedVersion: 2
   tags:
   - Button
-  - Player1Side
+  - PlayerSide
+  - Collection
+  - Deck
   - Player2Side
+  - Player1Side
+  - NeutralSide
   layers:
   - Default
   - TransparentFX
