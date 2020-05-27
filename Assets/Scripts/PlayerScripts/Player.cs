@@ -65,6 +65,17 @@ public class Player : Mirror.NetworkBehaviour
             playerCanvas.gameObject.SetActive(false);
             playerCursor.gameObject.SetActive(false);
         }
+
+        Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+        if (faction == Faction.Friendly) //hide the sprite showing where you can't summon depending on which faction you are.
+        {
+            player1Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        }
+        else if (faction == Faction.Enemy)//if Start() only runs for Player1 then this condition will never evaluate to true
+        {
+            player2Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
+        }
+        ShowUsableArea();
     }
 
     void Update()
@@ -93,7 +104,6 @@ public class Player : Mirror.NetworkBehaviour
         cardButton2Text.text = playerHand[1].cardName;
 
         HandleInput();
-
         // Highlight selected card, if canvas is active
         if (playerCanvas.gameObject.activeInHierarchy)
             HighlightSelectedCard();
@@ -182,13 +192,14 @@ public class Player : Mirror.NetworkBehaviour
         if (cardSelected == 0)
         {
             cardButton1.Select(); //Selects button
-            cardButton1.OnSelect(null); //highlights button
+            cardButton1.OnSelect(null); //highlights button          
         }
         else if (cardSelected == 1)
         {
             cardButton2.Select();
             cardButton2.OnSelect(null);
         }
+        ShowUsableArea();
     }
 
     void ManaRegen()
@@ -360,4 +371,32 @@ public class Player : Mirror.NetworkBehaviour
         return false;
     }
 
+    void ShowUsableArea()//Highlight area in red if the player can't use the card there. (Called in Start() and in HighlightSelectedCard())
+    {
+        Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
+        if (playerHand[cardSelected].castAnywhere)
+        {
+            if (faction == Faction.Friendly)
+            {
+                player2Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
+            }
+            else if (faction == Faction.Enemy)
+            {
+                player1Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
+            }
+
+        }
+        else
+        {
+            if (faction == Faction.Friendly)
+            {
+                player2Side.GetComponentInChildren<SpriteRenderer>().enabled = true;
+            }
+            else if (faction == Faction.Enemy)
+            {
+                player1Side.GetComponentInChildren<SpriteRenderer>().enabled = true;
+            }
+        }
+
+    }
 }
