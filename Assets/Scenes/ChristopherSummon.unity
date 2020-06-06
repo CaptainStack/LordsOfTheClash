@@ -193,6 +193,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendlyZombieSpawner (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 3387800660
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
 --- !u!212 &47191113 stripped
@@ -246,7 +251,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: SummonCard
   manaCost: 1
-  effect: {fileID: 1275192642}
+  totalSummons: 1
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &216778426
 GameObject:
   m_ObjectHideFlags: 0
@@ -657,14 +665,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b6039b9b58fa34483cc5d4190c3a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncMode: 0
+  syncInterval: 0.1
   totalMana: 100
   manaRechargeTime: 0.2
   playerHandSize: 2
   manaText: {fileID: 614471656}
   handText: {fileID: 1227391550}
   deckText: {fileID: 216778427}
+  cardButton1: {fileID: 0}
+  cardButton2: {fileID: 0}
   cardButton1Text: {fileID: 408087633}
   cardButton2Text: {fileID: 1413854449}
+  playerCursor: {fileID: 0}
+  player1Side: {fileID: 0}
+  player2Side: {fileID: 0}
+  neutralColliders: []
   currentMana: 20
   cardSelected: 0
   heroes:
@@ -728,6 +744,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 3235687017
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -819,6 +840,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 4100959681
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -975,6 +1001,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 2800218366
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -1054,6 +1085,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 3462721077
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -1161,11 +1197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c770739e3059b49a2655aec1cc1c0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  eliminationTime: 0
-  handSize: 2
+  pauseMenuOn: 0
   resumeButton: {fileID: 1706232015}
-  cardButton0: {fileID: 232445671}
-  cardButton1: {fileID: 259439780}
 --- !u!4 &561456956
 Transform:
   m_ObjectHideFlags: 0
@@ -1273,6 +1306,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598498089713164965, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: sceneId
+      value: 4264538877
+      objectReference: {fileID: 0}
     - target: {fileID: 4321736491551307606, guid: ba1207bb741e440439d4e940ea4626be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1353,6 +1391,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598498089713164965, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: sceneId
+      value: 1360837162
+      objectReference: {fileID: 0}
     - target: {fileID: 4321736491551307606, guid: ba1207bb741e440439d4e940ea4626be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1427,6 +1470,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5227068503374489860, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: sceneId
+      value: 3127967536
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1643,6 +1691,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendlyZombieSpawner (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 2514800018
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
 --- !u!1 &770812542
@@ -1735,6 +1788,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598498089713164965, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: sceneId
+      value: 1905543046
+      objectReference: {fileID: 0}
     - target: {fileID: 4321736491551307606, guid: ba1207bb741e440439d4e940ea4626be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1809,6 +1867,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 3730881576
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -1888,6 +1951,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598498089713164965, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: sceneId
+      value: 746550758
+      objectReference: {fileID: 0}
     - target: {fileID: 4321736491551307606, guid: ba1207bb741e440439d4e940ea4626be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1968,6 +2036,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5227068503374489860, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: sceneId
+      value: 1055778890
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2042,6 +2115,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 3258580373
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -2187,6 +2265,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 3981657891
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -2304,7 +2387,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Fireball
   manaCost: 1
-  effect: {fileID: 1551445606}
+  totalSummons: 1
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1001 &1119383782
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2312,6 +2398,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 151822551
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -2580,6 +2671,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendlyZombieSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 291017318
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
 --- !u!1 &1227391549
@@ -2731,6 +2827,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FriendlyZombieSpawner (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 7800091344161288594, guid: c9869944799fdd94097a8090795e0481,
+        type: 3}
+      propertyPath: sceneId
+      value: 2615149197
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9869944799fdd94097a8090795e0481, type: 3}
 --- !u!1 &1275192641
@@ -2785,6 +2886,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5227068503374489860, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: sceneId
+      value: 2616407306
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2859,6 +2965,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 17160714
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -2938,6 +3049,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598498089713164965, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: sceneId
+      value: 1593222668
+      objectReference: {fileID: 0}
     - target: {fileID: 4321736491551307606, guid: ba1207bb741e440439d4e940ea4626be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3089,6 +3205,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 598498089713164965, guid: ba1207bb741e440439d4e940ea4626be,
+        type: 3}
+      propertyPath: sceneId
+      value: 3645816531
+      objectReference: {fileID: 0}
     - target: {fileID: 4321736491551307606, guid: ba1207bb741e440439d4e940ea4626be,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3169,6 +3290,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7409979023655619024, guid: 228a69535b2618b4793d88bdd9172def,
+        type: 3}
+      propertyPath: sceneId
+      value: 533957647
+      objectReference: {fileID: 0}
     - target: {fileID: 9179356805700116005, guid: 228a69535b2618b4793d88bdd9172def,
         type: 3}
       propertyPath: m_Name
@@ -3694,6 +3820,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 52404291
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -3803,7 +3934,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cardName: Freeze
   manaCost: 1
-  effect: {fileID: 1573706532}
+  totalSummons: 1
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!4 &1871059491
 Transform:
   m_ObjectHideFlags: 0
@@ -3825,6 +3959,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5227068503374489860, guid: 1816c4dfca45c5343929b1c682637171,
+        type: 3}
+      propertyPath: sceneId
+      value: 3890966439
+      objectReference: {fileID: 0}
     - target: {fileID: 8880511026988891383, guid: 1816c4dfca45c5343929b1c682637171,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3994,6 +4133,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 888265096
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer
@@ -4073,6 +4217,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 378246033485958456, guid: d6efefad91d117d4692d825800f45c6e,
+        type: 3}
+      propertyPath: sceneId
+      value: 2657493445
+      objectReference: {fileID: 0}
     - target: {fileID: 3929498861289724102, guid: d6efefad91d117d4692d825800f45c6e,
         type: 3}
       propertyPath: spriteRenderer

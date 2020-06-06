@@ -18,8 +18,8 @@ public class Player : Mirror.NetworkBehaviour
     public Text cardButton1Text;
     public Text cardButton2Text;
     public CursorScript playerCursor;
-    public GameObject player1Side;
-    public GameObject player2Side;
+    public GameObject player1Side;//cannot be null (don't need to pass through unity though, the code grabs it)
+    public GameObject player2Side;//cannot be null (don't need to pass through unity though, the code grabs it)
     public GameObject[] neutralColliders;
 
     [Mirror.SyncVar]
@@ -67,11 +67,11 @@ public class Player : Mirror.NetworkBehaviour
         }
 
         Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
-        if (faction == Faction.Friendly) //hide the sprite showing where you can't summon depending on which faction you are.
+        if (faction == Faction.Friendly && player1Side != null) //hide the sprite showing where you can't summon depending on which faction you are.
         {
             player1Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
-        else if (faction == Faction.Enemy)//if Start() only runs for Player1 then this condition will never evaluate to true
+        else if (faction == Faction.Enemy && player2Side != null)//if Start() only runs for Player1 then this condition will never evaluate to true
         {
             player2Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
         }
@@ -376,11 +376,11 @@ public class Player : Mirror.NetworkBehaviour
         Faction faction = isServer ? Faction.Friendly : Faction.Enemy;
         if (playerHand[cardSelected].castAnywhere)
         {
-            if (faction == Faction.Friendly)
+            if (faction == Faction.Friendly && player2Side != null)
             {
                 player2Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
             }
-            else if (faction == Faction.Enemy)
+            else if (faction == Faction.Enemy && player1Side != null)
             {
                 player1Side.GetComponentInChildren<SpriteRenderer>().enabled = false;
             }
@@ -388,11 +388,11 @@ public class Player : Mirror.NetworkBehaviour
         }
         else
         {
-            if (faction == Faction.Friendly)
+            if (faction == Faction.Friendly && player2Side != null)
             {
                 player2Side.GetComponentInChildren<SpriteRenderer>().enabled = true;
             }
-            else if (faction == Faction.Enemy)
+            else if (faction == Faction.Enemy && player1Side != null)
             {
                 player1Side.GetComponentInChildren<SpriteRenderer>().enabled = true;
             }

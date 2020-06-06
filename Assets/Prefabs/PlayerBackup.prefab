@@ -46,7 +46,10 @@ MonoBehaviour:
   cardName: CharmCard
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 1396733623}
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 4839006541397892654, guid: 856ce3a99b5e96b47b71265b5d4157de,
+    type: 3}
 --- !u!1 &223750937
 GameObject:
   m_ObjectHideFlags: 0
@@ -170,7 +173,10 @@ MonoBehaviour:
   cardName: Fireball
   manaCost: 10
   totalSummons: 1
-  effect: {fileID: 821726469}
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 4838131356619756789, guid: 09e0c3d434fd0bc45a9bb482bf651a91,
+    type: 3}
 --- !u!1 &274451516
 GameObject:
   m_ObjectHideFlags: 0
@@ -639,7 +645,10 @@ MonoBehaviour:
   cardName: Freeze
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 762104230}
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 1543248416313270366, guid: f9d6d868390fc044184e3de6bd0e2ae9,
+    type: 3}
 --- !u!1 &648955879
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,7 +664,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &648955880
 Transform:
   m_ObjectHideFlags: 0
@@ -1014,7 +1023,10 @@ MonoBehaviour:
   cardName: GravityCard
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 274451517}
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 5894306908530979549, guid: 31fa74d416404184daf9929cb036b491,
+    type: 3}
 --- !u!1 &1779736270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1467,7 +1479,9 @@ MonoBehaviour:
   cardName: SummonRanged
   manaCost: 1
   totalSummons: 3
-  effect: {fileID: 1779736271}
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &2036875456
 GameObject:
   m_ObjectHideFlags: 0
@@ -1520,6 +1534,8 @@ MonoBehaviour:
   verticalSpeedMouse: 1400
   collidingWithButton: 0
   collidingButton: {fileID: 0}
+  collidingWithPlayerSide: 0
+  collidingSide: {fileID: 0}
   cursorPosition: {x: 0, y: 0}
 --- !u!61 &2036875459
 BoxCollider2D:
@@ -1807,7 +1823,7 @@ GameObject:
   - component: {fileID: 7698354131178463367}
   - component: {fileID: 5169034009644320601}
   m_Layer: 5
-  m_Name: Player
+  m_Name: PlayerBackup
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1862,6 +1878,9 @@ MonoBehaviour:
   cardButton1Text: {fileID: 1170251584}
   cardButton2Text: {fileID: 1060067317}
   playerCursor: {fileID: 0}
+  player1Side: {fileID: 0}
+  player2Side: {fileID: 0}
+  neutralColliders: []
   currentMana: 10
   cardSelected: 0
   heroes:
@@ -1929,4 +1948,7 @@ MonoBehaviour:
   cardName: MagicMissiles
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 8102422243444963917}
+  castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 4838131356619756789, guid: ab172e4b12d0922428aca31993e15c64,
+    type: 3}

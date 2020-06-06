@@ -470,7 +470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &648955880
 Transform:
   m_ObjectHideFlags: 0
@@ -1339,8 +1339,9 @@ MonoBehaviour:
   cardName: SummonRanged
   manaCost: 1
   totalSummons: 3
-  effect: {fileID: 6630078162433171886}
   castAnywhere: 0
+  summon: {fileID: 561224213952772499, guid: 228a69535b2618b4793d88bdd9172def, type: 3}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &903488739877421847
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,8 +1388,9 @@ MonoBehaviour:
   cardName: SummonGiant
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 1894312308986351534}
   castAnywhere: 0
+  summon: {fileID: 8809334734076854343, guid: a86581428918fbc489e90943defdacd4, type: 3}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &923757659978151767
 GameObject:
   m_ObjectHideFlags: 0
@@ -1480,8 +1482,10 @@ MonoBehaviour:
   cardName: GravityCard
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 7426120439663990224}
   castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 5894306908530979549, guid: 31fa74d416404184daf9929cb036b491,
+    type: 3}
 --- !u!1 &1194346663020026476
 GameObject:
   m_ObjectHideFlags: 0
@@ -1528,8 +1532,9 @@ MonoBehaviour:
   cardName: SummonBat
   manaCost: 10
   totalSummons: 10
-  effect: {fileID: 6227980275228755763}
   castAnywhere: 0
+  summon: {fileID: 3222733063021698110, guid: 472ef9a99f40f8841b1b7db7d9445a05, type: 3}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &1214690473305323713
 GameObject:
   m_ObjectHideFlags: 0
@@ -1576,8 +1581,10 @@ MonoBehaviour:
   cardName: Freeze
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 2436777634851538747}
   castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 1543248416313270366, guid: f9d6d868390fc044184e3de6bd0e2ae9,
+    type: 3}
 --- !u!1 &2318183092340727840
 GameObject:
   m_ObjectHideFlags: 0
@@ -1716,8 +1723,10 @@ MonoBehaviour:
   cardName: CharmCard
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 7826692828737783257}
   castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 4839006541397892654, guid: 856ce3a99b5e96b47b71265b5d4157de,
+    type: 3}
 --- !u!1 &5521444206199196768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1764,8 +1773,10 @@ MonoBehaviour:
   cardName: MagicMissiles
   manaCost: 20
   totalSummons: 1
-  effect: {fileID: 8346275415903091288}
   castAnywhere: 1
+  summon: {fileID: 0}
+  areaOfEffectPrefab: {fileID: 4838131356619756789, guid: ab172e4b12d0922428aca31993e15c64,
+    type: 3}
 --- !u!1 &6254290461529626019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1903,8 +1914,9 @@ MonoBehaviour:
   cardName: SummonZombie
   manaCost: 10
   totalSummons: 5
-  effect: {fileID: 1426282152775930154}
   castAnywhere: 0
+  summon: {fileID: 1834299286386762498, guid: 068a3d4dcb86047458af3f9b44309059, type: 3}
+  areaOfEffectPrefab: {fileID: 0}
 --- !u!1 &7351082575843212914
 GameObject:
   m_ObjectHideFlags: 0
@@ -2062,7 +2074,9 @@ MonoBehaviour:
   cardButton1Text: {fileID: 1170251584}
   cardButton2Text: {fileID: 1060067317}
   playerCursor: {fileID: 0}
-  playerSide: {fileID: 0}
+  player1Side: {fileID: 0}
+  player2Side: {fileID: 0}
+  neutralColliders: []
   currentMana: 10
   cardSelected: 0
   heroes:

@@ -18,15 +18,6 @@ EditorBuildSettings:
     path: Assets/Scenes/ChristopherTest.unity
     guid: 96d3cd8004d46ff45b2c3b0066899e77
   - enabled: 1
-    path: Assets/Scenes/SmallBattle.unity
-    guid: 246171660efe3874281922bac670f3da
-  - enabled: 0
-    path: Assets/Scenes/ManageDeck.unity
-    guid: 691d29e323f3ac841b7b4c73f55ca932
-  - enabled: 0
-    path: Assets/Scenes/ManageDeck 1.unity
-    guid: 17ba690311d6ff24e9e85cc1d8ac3058
-  - enabled: 1
     path: Assets/Scenes/SmallBattle2.unity
     guid: 9541f3b2668592244bbc1efbc1149b48
   m_configObjects: {}
